@@ -132,7 +132,7 @@ ScriptedImporter:
       y: 31
       width: 58
       height: 18
-    spriteID: e0c03188c06188c49bd4e6591b6f21db
+    spriteID: 5650d5282d1175242a3eec65ca1f5889
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -152,7 +152,7 @@ ScriptedImporter:
       y: 57
       width: 58
       height: 12
-    spriteID: 2d916731a8eb1204f82a1f5f4b736775
+    spriteID: 994a0eefb4f57164da22c3864fefe103
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -172,7 +172,7 @@ ScriptedImporter:
       y: 57
       width: 44
       height: 19
-    spriteID: 9bf61c92fbe4f8c4f9683f0cd6f96d04
+    spriteID: c38b49f24af56c94580cd759da13597d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -192,7 +192,7 @@ ScriptedImporter:
       y: 4
       width: 58
       height: 19
-    spriteID: 712312312200c0e4db43271134a54e40
+    spriteID: edd97da76010ec746a12132e3b1fb43b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -212,7 +212,7 @@ ScriptedImporter:
       y: 4
       width: 54
       height: 19
-    spriteID: 37a1614bf6535df47a5475809f98cb54
+    spriteID: 0048c3611fd1c3849bd47bb649d2170c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -237,7 +237,7 @@ ScriptedImporter:
         y: 6
         width: 58
         height: 18
-      spriteId: e0c03188c06188c49bd4e6591b6f21db
+      spriteId: 5650d5282d1175242a3eec65ca1f5889
     - name: spark_Frame_1
       frameIndex: 1
       cellRect:
@@ -245,7 +245,7 @@ ScriptedImporter:
         y: 9
         width: 58
         height: 12
-      spriteId: 2d916731a8eb1204f82a1f5f4b736775
+      spriteId: 994a0eefb4f57164da22c3864fefe103
     - name: spark_Frame_2
       frameIndex: 2
       cellRect:
@@ -253,7 +253,7 @@ ScriptedImporter:
         y: 5
         width: 44
         height: 19
-      spriteId: 9bf61c92fbe4f8c4f9683f0cd6f96d04
+      spriteId: c38b49f24af56c94580cd759da13597d
     - name: spark_Frame_3
       frameIndex: 3
       cellRect:
@@ -261,7 +261,7 @@ ScriptedImporter:
         y: 5
         width: 58
         height: 19
-      spriteId: 712312312200c0e4db43271134a54e40
+      spriteId: edd97da76010ec746a12132e3b1fb43b
     - name: spark_Frame_4
       frameIndex: 4
       cellRect:
@@ -269,7 +269,7 @@ ScriptedImporter:
         y: 5
         width: 54
         height: 19
-      spriteId: 37a1614bf6535df47a5475809f98cb54
+      spriteId: 0048c3611fd1c3849bd47bb649d2170c
     linkedCells: []
     parentIndex: -1
   platformSettings: []

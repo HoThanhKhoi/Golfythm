@@ -132,7 +132,7 @@ ScriptedImporter:
       y: 4
       width: 35
       height: 14
-    spriteID: ecb623291a6c88d46afa3bae90b4b0fd
+    spriteID: 999f62d41f8f2af43866993e1d16b3b5
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -152,7 +152,7 @@ ScriptedImporter:
       y: 4
       width: 35
       height: 14
-    spriteID: 17886a0890d477f4fabba9f199bc1336
+    spriteID: 4d0403fa2c01a534b919766a1d358389
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -172,7 +172,7 @@ ScriptedImporter:
       y: 26
       width: 35
       height: 14
-    spriteID: e77ef5aaa76fbd540b3f112b50fb76ce
+    spriteID: 149f277599c4dfc43afacc9a628d114c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -192,7 +192,7 @@ ScriptedImporter:
       y: 26
       width: 35
       height: 14
-    spriteID: 1d94c4c90a572d242b5665d0c7dfabfd
+    spriteID: 507455e1359547b4b9c574de092ffe9b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -212,7 +212,7 @@ ScriptedImporter:
       y: 48
       width: 35
       height: 14
-    spriteID: d8c5c7abde2f66349a996d1920d043eb
+    spriteID: e683fc1956dfcef42a2d89e340a93431
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -232,7 +232,7 @@ ScriptedImporter:
       y: 48
       width: 35
       height: 14
-    spriteID: ff8fa69ec1cd91246bec015544ec0d59
+    spriteID: 8e8793654e849174e9d973ab4768fae2
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -257,7 +257,7 @@ ScriptedImporter:
         y: 0
         width: 100
         height: 100
-      spriteId: ecb623291a6c88d46afa3bae90b4b0fd
+      spriteId: 999f62d41f8f2af43866993e1d16b3b5
     - name: arm_projectile_glowing_Frame_1
       frameIndex: 1
       cellRect:
@@ -265,7 +265,7 @@ ScriptedImporter:
         y: 56
         width: 35
         height: 14
-      spriteId: 17886a0890d477f4fabba9f199bc1336
+      spriteId: 4d0403fa2c01a534b919766a1d358389
     - name: arm_projectile_glowing_Frame_2
       frameIndex: 2
       cellRect:
@@ -273,7 +273,7 @@ ScriptedImporter:
         y: 56
         width: 35
         height: 14
-      spriteId: e77ef5aaa76fbd540b3f112b50fb76ce
+      spriteId: 149f277599c4dfc43afacc9a628d114c
     - name: arm_projectile_glowing_Frame_3
       frameIndex: 3
       cellRect:
@@ -281,7 +281,7 @@ ScriptedImporter:
         y: 56
         width: 35
         height: 14
-      spriteId: 1d94c4c90a572d242b5665d0c7dfabfd
+      spriteId: 507455e1359547b4b9c574de092ffe9b
     - name: arm_projectile_glowing_Frame_4
       frameIndex: 4
       cellRect:
@@ -289,7 +289,7 @@ ScriptedImporter:
         y: 56
         width: 35
         height: 14
-      spriteId: d8c5c7abde2f66349a996d1920d043eb
+      spriteId: e683fc1956dfcef42a2d89e340a93431
     - name: arm_projectile_glowing_Frame_5
       frameIndex: 5
       cellRect:
@@ -297,7 +297,7 @@ ScriptedImporter:
         y: 56
         width: 35
         height: 14
-      spriteId: ff8fa69ec1cd91246bec015544ec0d59
+      spriteId: 8e8793654e849174e9d973ab4768fae2
     linkedCells: []
     parentIndex: -1
   platformSettings: []
