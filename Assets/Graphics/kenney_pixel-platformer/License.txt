@@ -1,22 +1,28 @@
 	
 
-	Pixel Platformer: Industrial Expansion (1.0)
+	Pixel Platformer (1.2)
 
 	Created/distributed by Kenney (www.kenney.nl)
-	Creation date: 29-10-2022
+	Creation date: 07-10-2023
 
 			------------------------------
 
 	License: (Creative Commons Zero, CC0)
 	http://creativecommons.org/publicdomain/zero/1.0/
 
-	This content is free to use in personal, educational and commercial projects.
-	Support us by crediting Kenney or www.kenney.nl (this is not mandatory)
+	You can use this content for personal, educational, and commercial purposes.
+
+	Support by crediting 'Kenney' or 'www.kenney.nl' (this is not a requirement)
 
 			------------------------------
 
-	Donate:   http://support.kenney.nl
-	Patreon:  http://patreon.com/kenney/
+	• Website : www.kenney.nl
+	• Donate  : www.kenney.nl/donate
 
-	Follow on Twitter for updates:
-	http://twitter.com/KenneyNL
+	• Patreon : patreon.com/kenney
+	
+	Follow on social media for updates:
+
+	• Twitter:	twitter.com/KenneyNL
+	• Instagram: 	instagram.com/kenney_nl
+	• Mastodon:	mastodon.gamedev.place/@kenney
