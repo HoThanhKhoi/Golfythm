@@ -11,7 +11,7 @@ public class PlayerState_Idle : State<Player>
     public override void Enter()
     {
         Debug.Log("Idle");
-        stateMachine.ChangeState<PlayerState_Move>();
+        stateMachine.ChangeState(PlayerStateMachine.State.Move);
     }
 
     public override void Exit()
