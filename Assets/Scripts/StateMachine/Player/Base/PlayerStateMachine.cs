@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class PlayerStateMachine : StateMachine<Player>
 {
+    public enum State
+    {
+        Idle,
+        Move
+    }
     protected override void SetUpStateMachine()
     {
-        AddState(new PlayerState_Idle("Idle", owner, this));
-        AddState(new PlayerState_Move("Move", owner, this));
+        AddState(State.Idle, new PlayerState_Idle("Idle", owner, this));
+        AddState(State.Move, new PlayerState_Move("Move", owner, this));
 
-        ChangeState<PlayerState_Idle>();
+        ChangeState(State.Idle);
     }
 }
