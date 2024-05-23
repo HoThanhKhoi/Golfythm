@@ -3,37 +3,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class StateMachine<TOwner> : MonoBehaviour where TOwner: StateOwner
+public abstract class StateMachine<TOwner> : MonoBehaviour where TOwner : StateOwner
 {
     protected TOwner owner;
     public State<TOwner> currentState;
-    private Dictionary<Type, State<TOwner>> states = new Dictionary<System.Type, State<TOwner>>();
+    private Dictionary<Enum, State<TOwner>> states;
 
     protected virtual void Awake()
     {
+        states = new Dictionary<Enum, State<TOwner>>();
         SetUpStateMachine();
     }
 
     protected abstract void SetUpStateMachine();
 
-    public void ChangeState<T>() where T : State<TOwner>
+    public void ChangeState(Enum eState)
     {
-        if(currentState != null)
+        Debug.Log("Change to" + eState);
+        
+        if(currentState == states[eState])
+        {
+            return;
+        }
+
+        if (currentState != null)
         {
             currentState.Exit();
         }
-        currentState = states[typeof(T)];
-        currentState.Enter();   
+        currentState = states[eState];
+        currentState.Enter();
     }
 
-    protected void AddState(State<TOwner> state)
+    protected void AddState(Enum eState, State<TOwner> state)
     {
-        states.Add(state.GetType(), state);
+        states.Add(eState, state);
     }
 
     protected virtual void Update()
     {
-        if(currentState !=null)
+        if (currentState != null)
         {
             currentState.Update();
         }
@@ -41,7 +49,7 @@ public abstract class StateMachine<TOwner> : MonoBehaviour where TOwner: StateOw
 
     protected virtual void FixedUpdate()
     {
-        if(currentState !=null)
+        if (currentState != null)
         {
             currentState.FixedUpdate();
         }
