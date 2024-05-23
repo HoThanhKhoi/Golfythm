@@ -1,0 +1,867 @@
+fileFormatVersion: 2
+guid: 48f9f266f12502c4e947a16eb3be02b1
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: iron_sentinel_cover_image_Frame_0
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 138
+      height: 67
+    spriteID: e2986182885d4404e8744df8bfc8c50d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: iron_sentinel_cover_image_Frame_1
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 79
+      width: 138
+      height: 67
+    spriteID: e6f16b20557716d49a313f732443ba5c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 79}
+  - name: iron_sentinel_cover_image_Frame_2
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 154
+      width: 138
+      height: 67
+    spriteID: 9e9dc9b09ad271a42ac6812e4d74b71d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 154}
+  - name: iron_sentinel_cover_image_Frame_3
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 229
+      width: 138
+      height: 67
+    spriteID: 57f0eaacf60acdf41baa1098fff844f1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 229}
+  - name: iron_sentinel_cover_image_Frame_4
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 304
+      width: 138
+      height: 67
+    spriteID: 0f590322813edea4dacb46da57114c8a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 304}
+  - name: iron_sentinel_cover_image_Frame_5
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 379
+      width: 138
+      height: 67
+    spriteID: d71e4fdbbe60fb24fae4e79a1311b955
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 379}
+  - name: iron_sentinel_cover_image_Frame_6
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 454
+      width: 138
+      height: 67
+    spriteID: 3ba262ac20125ed4eaa17adc4cab181c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 454}
+  - name: iron_sentinel_cover_image_Frame_7
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 529
+      width: 138
+      height: 67
+    spriteID: a171bd750dc03c54f8601850ba71ac7f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 529}
+  - name: iron_sentinel_cover_image_Frame_8
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 604
+      width: 138
+      height: 67
+    spriteID: bf5c728e34865504fa8d84a12e0af0a4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 604}
+  - name: iron_sentinel_cover_image_Frame_9
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 679
+      width: 138
+      height: 67
+    spriteID: d6cedd3adb5d90548a375131f07b928c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 679}
+  - name: iron_sentinel_cover_image_Frame_10
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 754
+      width: 138
+      height: 67
+    spriteID: 162ed6ea192bbb54bbff3bbb7d0caf93
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 754}
+  - name: iron_sentinel_cover_image_Frame_11
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 829
+      width: 138
+      height: 67
+    spriteID: 19b53611c9dadb84692a03ab632d5297
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 829}
+  - name: iron_sentinel_cover_image_Frame_12
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 904
+      width: 138
+      height: 67
+    spriteID: b3e61e1c3d708e54a8a08fb6ea220367
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 904}
+  - name: iron_sentinel_cover_image_Frame_13
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 150
+      y: 4
+      width: 138
+      height: 67
+    spriteID: c68cd4fad39103644895e0ddaaf3a102
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 150, y: 4}
+  - name: iron_sentinel_cover_image_Frame_14
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 150
+      y: 79
+      width: 138
+      height: 67
+    spriteID: e0e2d1fe7d328014da614302bd959191
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 150, y: 79}
+  - name: iron_sentinel_cover_image_Frame_15
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 150
+      y: 154
+      width: 138
+      height: 67
+    spriteID: 9138a108bfa68f94db7fb77b0a86adf0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 150, y: 154}
+  - name: iron_sentinel_cover_image_Frame_16
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 150
+      y: 229
+      width: 138
+      height: 67
+    spriteID: 95906993951eae8428eac7162a941e64
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 150, y: 229}
+  - name: iron_sentinel_cover_image_Frame_17
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 150
+      y: 304
+      width: 138
+      height: 67
+    spriteID: 4d78b0c2912ebe645bbef17dacf3d264
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 150, y: 304}
+  - name: iron_sentinel_cover_image_Frame_18
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 150
+      y: 379
+      width: 138
+      height: 67
+    spriteID: be0bcd60eac2a1349b9b46c48a2eb901
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 150, y: 379}
+  - name: iron_sentinel_cover_image_Frame_19
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 150
+      y: 454
+      width: 138
+      height: 67
+    spriteID: 01da3d6ec2f311f47915bdc76b060ffc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 150, y: 454}
+  - name: iron_sentinel_cover_image_Frame_20
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 150
+      y: 529
+      width: 138
+      height: 67
+    spriteID: e81698e91ab5c2642b2e7bfd82acb317
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 150, y: 529}
+  - name: iron_sentinel_cover_image_Frame_21
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 150
+      y: 604
+      width: 138
+      height: 67
+    spriteID: d51bf93c185eb61448eaa71e49bba020
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 150, y: 604}
+  - name: iron_sentinel_cover_image_Frame_22
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 150
+      y: 679
+      width: 138
+      height: 67
+    spriteID: 4ac947a7eadeac340acd726399268185
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 150, y: 679}
+  - name: iron_sentinel_cover_image_Frame_23
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 150
+      y: 754
+      width: 138
+      height: 67
+    spriteID: 12d1d404aefbed740934df07e6fdfe9d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 150, y: 754}
+  - name: iron_sentinel_cover_image_Frame_24
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 150
+      y: 829
+      width: 138
+      height: 67
+    spriteID: ea63ef80710489741b34bbd393c1db77
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 150, y: 829}
+  - name: iron_sentinel_cover_image_Frame_25
+    originalName: 
+    pivot: {x: 0.51449275, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 150
+      y: 904
+      width: 138
+      height: 67
+    spriteID: f687f8743329c734fb8f60b90fd04dfc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 150, y: 904}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: 517789129
+    name: iron_sentinel_cover_image
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: iron_sentinel_cover_image_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: e2986182885d4404e8744df8bfc8c50d
+    - name: iron_sentinel_cover_image_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: e6f16b20557716d49a313f732443ba5c
+    - name: iron_sentinel_cover_image_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: 9e9dc9b09ad271a42ac6812e4d74b71d
+    - name: iron_sentinel_cover_image_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: 57f0eaacf60acdf41baa1098fff844f1
+    - name: iron_sentinel_cover_image_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: 0f590322813edea4dacb46da57114c8a
+    - name: iron_sentinel_cover_image_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: d71e4fdbbe60fb24fae4e79a1311b955
+    - name: iron_sentinel_cover_image_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: 3ba262ac20125ed4eaa17adc4cab181c
+    - name: iron_sentinel_cover_image_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: a171bd750dc03c54f8601850ba71ac7f
+    - name: iron_sentinel_cover_image_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: bf5c728e34865504fa8d84a12e0af0a4
+    - name: iron_sentinel_cover_image_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: d6cedd3adb5d90548a375131f07b928c
+    - name: iron_sentinel_cover_image_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: 162ed6ea192bbb54bbff3bbb7d0caf93
+    - name: iron_sentinel_cover_image_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: 19b53611c9dadb84692a03ab632d5297
+    - name: iron_sentinel_cover_image_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: b3e61e1c3d708e54a8a08fb6ea220367
+    - name: iron_sentinel_cover_image_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: c68cd4fad39103644895e0ddaaf3a102
+    - name: iron_sentinel_cover_image_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: e0e2d1fe7d328014da614302bd959191
+    - name: iron_sentinel_cover_image_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: 9138a108bfa68f94db7fb77b0a86adf0
+    - name: iron_sentinel_cover_image_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: 95906993951eae8428eac7162a941e64
+    - name: iron_sentinel_cover_image_Frame_17
+      frameIndex: 17
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: 4d78b0c2912ebe645bbef17dacf3d264
+    - name: iron_sentinel_cover_image_Frame_18
+      frameIndex: 18
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: be0bcd60eac2a1349b9b46c48a2eb901
+    - name: iron_sentinel_cover_image_Frame_19
+      frameIndex: 19
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: 01da3d6ec2f311f47915bdc76b060ffc
+    - name: iron_sentinel_cover_image_Frame_20
+      frameIndex: 20
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: e81698e91ab5c2642b2e7bfd82acb317
+    - name: iron_sentinel_cover_image_Frame_21
+      frameIndex: 21
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: d51bf93c185eb61448eaa71e49bba020
+    - name: iron_sentinel_cover_image_Frame_22
+      frameIndex: 22
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: 4ac947a7eadeac340acd726399268185
+    - name: iron_sentinel_cover_image_Frame_23
+      frameIndex: 23
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: 12d1d404aefbed740934df07e6fdfe9d
+    - name: iron_sentinel_cover_image_Frame_24
+      frameIndex: 24
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: ea63ef80710489741b34bbd393c1db77
+    - name: iron_sentinel_cover_image_Frame_25
+      frameIndex: 25
+      cellRect:
+        x: -7
+        y: 0
+        width: 138
+        height: 67
+      spriteId: f687f8743329c734fb8f60b90fd04dfc
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  generatePhysicsShape: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 128, y: 64}
