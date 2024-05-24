@@ -8,12 +8,34 @@ using static PlayerInputActions;
 [CreateAssetMenu(fileName = "InputReader", menuName = "ScriptableObjects/InputReader")]
 public class InputReader : ScriptableObject, IPlayerActions
 {
+    private PlayerInputActions inputActions;
+
     public event Action<bool> TouchEvent;
     public Vector2 TouchPosition { get; private set; }
     public Vector2 AimDirection { get; private set; }
 
+    private void OnEnable()
+    {
+        if(inputActions == null)
+        {
+            inputActions = new PlayerInputActions();
+            inputActions.Player.SetCallbacks(this);
+        }
+
+        AimDirection = Vector2.zero;
+
+        inputActions.Player.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Player.Disable();
+    }
+
+
     public void OnTouch(InputAction.CallbackContext context)
     {
+        Debug.Log("Touch");
         if (context.performed)
         {
             TouchEvent?.Invoke(true);
@@ -32,7 +54,12 @@ public class InputReader : ScriptableObject, IPlayerActions
 
     public void OnAim(InputAction.CallbackContext context)
     {
-        Debug.Log("Aiming " + context.ReadValue<Vector2>());
+        Debug.Log("Aim");
+        
+    }
+
+    public void OnAimDirection(InputAction.CallbackContext context)
+    {
         AimDirection = context.ReadValue<Vector2>();
     }
 }

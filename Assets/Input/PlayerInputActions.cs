@@ -46,13 +46,22 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Aim"",
+                    ""name"": ""AimDirection"",
                     ""type"": ""Value"",
                     ""id"": ""0c103aa6-a506-4262-88a0-dc8063505722"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Aim"",
+                    ""type"": ""Button"",
+                    ""id"": ""44d33395-def7-46e6-a7fe-425e7d7c3046"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -85,6 +94,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
+                    ""action"": ""AimDirection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bfe80b12-7033-4991-a4cb-562095a72a85"",
+                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
                     ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -110,6 +130,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Touch = m_Player.FindAction("Touch", throwIfNotFound: true);
         m_Player_TouchPosition = m_Player.FindAction("Touch Position", throwIfNotFound: true);
+        m_Player_AimDirection = m_Player.FindAction("AimDirection", throwIfNotFound: true);
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
     }
 
@@ -174,6 +195,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Touch;
     private readonly InputAction m_Player_TouchPosition;
+    private readonly InputAction m_Player_AimDirection;
     private readonly InputAction m_Player_Aim;
     public struct PlayerActions
     {
@@ -181,6 +203,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public PlayerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Touch => m_Wrapper.m_Player_Touch;
         public InputAction @TouchPosition => m_Wrapper.m_Player_TouchPosition;
+        public InputAction @AimDirection => m_Wrapper.m_Player_AimDirection;
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -197,6 +220,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @TouchPosition.started += instance.OnTouchPosition;
             @TouchPosition.performed += instance.OnTouchPosition;
             @TouchPosition.canceled += instance.OnTouchPosition;
+            @AimDirection.started += instance.OnAimDirection;
+            @AimDirection.performed += instance.OnAimDirection;
+            @AimDirection.canceled += instance.OnAimDirection;
             @Aim.started += instance.OnAim;
             @Aim.performed += instance.OnAim;
             @Aim.canceled += instance.OnAim;
@@ -210,6 +236,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @TouchPosition.started -= instance.OnTouchPosition;
             @TouchPosition.performed -= instance.OnTouchPosition;
             @TouchPosition.canceled -= instance.OnTouchPosition;
+            @AimDirection.started -= instance.OnAimDirection;
+            @AimDirection.performed -= instance.OnAimDirection;
+            @AimDirection.canceled -= instance.OnAimDirection;
             @Aim.started -= instance.OnAim;
             @Aim.performed -= instance.OnAim;
             @Aim.canceled -= instance.OnAim;
@@ -243,6 +272,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     {
         void OnTouch(InputAction.CallbackContext context);
         void OnTouchPosition(InputAction.CallbackContext context);
+        void OnAimDirection(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
     }
 }
