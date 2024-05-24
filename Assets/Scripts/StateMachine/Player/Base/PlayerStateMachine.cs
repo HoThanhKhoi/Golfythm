@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class PlayerStateMachine : StateMachine<Player>
 {
+    public PlayerStateMachine(Player owner) : base(owner)
+    {
+        SetUpStateMachine();
+    }
+
     public enum State
     {
         Aim,
         Swing
     }
+
     protected override void SetUpStateMachine()
     {
         AddState(State.Aim, new PlayerState_Aim("Aim", owner, this));

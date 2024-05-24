@@ -3,27 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class StateMachine<TOwner> : MonoBehaviour where TOwner : StateOwner
+public abstract class StateMachine<TOwner> where TOwner : StateOwner
 {
-    public bool useAnimator;
-
     protected TOwner owner;
     public State<TOwner> currentState;
     private Dictionary<Enum, State<TOwner>> states;
 
-    protected virtual void Awake()
+    public StateMachine(TOwner owner)
     {
-        states = new Dictionary<Enum, State<TOwner>>();
-        owner = GetComponent<TOwner>();
+        this.owner = owner;
 
-        SetUpStateMachine();
+        states = new Dictionary<Enum, State<TOwner>>();
     }
 
     protected abstract void SetUpStateMachine();
 
     public void ChangeState(Enum eState)
-    {   
-        if(currentState == states[eState])
+    {
+        if (currentState == states[eState])
         {
             return;
         }
