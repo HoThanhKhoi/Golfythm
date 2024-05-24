@@ -6,14 +6,14 @@ public class PlayerStateMachine : StateMachine<Player>
 {
     public enum State
     {
-        Idle,
-        Move
+        Aim,
+        Swing
     }
     protected override void SetUpStateMachine()
     {
-        AddState(State.Idle, new PlayerState_Idle("Idle", owner, this));
-        AddState(State.Move, new PlayerState_Move("Move", owner, this));
+        AddState(State.Aim, new PlayerState_Aim("Aim", owner, this));
+        AddState(State.Swing, new PlayerState_Swing("Swing", owner, this));
 
-        ChangeState(State.Idle);
+        ChangeState(State.Aim);
     }
 }

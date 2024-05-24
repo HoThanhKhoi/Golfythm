@@ -9,7 +9,6 @@ public abstract class State<TOwner> where TOwner : StateOwner
     protected StateMachine<TOwner> stateMachine;
 
     protected Animator anim;
-    protected Rigidbody2D rb;
 
     public State(string animBoolName, TOwner owner, StateMachine<TOwner> stateMachine)
     {
@@ -21,13 +20,18 @@ public abstract class State<TOwner> where TOwner : StateOwner
     public virtual void Enter()
     {
         anim = owner.anim;
-        rb = owner.rb;
 
-        anim.SetBool(animBoolName, true);
+        if (stateMachine.useAnimator)
+        {
+            anim.SetBool(animBoolName, true);
+        }
     }
     public virtual void Exit()
     {
-        anim.SetBool(animBoolName, false);
+        if (stateMachine.useAnimator)
+        {
+            anim.SetBool(animBoolName, false);
+        }
     }
     public virtual void Update() { }
     public virtual void FixedUpdate() { }

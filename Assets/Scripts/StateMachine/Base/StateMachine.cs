@@ -5,6 +5,8 @@ using UnityEngine;
 
 public abstract class StateMachine<TOwner> : MonoBehaviour where TOwner : StateOwner
 {
+    public bool useAnimator;
+
     protected TOwner owner;
     public State<TOwner> currentState;
     private Dictionary<Enum, State<TOwner>> states;
@@ -12,15 +14,15 @@ public abstract class StateMachine<TOwner> : MonoBehaviour where TOwner : StateO
     protected virtual void Awake()
     {
         states = new Dictionary<Enum, State<TOwner>>();
+        owner = GetComponent<TOwner>();
+
         SetUpStateMachine();
     }
 
     protected abstract void SetUpStateMachine();
 
     public void ChangeState(Enum eState)
-    {
-        Debug.Log("Change to" + eState);
-        
+    {   
         if(currentState == states[eState])
         {
             return;
