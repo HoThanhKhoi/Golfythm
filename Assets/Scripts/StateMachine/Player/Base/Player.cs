@@ -9,8 +9,10 @@ public class Player : StateOwner
 
     private PlayerStateMachine stateMachine;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         stateMachine = new PlayerStateMachine(this);
     }
 
@@ -32,10 +34,5 @@ public class Player : StateOwner
     public void SpinClub()
     {
         Debug.Log("Spin");
-    }
-
-    private void Update()
-    {
-        Debug.Log(inputReader.AimDirection);
     }
 }

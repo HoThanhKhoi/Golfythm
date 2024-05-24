@@ -21,14 +21,14 @@ public abstract class State<TOwner> where TOwner : StateOwner
     {
         anim = owner.anim;
 
-        if (anim != null)
+        if (owner.useAnimator)
         {
             anim.SetBool(animBoolName, true);
         }
     }
     public virtual void Exit()
     {
-        if (anim != null)
+        if (owner.useAnimator)
         {
             anim.SetBool(animBoolName, false);
         }

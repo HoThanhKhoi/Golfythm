@@ -2,13 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
 public class StateOwner : MonoBehaviour
 {
+    public bool useAnimator = true;
+
     public Animator anim { get; private set; }
 
-    private void Start()
+    protected virtual void Awake()
     {
-        anim = GetComponent<Animator>();
+        if (useAnimator)
+        {
+            anim = GetComponent<Animator>();
+
+            if (anim == null)
+            {
+                anim = gameObject.AddComponent<Animator>();
+            }
+        }
+
     }
 }

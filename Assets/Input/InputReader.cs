@@ -11,12 +11,13 @@ public class InputReader : ScriptableObject, IPlayerActions
     private PlayerInputActions inputActions;
 
     public event Action<bool> TouchEvent;
+    public event Action<bool> AimEvent;
     public Vector2 TouchPosition { get; private set; }
     public Vector2 AimDirection { get; private set; }
 
     private void OnEnable()
     {
-        if(inputActions == null)
+        if (inputActions == null)
         {
             inputActions = new PlayerInputActions();
             inputActions.Player.SetCallbacks(this);
@@ -54,8 +55,15 @@ public class InputReader : ScriptableObject, IPlayerActions
 
     public void OnAim(InputAction.CallbackContext context)
     {
-        Debug.Log("Aim");
-        
+        if (context.performed)
+        {
+            AimEvent?.Invoke(true);
+        }
+        else if(context.canceled)
+        {
+            AimEvent?.Invoke(false);
+        }
+
     }
 
     public void OnAimDirection(InputAction.CallbackContext context)
