@@ -4,10 +4,34 @@ using UnityEngine;
 
 public class Player : StateOwner
 {
-    [SerializeField] private Transform club;
+    [Header("Preference")]
     public InputReader inputReader;
 
+    [Header("Settings")]
+    [SerializeField] private Transform club;
+    [SerializeField] private float maxSwingForce;
+    [SerializeField] private float minSwingForce;
+    [SerializeField] private float powerBarSpeed;
+
+    public float MaxSwingForce { get { return maxSwingForce; } }
+
+    public float MinSwingForce { get { return minSwingForce; } }
+
+    [SerializeField] private float swingForce;
+
+    public float SwingForce
+    {
+        get { return swingForce; }
+        set 
+        { 
+            swingForce = value;
+            swingForce = Mathf.Clamp(swingForce, minSwingForce, maxSwingForce);
+        }
+    }
+    public float PowerBarSpeed { get { return powerBarSpeed; } }
+
     private PlayerStateMachine stateMachine;
+    private int facing = 1;
 
     protected override void Awake()
     {
@@ -16,23 +40,30 @@ public class Player : StateOwner
         stateMachine = new PlayerStateMachine(this);
     }
 
-    private void OnEnable()
+    private void Start()
     {
-        inputReader.TouchEvent += OnTouch;
+        swingForce = minSwingForce;
+        swingForce = Mathf.Clamp(swingForce, minSwingForce, maxSwingForce);
     }
 
-    private void OnDisable()
+    public void SpinClub(float angle)
     {
-        inputReader.TouchEvent -= OnTouch;
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, angle) * -facing);
+        club.transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, powerBarSpeed);
     }
 
-    private void OnTouch(bool touch)
+    public void SlightlyChangeSwingForceTo(float to)
     {
-        Debug.Log("Touch");
+        swingForce = Mathf.Lerp(swingForce, to, 10 * Time.deltaTime);
     }
 
-    public void SpinClub()
+    private void Update()
     {
-        Debug.Log("Spin");
+        stateMachine.currentState.Update();
+    }
+
+    private void FixedUpdate()
+    {
+        stateMachine.currentState.FixedUpdate();
     }
 }

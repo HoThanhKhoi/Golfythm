@@ -12,6 +12,7 @@ public class InputReader : ScriptableObject, IPlayerActions
 
     public event Action<bool> TouchEvent;
     public event Action<bool> AimEvent;
+    public event Action SwingEvent;
     public Vector2 TouchPosition { get; private set; }
     public Vector2 AimDirection { get; private set; }
 
@@ -36,7 +37,6 @@ public class InputReader : ScriptableObject, IPlayerActions
 
     public void OnTouch(InputAction.CallbackContext context)
     {
-        Debug.Log("Touch");
         if (context.performed)
         {
             TouchEvent?.Invoke(true);
@@ -49,7 +49,6 @@ public class InputReader : ScriptableObject, IPlayerActions
 
     public void OnTouchPosition(InputAction.CallbackContext context)
     {
-        Debug.Log("Touch Position");
         TouchPosition = context.ReadValue<Vector2>();
     }
 
@@ -69,5 +68,13 @@ public class InputReader : ScriptableObject, IPlayerActions
     public void OnAimDirection(InputAction.CallbackContext context)
     {
         AimDirection = context.ReadValue<Vector2>();
+    }
+
+    public void OnSwing(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            SwingEvent?.Invoke();
+        }
     }
 }
