@@ -6,16 +6,49 @@ public class PlayerState_Idle : State<Player>
 {
     public PlayerState_Idle(string animBoolName, Player owner, StateMachine<Player> stateMachine) : base(animBoolName, owner, stateMachine)
     {
+        
     }
+
 
     public override void Enter()
     {
-        Debug.Log("Idle");
-        stateMachine.ChangeState(PlayerStateMachine.State.Move);
+        base.Enter();
+
+        owner.inputReader.AimEvent += ChangeToAimState;
+
+    }
+
+    public override void Update()
+    {
+        base.Update();
+
+        ReturnSwingForceToMin();
+
+        owner.SpinClub(owner.SwingForce);
+    }
+
+    private void ReturnSwingForceToMin()
+    {
+        if(owner.SwingForce <= owner.MinSwingForce)
+        {
+            owner.SwingForce = owner.MinSwingForce;
+            return;
+        }
+
+        owner.SwingForce -= owner.PowerBarSpeed * Time.deltaTime * 2;
+    }
+    private void ChangeToAimState(bool press)
+    {
+        if (press)
+        {
+            stateMachine.ChangeState(PlayerStateMachine.State.Aim);
+        }
     }
 
     public override void Exit()
     {
-        Debug.Log("Exit Idle");
+        base.Exit();
+
+        owner.inputReader.AimEvent -= ChangeToAimState;
     }
 }

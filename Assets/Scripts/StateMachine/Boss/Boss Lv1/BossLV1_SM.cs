@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class BossLV1_SM : StateMachine<BossLV1>
 {
+    public BossLV1_SM(BossLV1 owner) : base(owner)
+    {
+    }
+
     public enum State
     {
         Idle,

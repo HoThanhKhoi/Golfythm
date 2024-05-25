@@ -22,6 +22,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "AimDirection",
+                    "type": "Value",
+                    "id": "0c103aa6-a506-4262-88a0-dc8063505722",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Aim",
+                    "type": "Button",
+                    "id": "44d33395-def7-46e6-a7fe-425e7d7c3046",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Swing",
+                    "type": "Button",
+                    "id": "36feb9a2-2dce-4b71-8c20-e612e240aab4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -44,6 +71,39 @@
                     "processors": "",
                     "groups": "Touch",
                     "action": "Touch Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cb169658-fa42-4d0e-8c59-33e92bf7ab43",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AimDirection",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bfe80b12-7033-4991-a4cb-562095a72a85",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c5cb5388-3d11-47a0-8188-833b8520e925",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Swing",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

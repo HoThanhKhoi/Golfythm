@@ -2,16 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(Animator))]
 public class StateOwner : MonoBehaviour
 {
-    public Rigidbody2D rb { get; private set; }
+    [Header("State Machine Setup")]
+    public bool useAnimator = true;
+
     public Animator anim { get; private set; }
 
-    private void Start()
+    protected virtual void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        if (useAnimator)
+        {
+            anim = GetComponent<Animator>();
+
+            if (anim == null)
+            {
+                anim = gameObject.AddComponent<Animator>();
+            }
+        }
+
     }
 }
