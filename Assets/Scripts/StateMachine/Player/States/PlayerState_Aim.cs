@@ -5,16 +5,18 @@ using UnityEngine;
 public class PlayerState_Aim : State<Player>
 {
     private float direction = 1f;
+
     public PlayerState_Aim(string animBoolName, Player owner, StateMachine<Player> stateMachine) : base(animBoolName, owner, stateMachine)
     {
     }
-
 
     public override void Enter()
     {
         base.Enter();
         owner.inputReader.AimEvent += ChangeToIdleState;
         owner.inputReader.SwingEvent += ChangeToSwingState;
+
+        owner.DotsActive(true);
     }
 
     public override void Update()
@@ -23,12 +25,14 @@ public class PlayerState_Aim : State<Player>
 
         BounceSwingForceBetweenMaxAndMin();
 
-        owner.SpinClub(owner.SwingForce);
+        owner.SpinClub(owner.ClubSpinAngle);
+
+        owner.SetUpDotsPosition();
     }
 
     private void BounceSwingForceBetweenMaxAndMin()
     {
-        owner.SwingForce += direction * owner.PowerBarSpeed * Time.deltaTime;
+        owner.SwingForce += direction * owner.SwingForceSpeed * Time.deltaTime;
 
         if (owner.SwingForce >= owner.MaxSwingForce)
         {
@@ -37,7 +41,6 @@ public class PlayerState_Aim : State<Player>
         }
         else if (owner.SwingForce <= owner.MinSwingForce)
         {
-
             owner.SwingForce = owner.MinSwingForce;
             direction = 1f;
         }
@@ -45,11 +48,13 @@ public class PlayerState_Aim : State<Player>
 
     private void ChangeToSwingState()
     {
+        owner.HitDirection = owner.inputReader.AimDirection;
         stateMachine.ChangeState(PlayerStateMachine.State.Swing);
     }
+
     private void ChangeToIdleState(bool press)
     {
-        if(!press)
+        if (!press)
         {
             stateMachine.ChangeState(PlayerStateMachine.State.Idle);
         }
@@ -61,5 +66,7 @@ public class PlayerState_Aim : State<Player>
 
         owner.inputReader.AimEvent -= ChangeToIdleState;
         owner.inputReader.SwingEvent -= ChangeToSwingState;
+
+        owner.DotsActive(false);
     }
 }

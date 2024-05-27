@@ -24,7 +24,7 @@ public class PlayerState_Idle : State<Player>
 
         ReturnSwingForceToMin();
 
-        owner.SpinClub(owner.SwingForce);
+        owner.SpinClub(owner.ClubSpinAngle);
     }
 
     private void ReturnSwingForceToMin()
@@ -35,7 +35,7 @@ public class PlayerState_Idle : State<Player>
             return;
         }
 
-        owner.SwingForce -= owner.PowerBarSpeed * Time.deltaTime * 2;
+        owner.SwingForce -= owner.SwingForce * Time.deltaTime * 2;
     }
     private void ChangeToAimState(bool press)
     {

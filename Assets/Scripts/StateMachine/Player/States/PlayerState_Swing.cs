@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerState_Swing : State<Player>
 {
-    private float fakeSwingForce;
-    private float peakSwing;
+    private float fakeSpinAngle;
+    private float peakAngle;
 
     private float increaseSpeedMultiplier = 10;
     private float decreaseSpeedMultiplier = 20;
@@ -22,8 +22,8 @@ public class PlayerState_Swing : State<Player>
     {
         base.Enter();
 
-        fakeSwingForce = owner.SwingForce;
-        peakSwing = fakeSwingForce + additionToPeak;
+        fakeSpinAngle = owner.ClubSpinAngle;
+        peakAngle = fakeSpinAngle + additionToPeak;
     }
 
     public override void Update()
@@ -32,28 +32,22 @@ public class PlayerState_Swing : State<Player>
 
         Swing();
 
-        owner.SpinClub(fakeSwingForce);
+        owner.SpinClub(fakeSpinAngle);
     }
 
     private void Swing()
     {
-        fakeSwingForce += Time.deltaTime * owner.PowerBarSpeed * GetCurrentSpeedMultiplier() * direction;
+        fakeSpinAngle += Time.deltaTime * owner.ClubSpinAngle * GetCurrentSpeedMultiplier() * direction;
 
-        Debug.Log("Speed: " + owner.PowerBarSpeed + " , current multiplier: " + GetCurrentSpeedMultiplier() + " , direction: " + direction);
-
-        //fakeSwingForce += 1;
-
-        if (fakeSwingForce >= peakSwing)
+        if (fakeSpinAngle >= peakAngle)
         {
             direction = -1;
         }
 
-        if (fakeSwingForce < -100)
+        if (fakeSpinAngle < -100)
         {
             stateMachine.ChangeState(PlayerStateMachine.State.Hit);
         }
-
-        Debug.Log("Fake " +  fakeSwingForce);
     }
 
     private float GetCurrentSpeedMultiplier()
