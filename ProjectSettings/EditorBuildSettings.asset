@@ -17,4 +17,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Kien_LV1.unity
     guid: 006aa9b68fc6d1b4d942fbaa40476a37
+  - enabled: 1
+    path: Assets/Scenes/Cuong_LV2.unity
+    guid: 005bed3385d1d754988f1d56282c1791
+  - enabled: 1
+    path: Assets/Scenes/Bao_LV3.unity
+    guid: d3f3d9ca7c5e00948abc4e820202db55
+  - enabled: 1
+    path: Assets/Scenes/Chien_LV4.unity
+    guid: 956d18efe2225a34dbd55c446532f5d8
+  - enabled: 1
+    path: Assets/Scenes/Khoi_LV5.unity
+    guid: ec9da6d199ae6b845affc19ff3f6b55c
   m_configObjects: {}

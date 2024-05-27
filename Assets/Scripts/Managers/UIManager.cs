@@ -4,7 +4,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<UIManager>
 {
     IEnumerator WaitForSecondsToLoadScene(float seconds, int sceneNumber)
     {
@@ -14,6 +14,18 @@ public class UIManager : MonoBehaviour
     }
     public void StartGame()
     {
-        StartCoroutine(WaitForSecondsToLoadScene(0.75f, 1));
+        StartCoroutine(WaitForSecondsToLoadScene(0.25f, 1));
+    }
+
+    public void LoadLevel(int level)
+    {
+        StartCoroutine(WaitForSecondsToLoadScene(0.25f, (level + 1)));
+    }
+
+
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
