@@ -1,4 +1,5 @@
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -166,6 +167,13 @@ public class Player : StateOwner
     public void CameraFollowBall()
     {
         CameraFollow(ball.transform);
+    }
+    #endregion
+
+    #region Handle State Transition
+    public void ChangeState(Enum state)
+    {
+        stateMachine.ChangeState(state);
     }
     #endregion
 }

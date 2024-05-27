@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ball : MonoBehaviour
+public class Ball : StateOwner
 {
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Collider2D coll;
@@ -11,6 +11,8 @@ public class Ball : MonoBehaviour
 
     private bool isColliding = false;
     private Vector2 stayPosition;
+
+    private BallStateMachine stateMachine;
 
     public void SetUpBall(Vector2 spawnPos, Vector2 direction, float swingForce, float gravityScale, Player player, Vector2 playerOffset)
     {
@@ -23,19 +25,25 @@ public class Ball : MonoBehaviour
         gameObject.SetActive(true);
     }
 
+    protected override void Awake()
+    {
+        stateMachine = new BallStateMachine(this);
+    }
+
     private void FixedUpdate()
     {
         if (isColliding)
         {
-            rb.velocity = rb.velocity * 0.95f;
+            rb.velocity = rb.velocity * 0.92f;
         }
 
         if (rb.velocity.magnitude < 0.1f)
         {
             rb.velocity = Vector2.zero;
             stayPosition = transform.position;
-            if(player != null)
+            if (player != null)
             {
+                player.ChangeState(PlayerStateMachine.State.Idle);
                 player.transform.position = stayPosition + playerOffset;
             }
         }

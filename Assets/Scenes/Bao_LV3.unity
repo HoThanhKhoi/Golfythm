@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Follow: {fileID: 445345472}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 10
+    OrthographicSize: 6
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -388,7 +388,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1263,7 +1263,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3398486613393361403, guid: 567f729e194ce354c93aca8f1c08d397, type: 3}
       propertyPath: maxSwingForce
-      value: 30
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 3398486613393361403, guid: 567f729e194ce354c93aca8f1c08d397, type: 3}
       propertyPath: minSwingForce
@@ -1275,7 +1275,7 @@ PrefabInstance:
       objectReference: {fileID: 683384235}
     - target: {fileID: 3398486613393361403, guid: 567f729e194ce354c93aca8f1c08d397, type: 3}
       propertyPath: swingForceSpeed
-      value: 50
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3398486613393361403, guid: 567f729e194ce354c93aca8f1c08d397, type: 3}
       propertyPath: maxClubSpinAngle

@@ -24,6 +24,8 @@ public class PlayerState_Swing : State<Player>
 
         fakeSpinAngle = owner.ClubSpinAngle;
         peakAngle = fakeSpinAngle + additionToPeak;
+
+        Debug.Log(fakeSpinAngle + " " + additionToPeak);
     }
 
     public override void Update()

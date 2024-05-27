@@ -67,6 +67,6 @@ public class PlayerState_Aim : State<Player>
         owner.inputReader.AimEvent -= ChangeToIdleState;
         owner.inputReader.SwingEvent -= ChangeToSwingState;
 
-        owner.DotsActive(false);
+        //owner.DotsActive(false);
     }
 }
