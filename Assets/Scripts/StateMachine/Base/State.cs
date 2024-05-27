@@ -9,6 +9,7 @@ public abstract class State<TOwner> where TOwner : StateOwner
     protected StateMachine<TOwner> stateMachine;
 
     protected Animator anim;
+    protected float stateTimer;
 
     public State(string animBoolName, TOwner owner, StateMachine<TOwner> stateMachine)
     {
@@ -33,6 +34,14 @@ public abstract class State<TOwner> where TOwner : StateOwner
             anim.SetBool(animBoolName, false);
         }
     }
-    public virtual void Update() { }
+    public virtual void Update()
+    {
+        stateTimer -= Time.deltaTime;
+    }
     public virtual void FixedUpdate() { }
+
+    public virtual bool TimeOut()
+    {
+        return stateTimer <= 0;
+    }
 }

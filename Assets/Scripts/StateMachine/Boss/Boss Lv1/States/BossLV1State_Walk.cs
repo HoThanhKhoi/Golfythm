@@ -10,12 +10,23 @@ public class BossLV1State_Walk : State<BossLV1>
 
     public override void Enter()
     {
-        Debug.Log("Walk");
-        stateMachine.ChangeState(BossLV1_SM.State.Walk);
+        base.Enter();
+        stateTimer = 2f;
+    }
+
+    public override void Update()
+    {
+        base.Update();
+
+        if (TimeOut())
+        {
+            stateMachine.ChangeState(BossLV1_StateMachine.State.NormalAttack);
+        }
+
     }
 
     public override void Exit()
     {
-        Debug.Log("Exit Walk");
+        base.Exit();
     }
 }

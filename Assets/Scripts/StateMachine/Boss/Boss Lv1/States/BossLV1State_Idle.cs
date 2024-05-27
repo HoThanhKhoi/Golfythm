@@ -10,12 +10,23 @@ public class BossLV1State_Idle : State<BossLV1>
 
     public override void Enter()
     {
-        Debug.Log("Idle");
-        stateMachine.ChangeState(BossLV1_SM.State.Idle);
+        base.Enter();
+        stateTimer = 2f;
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        Debug.Log(stateTimer);
+
+        if (TimeOut())
+        {
+            stateMachine.ChangeState(BossLV1_StateMachine.State.Walk);
+        }
     }
 
     public override void Exit()
     {
-        Debug.Log("Exit Idle");
+        base.Exit();
     }
 }
