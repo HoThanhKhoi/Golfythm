@@ -14,6 +14,8 @@ public class Ball : StateOwner
 
     private BallStateMachine stateMachine;
 
+    public Rigidbody2D Rb { get => rb; }
+
     public void SetUpBall(Vector2 spawnPos, Vector2 direction, float swingForce, float gravityScale, Player player, Vector2 playerOffset)
     {
         transform.position = spawnPos;
@@ -23,6 +25,8 @@ public class Ball : StateOwner
         this.player = player;
         this.playerOffset = playerOffset;
         gameObject.SetActive(true);
+
+        stateMachine.ChangeState(BallStateMachine.State.Move);
     }
 
     protected override void Awake()
@@ -32,21 +36,23 @@ public class Ball : StateOwner
 
     private void FixedUpdate()
     {
-        if (isColliding)
-        {
-            rb.velocity = rb.velocity * 0.92f;
-        }
+        stateMachine.currentState.FixedUpdate();
 
-        if (rb.velocity.magnitude < 0.1f)
-        {
-            rb.velocity = Vector2.zero;
-            stayPosition = transform.position;
-            if (player != null)
-            {
-                player.ChangeState(PlayerStateMachine.State.Idle);
-                player.transform.position = stayPosition + playerOffset;
-            }
-        }
+        //if (isColliding)
+        //{
+        //    rb.velocity = rb.velocity * 0.92f;
+        //}
+
+        //if (rb.velocity.magnitude < 0.1f)
+        //{
+        //    rb.velocity = Vector2.zero;
+        //    stayPosition = transform.position;
+        //    if (player != null)
+        //    {
+        //        player.ChangeState(PlayerStateMachine.State.Idle);
+        //        player.transform.position = stayPosition + playerOffset;
+        //    }
+        //}
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -57,5 +63,25 @@ public class Ball : StateOwner
     private void OnCollisionExit2D(Collision2D collision)
     {
         isColliding = false;
+    }
+
+    private void Update()
+    {
+        stateMachine.currentState.Update();
+    }
+
+    public void TeleportPlayerToBall()
+    {
+        stayPosition = transform.position;
+        if (player != null)
+        {
+            player.ChangeState(PlayerStateMachine.State.Idle);
+            player.transform.position = stayPosition + playerOffset;
+        }
+    }
+
+    public void SlowDownBallOvertime()
+    {
+
     }
 }

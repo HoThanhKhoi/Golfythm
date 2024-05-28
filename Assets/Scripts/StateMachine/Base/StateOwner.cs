@@ -20,6 +20,5 @@ public class StateOwner : MonoBehaviour
                 anim = gameObject.AddComponent<Animator>();
             }
         }
-
     }
 }
