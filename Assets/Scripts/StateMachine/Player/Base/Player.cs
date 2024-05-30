@@ -1,4 +1,5 @@
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -65,6 +66,8 @@ public class Player : StateOwner
     [SerializeField] private GameObject ballPrefab;
     [SerializeField] private Transform ballSpawnPos;
     [SerializeField] private float ballGravity;
+    [SerializeField] private float ballMaxBounciness = .5f;
+    [Range(0, 1)][SerializeField] private float ballDecreaseBouncinessAmount = .5f;
 
     public Vector2 HitDirection { get; set; }
 
@@ -154,7 +157,7 @@ public class Player : StateOwner
     public void SetUpBall()
     {
         Vector2 playerOffSet = transform.position - ballSpawnPos.position;
-        ball.SetUpBall(ballSpawnPos.position, HitDirection, swingForce, ballGravity, this, playerOffSet);
+        ball.SetUpBall(ballSpawnPos.position, HitDirection, swingForce, ballGravity, this, playerOffSet, ballMaxBounciness, ballDecreaseBouncinessAmount);
     }
     #endregion
 
@@ -167,6 +170,13 @@ public class Player : StateOwner
     public void CameraFollowBall()
     {
         CameraFollow(ball.transform);
+    }
+    #endregion
+
+    #region Handle State Transition
+    public void ChangeState(Enum state)
+    {
+        stateMachine.ChangeState(state);
     }
     #endregion
 }

@@ -10,12 +10,23 @@ public class BossLV1State_NormalAttack : State<BossLV1>
 
     public override void Enter()
     {
-        Debug.Log("Normal Attack");
-        stateMachine.ChangeState(BossLV1_SM.State.NormalAttack);
+        base.Enter();
+        stateTimer = 2f;
     }
 
     public override void Update()
     {
-        Debug.Log("Exit Normal Attack");
+        base.Update();
+
+        if (TimeOut())
+        {
+            stateMachine.ChangeState(BossLV1_StateMachine.State.Idle);
+        }
+
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
     }
 }
