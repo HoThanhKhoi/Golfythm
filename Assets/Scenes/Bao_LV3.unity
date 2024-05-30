@@ -587,7 +587,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1103924470}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 0f99a216bd7dee545a9137ad18ebdcb3, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1233,6 +1233,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2645412364432706834, guid: 567f729e194ce354c93aca8f1c08d397, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 3398486613393361403, guid: 567f729e194ce354c93aca8f1c08d397, type: 3}
       propertyPath: ball
       value: 
@@ -1288,6 +1292,14 @@ PrefabInstance:
     - target: {fileID: 3398486613393361403, guid: 567f729e194ce354c93aca8f1c08d397, type: 3}
       propertyPath: spaceBetweenDots
       value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 3398486613393361403, guid: 567f729e194ce354c93aca8f1c08d397, type: 3}
+      propertyPath: ballMaxBounciness
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3398486613393361403, guid: 567f729e194ce354c93aca8f1c08d397, type: 3}
+      propertyPath: ballDecreaseBouncinessAmount
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7364809963625779279, guid: 567f729e194ce354c93aca8f1c08d397, type: 3}
       propertyPath: m_LocalPosition.x

@@ -65,6 +65,8 @@ public class Player : StateOwner
     [SerializeField] private GameObject ballPrefab;
     [SerializeField] private Transform ballSpawnPos;
     [SerializeField] private float ballGravity;
+    [SerializeField] private float ballMaxBounciness = .5f;
+    [Range(0, 1)][SerializeField] private float ballDecreaseBouncinessAmount = .5f;
 
     public Vector2 HitDirection { get; set; }
 
@@ -154,7 +156,7 @@ public class Player : StateOwner
     public void SetUpBall()
     {
         Vector2 playerOffSet = transform.position - ballSpawnPos.position;
-        ball.SetUpBall(ballSpawnPos.position, HitDirection, swingForce, ballGravity, this, playerOffSet);
+        ball.SetUpBall(ballSpawnPos.position, HitDirection, swingForce, ballGravity, this, playerOffSet, ballMaxBounciness, ballDecreaseBouncinessAmount);
     }
     #endregion
 

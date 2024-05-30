@@ -44,4 +44,9 @@ public abstract class State<TOwner> where TOwner : StateOwner
     {
         return stateTimer <= 0;
     }
+
+    public virtual void OnTriggerEnter2D(Collider2D other) { }
+    public virtual void OnTriggerExit2D(Collider2D other) { }
+    public virtual void OnCollisionEnter2D(Collision2D other) { }
+    public virtual void OnCollisionExit2D(Collision2D other) { }
 }

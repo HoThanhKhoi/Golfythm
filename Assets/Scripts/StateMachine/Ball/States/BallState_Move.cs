@@ -8,13 +8,23 @@ public class BallState_Move : State<Ball>
     {
     }
 
-    public override void Update()
+    public override void Enter()
     {
-        base.Update();
+        base.Enter();
 
-        if(owner.Rb.velocity.magnitude <= 0.1f)
-        {
-            stateMachine.ChangeState(BallStateMachine.State.Stay);
-        }
+    }
+
+    public override void OnCollisionEnter2D(Collision2D other)
+    {
+        base.OnCollisionEnter2D(other);
+
+        Debug.Log("Decrease");
+
+        owner.DecreaseBounciness();
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
     }
 }
