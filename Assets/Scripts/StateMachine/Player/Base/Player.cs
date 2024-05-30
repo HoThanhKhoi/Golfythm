@@ -26,6 +26,7 @@ public class Player : StateOwner
             return spinAngle;
         }
     }
+
     public float ClubSpinSpeed
     {
         get

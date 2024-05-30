@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class FinalBossPhaseOneState_Block : State<FinalBossPhaseOne>
 {
-    // Start is called before the first frame update
-    void Start()
+	public FinalBossPhaseOneState_Block(string animBoolName, FinalBossPhaseOne owner, StateMachine<FinalBossPhaseOne> stateMachine) : base(animBoolName, owner, stateMachine)
+	{
+	}
+
+	// Start is called before the first frame update
+	void Start()
     {
         
     }
