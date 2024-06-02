@@ -1,19 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class State<TOwner> where TOwner : StateOwner
+public abstract class State<TOwner, EState> where TOwner : StateOwner where EState : Enum
 {
-    protected string animBoolName;
+    public AnimationClip animClip;
     protected TOwner owner;
-    protected StateMachine<TOwner> stateMachine;
+    protected StateMachine<TOwner, EState> stateMachine;
 
     protected Animator anim;
     protected float stateTimer;
 
-    public State(string animBoolName, TOwner owner, StateMachine<TOwner> stateMachine)
+    public State(TOwner owner, StateMachine<TOwner, EState> stateMachine)
     {
-        this.animBoolName = animBoolName;
         this.owner = owner;
         this.stateMachine = stateMachine;
     }
@@ -22,17 +22,14 @@ public abstract class State<TOwner> where TOwner : StateOwner
     {
         anim = owner.anim;
 
-        if (owner.useAnimator)
+        if (anim != null)
         {
-            anim.SetBool(animBoolName, true);
+            anim.Play(animClip.name);
         }
     }
     public virtual void Exit()
     {
-        if (owner.useAnimator)
-        {
-            anim.SetBool(animBoolName, false);
-        }
+
     }
     public virtual void Update()
     {

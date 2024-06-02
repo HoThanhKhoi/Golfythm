@@ -3,24 +3,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class StateMachine<TOwner> where TOwner : StateOwner
+public abstract class StateMachine<TOwner, EState> : MonoBehaviour where TOwner : StateOwner where EState : Enum
 {
     protected TOwner owner;
-    public State<TOwner> currentState;
-    private Dictionary<Enum, State<TOwner>> states;
+    public State<TOwner, EState> currentState;
 
-    public StateMachine(TOwner owner)
+    private Dictionary<Enum, State<TOwner, EState>> stateDictionary;
+    [field: SerializeField] public List<StateData<EState>> StateDataList { get; private set; }
+
+
+    private void Awake()
     {
-        this.owner = owner;
+        owner = GetComponent<TOwner>();
 
-        states = new Dictionary<Enum, State<TOwner>>();
+        if (owner == null)
+        {
+            owner = gameObject.AddComponent<TOwner>();
+        }
+
+        stateDictionary = new Dictionary<Enum, State<TOwner, EState>>();
+
+        SetUpStateMachine();
     }
 
     protected abstract void SetUpStateMachine();
 
     public void ChangeState(Enum eState)
     {
-        if (currentState == states[eState])
+        if (currentState == stateDictionary[eState])
         {
             return;
         }
@@ -29,13 +39,30 @@ public abstract class StateMachine<TOwner> where TOwner : StateOwner
         {
             currentState.Exit();
         }
-        currentState = states[eState];
+        currentState = stateDictionary[eState];
         currentState.Enter();
     }
 
-    protected void AddState(Enum eState, State<TOwner> state)
+    protected void AddState(EState eState, State<TOwner, EState> state)
     {
-        states.Add(eState, state);
+        string eStateName = eState.ToString();
+
+        if(owner.useAnimator)
+        {
+            //Add animation clip to state
+            StateData<EState> stateData = StateDataList.Find(x => x.State.ToString() == eStateName);
+            if (stateData != null)
+            {
+                AnimationClip clip = stateData.AnimClip;
+
+                if (clip != null)
+                {
+                    state.animClip = clip;
+                }
+            }
+        }
+
+        stateDictionary.Add(eState, state);
     }
 
     protected virtual void Update()

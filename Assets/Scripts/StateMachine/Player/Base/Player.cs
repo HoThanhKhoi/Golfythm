@@ -16,6 +16,8 @@ public class Player : StateOwner
     [Header("Club Spin")]
     [SerializeField] private float maxClubSpinAngle;
     [SerializeField] private float minClubSpinAngle;
+
+    public AnimationClip something;
     public float ClubSpinAngle
     {
         get
@@ -66,12 +68,11 @@ public class Player : StateOwner
     [SerializeField] private GameObject ballPrefab;
     [SerializeField] private Transform ballSpawnPos;
     [SerializeField] private float ballGravity;
-    [SerializeField] private float ballMaxBounciness = .5f;
-    [Range(0, 1)][SerializeField] private float ballDecreaseBouncinessAmount = .5f;
-
+    [SerializeField] private float ballBounciness = .5f;
+    [SerializeField] private float ballHaha;
     public Vector2 HitDirection { get; set; }
 
-    private PlayerStateMachine stateMachine;
+    //private PlayerStateMachine stateMachine;
     private int facing = 1;
     private GameObject[] dots;
     private Ball ball;
@@ -80,13 +81,15 @@ public class Player : StateOwner
     {
         base.Awake();
 
-        stateMachine = new PlayerStateMachine(this);
+        //stateMachine = new PlayerStateMachine(this);
     }
 
     private void Start()
     {
         swingForce = minSwingForce;
-        ball = Instantiate(ballPrefab, ballSpawnPos.position, Quaternion.identity).GetComponent<Ball>();
+        //ball = Instantiate(ballPrefab, ballSpawnPos.position, Quaternion.identity).GetComponent<Ball>();
+
+        //ball.SetUpBall()
 
         GenerateDots();
         SetUpDotsPosition();
@@ -101,16 +104,6 @@ public class Player : StateOwner
     public void SlightlyChangeSwingForceTo(float to)
     {
         swingForce = Mathf.Lerp(swingForce, to, SwingForceSpeed * Time.deltaTime);
-    }
-
-    private void Update()
-    {
-        stateMachine.currentState.Update();
-    }
-
-    private void FixedUpdate()
-    {
-        stateMachine.currentState.FixedUpdate();
     }
 
     #region Aiming
@@ -157,7 +150,7 @@ public class Player : StateOwner
     public void SetUpBall()
     {
         Vector2 playerOffSet = transform.position - ballSpawnPos.position;
-        ball.SetUpBall(ballSpawnPos.position, HitDirection, swingForce, ballGravity, this, playerOffSet, ballMaxBounciness, ballDecreaseBouncinessAmount);
+        //ball.SetUpBall(ballSpawnPos.position, HitDirection, swingForce, ballGravity, this, playerOffSet, ballBounciness);
     }
     #endregion
 
@@ -176,7 +169,6 @@ public class Player : StateOwner
     #region Handle State Transition
     public void ChangeState(Enum state)
     {
-        stateMachine.ChangeState(state);
     }
     #endregion
 }

@@ -2,21 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FinalBossPhaseOneState_OnHit : State<FinalBossPhaseOne>
+public class FinalBossPhaseOneState_OnHit : State<FinalBossPhaseOne, FinalBossPhaseOneStateMachine.State>
 {
-	public FinalBossPhaseOneState_OnHit(string animBoolName, FinalBossPhaseOne owner, StateMachine<FinalBossPhaseOne> stateMachine) : base(animBoolName, owner, stateMachine)
-	{
-	}
-
-	// Start is called before the first frame update
-	void Start()
+    public FinalBossPhaseOneState_OnHit(FinalBossPhaseOne owner, StateMachine<FinalBossPhaseOne, FinalBossPhaseOneStateMachine.State> stateMachine) : base(owner, stateMachine)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

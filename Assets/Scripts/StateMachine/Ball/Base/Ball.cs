@@ -16,38 +16,38 @@ public class Ball : StateOwner
     private float maxBounciness;
     private float bouncinessDecreaseAmount;
 
-    private PhysicsMaterial2D bounce;
-    private PhysicsMaterial2D noBounce;
+    private PhysicsMaterial2D bouncePhysics;
+    private PhysicsMaterial2D noBouncePhysics;
 
     public Rigidbody2D Rb { get => rb; }
 
-    public void SetUpBall(Vector2 spawnPos, Vector2 direction, float swingForce, float gravityScale, Player player, Vector2 playerOffset, float ballMaxBounciness, float ballDecreaseBouncinessAmount)
+    public void SetUpBall(Vector2 spawnPos, float gravityScale, Player player, Vector2 playerOffset, float bounciness)
     {
         transform.position = spawnPos;
-        rb.velocity = direction * swingForce;
+        
         rb.gravityScale = gravityScale;
 
         this.player = player;
         this.playerOffset = playerOffset;
 
-        maxBounciness = ballMaxBounciness;
-        bouncinessDecreaseAmount = ballDecreaseBouncinessAmount;
+        //bouncePhysics = NewPhysicsMaterial("Bounce", bounciness)
+
+        //ma    xBounciness = ballMaxBounciness;
 
         gameObject.SetActive(true);
-
-        ResetBounciness();
-
-        stateMachine.ChangeState(BallStateMachine.State.Move);
     }
 
-    protected override void Awake()
+    public void HitBall(Vector2 direction, float swingForce)
     {
-        stateMachine = new BallStateMachine(this);
+        rb.velocity = direction * swingForce;
+        stateMachine.ChangeState(BallStateMachine.State.Move);
     }
 
     private void Start()
     {
-        bounce = GetComponent<Collider2D>().sharedMaterial;
+        stateMachine = GetComponent<BallStateMachine>();
+
+        bouncePhysics = GetComponent<Collider2D>().sharedMaterial;
     }
 
     private void FixedUpdate()
@@ -82,29 +82,29 @@ public class Ball : StateOwner
 
     public void DecreaseBounciness()
     {
-        if (bounce.bounciness <= 0.01f)
+        if (bouncePhysics.bounciness <= 0.01f)
         {
-            bounce.bounciness = 0;
+            bouncePhysics.bounciness = 0;
             return;
         }
 
-        if (bounce.bounciness > 0)
+        if (bouncePhysics.bounciness > 0)
         {
-            bounce.bounciness *= bouncinessDecreaseAmount;
+            bouncePhysics.bounciness *= bouncinessDecreaseAmount;
         }
 
-        Debug.Log("Decrease: " + bounce.bounciness + " max: " + maxBounciness);
+        Debug.Log("Decrease: " + bouncePhysics.bounciness + " max: " + maxBounciness);
     }
 
     public void ResetBounciness()
     {
-        bounce = new PhysicsMaterial2D
+        bouncePhysics = new PhysicsMaterial2D
         {
             bounciness = maxBounciness,
             friction = 20
         };
 
-        coll.sharedMaterial = bounce;
+        coll.sharedMaterial = bouncePhysics;
     }
 
     private PhysicsMaterial2D NewPhysicsMaterial(string name, float bounciness, float friction)
