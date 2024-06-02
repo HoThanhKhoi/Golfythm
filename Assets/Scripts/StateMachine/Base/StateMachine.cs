@@ -57,7 +57,7 @@ public abstract class StateMachine<TOwner, EState> : MonoBehaviour where TOwner 
 
                 if (clip != null)
                 {
-                    state.animClip = clip;
+                    state.SetupAnimationClip(clip);
                 }
             }
         }
