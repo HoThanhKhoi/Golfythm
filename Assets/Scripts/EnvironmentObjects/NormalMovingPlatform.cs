@@ -17,7 +17,7 @@ public class NormalMovingPlatform : MonoBehaviour
 	{
 		// obeliskController = obelisk.GetComponent<ObeliskController>();
 	}
-	// Update is called once per frame
+	
 	void Update()
 	{
 
