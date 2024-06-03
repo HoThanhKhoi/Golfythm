@@ -6,7 +6,7 @@ public class PlayerState_Aim : State<Player, PlayerStateMachine.State>
 {
     private float direction = 1f;
 
-    public PlayerState_Aim(Player owner, StateMachine<Player, PlayerStateMachine.State> stateMachine) : base(owner, stateMachine)
+    public PlayerState_Aim(Player owner, StateMachine<Player, PlayerStateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
     {
     }
 

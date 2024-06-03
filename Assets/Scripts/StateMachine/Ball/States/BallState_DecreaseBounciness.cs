@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BallState_DecreaseBounciness : State<Ball, BallStateMachine.State>
 {
-    public BallState_DecreaseBounciness(Ball owner, StateMachine<Ball, BallStateMachine.State> stateMachine) : base(owner, stateMachine)
+    public BallState_DecreaseBounciness(Ball owner, StateMachine<Ball, BallStateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
     {
     }
 

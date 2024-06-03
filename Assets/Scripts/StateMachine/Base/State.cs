@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class State<TOwner, EState> where TOwner : StateOwner where EState : Enum
+public abstract class State<TOwner, EState> where TOwner : MonoBehaviour where EState : Enum
 {
     protected TOwner owner;
     protected StateMachine<TOwner, EState> stateMachine;
@@ -17,10 +17,11 @@ public abstract class State<TOwner, EState> where TOwner : StateOwner where ESta
     private float animationTimer;
 
     #region Setup
-    public State(TOwner owner, StateMachine<TOwner, EState> stateMachine)
+    public State(TOwner owner, StateMachine<TOwner, EState> stateMachine, Animator anim)
     {
         this.owner = owner;
         this.stateMachine = stateMachine;
+        this.anim = anim;
     }
 
     public void SetupAnimationClip(AnimationClip clip)
@@ -34,7 +35,6 @@ public abstract class State<TOwner, EState> where TOwner : StateOwner where ESta
     #region State Function
     public virtual void Enter()
     {
-        anim = owner.anim;
         animationTimer = animationLength;
 
         PlayAnimationFromBeginning();

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BallState_Move : State<Ball, BallStateMachine.State>
 {
-    public BallState_Move(Ball owner, StateMachine<Ball, BallStateMachine.State> stateMachine) : base(owner, stateMachine)
+    public BallState_Move(Ball owner, StateMachine<Ball, BallStateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
     {
     }
 

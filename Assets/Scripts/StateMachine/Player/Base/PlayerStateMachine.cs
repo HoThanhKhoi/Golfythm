@@ -14,10 +14,10 @@ public class PlayerStateMachine : StateMachine<Player, PlayerStateMachine.State>
 
     protected override void SetUpStateMachine()
     {
-        AddState(State.Idle, new PlayerState_Idle(owner, this));
-        AddState(State.Aim, new PlayerState_Aim(owner, this));
-        AddState(State.Swing, new PlayerState_Swing(owner, this));
-        AddState(State.Hit, new PlayerState_Hit(owner, this));
+        AddState(State.Idle, new PlayerState_Idle(owner, this, anim));
+        AddState(State.Aim, new PlayerState_Aim(owner, this, anim));
+        AddState(State.Swing, new PlayerState_Swing(owner, this, anim));
+        AddState(State.Hit, new PlayerState_Hit(owner, this, anim));
 
         ChangeState(State.Idle);
     }

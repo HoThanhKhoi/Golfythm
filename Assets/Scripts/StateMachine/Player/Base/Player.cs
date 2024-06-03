@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : StateOwner
+public class Player : MonoBehaviour
 {
     [Header("Preference")]
     public InputReader inputReader;
@@ -16,8 +16,6 @@ public class Player : StateOwner
     [Header("Club Spin")]
     [SerializeField] private float maxClubSpinAngle;
     [SerializeField] private float minClubSpinAngle;
-
-    public AnimationClip something;
     public float ClubSpinAngle
     {
         get
@@ -72,24 +70,16 @@ public class Player : StateOwner
     [SerializeField] private float ballHaha;
     public Vector2 HitDirection { get; set; }
 
-    //private PlayerStateMachine stateMachine;
     private int facing = 1;
     private GameObject[] dots;
     private Ball ball;
 
-    protected override void Awake()
-    {
-        base.Awake();
-
-        //stateMachine = new PlayerStateMachine(this);
-    }
-
     private void Start()
     {
         swingForce = minSwingForce;
-        //ball = Instantiate(ballPrefab, ballSpawnPos.position, Quaternion.identity).GetComponent<Ball>();
+        ball = Instantiate(ballPrefab, ballSpawnPos.position, Quaternion.identity).GetComponent<Ball>();
 
-        //ball.SetUpBall()
+        ball.SetUpBall(spawnPos: ballSpawnPos.position, gravityScale: ballGravity, player: this, playerOffset: transform.position, bounciness: ballBounciness);
 
         GenerateDots();
         SetUpDotsPosition();
@@ -162,6 +152,7 @@ public class Player : StateOwner
 
     public void CameraFollowBall()
     {
+        Debug.Log(ball);
         CameraFollow(ball.transform);
     }
     #endregion

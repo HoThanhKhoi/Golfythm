@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerState_Hit : State<Player, PlayerStateMachine.State>
 {
-    public PlayerState_Hit(Player owner, StateMachine<Player, PlayerStateMachine.State> stateMachine) : base(owner, stateMachine)
+    public PlayerState_Hit(Player owner, StateMachine<Player, PlayerStateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
     {
     }
 

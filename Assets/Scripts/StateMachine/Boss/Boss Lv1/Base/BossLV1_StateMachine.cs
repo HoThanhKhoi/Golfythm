@@ -12,9 +12,9 @@ public class BossLV1_StateMachine : StateMachine<BossLV1, BossLV1_StateMachine.S
     }
     protected override void SetUpStateMachine()
     {
-        AddState(State.Idle, new BossLV1State_Idle(owner, this));
-        AddState(State.Walk, new BossLV1State_Walk(owner, this));
-        AddState(State.NormalAttack, new BossLV1State_NormalAttack(owner, this));
+        AddState(State.Idle, new BossLV1State_Idle(owner, this, anim));
+        AddState(State.Walk, new BossLV1State_Walk(owner, this, anim));
+        AddState(State.NormalAttack, new BossLV1State_NormalAttack(owner, this, anim));
 
         ChangeState(State.Idle);
     }

@@ -13,9 +13,9 @@ public class BallStateMachine : StateMachine<Ball, BallStateMachine.State>
 
     protected override void SetUpStateMachine()
     {
-        AddState(State.Stay, new BallState_Stay(owner, this));
-        AddState(State.Move, new BallState_Move(owner, this));
-        AddState(State.DecreaseBounciness, new BallState_DecreaseBounciness(owner, this));
+        AddState(State.Stay, new BallState_Stay(owner, this, anim));
+        AddState(State.Move, new BallState_Move(owner, this, anim));
+        AddState(State.DecreaseBounciness, new BallState_DecreaseBounciness(owner, this, anim));
 
         ChangeState(State.Stay);
     }

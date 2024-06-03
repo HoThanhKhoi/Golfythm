@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FinalBossPhaseOneState_Death : State<FinalBossPhaseOne, FinalBossPhaseOneStateMachine.State>
 {
-    public FinalBossPhaseOneState_Death(FinalBossPhaseOne owner, StateMachine<FinalBossPhaseOne, FinalBossPhaseOneStateMachine.State> stateMachine) : base(owner, stateMachine)
+    public FinalBossPhaseOneState_Death(FinalBossPhaseOne owner, StateMachine<FinalBossPhaseOne, FinalBossPhaseOneStateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
     {
     }
 }

@@ -22,8 +22,8 @@ public class FinalBossPhaseOneStateMachine : StateMachine<FinalBossPhaseOne, Fin
 
     protected override void SetUpStateMachine()
     {
-        AddState(State.Idle, new FinalBossPhaseOneState_Idle(owner, this));
-        AddState(State.Run, new FinalBossPhaseOneState_Run(owner, this));
+        AddState(State.Idle, new FinalBossPhaseOneState_Idle(owner, this, anim));
+        AddState(State.Run, new FinalBossPhaseOneState_Run(owner, this, anim));
 
         Debug.Log("Set up");
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FinalBossPhaseOneState_ShieldCrashLanding : State<FinalBossPhaseOne, FinalBossPhaseOneStateMachine.State>
 {
-    public FinalBossPhaseOneState_ShieldCrashLanding(FinalBossPhaseOne owner, StateMachine<FinalBossPhaseOne, FinalBossPhaseOneStateMachine.State> stateMachine) : base(owner, stateMachine)
+    public FinalBossPhaseOneState_ShieldCrashLanding(FinalBossPhaseOne owner, StateMachine<FinalBossPhaseOne, FinalBossPhaseOneStateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
     {
     }
 }
