@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossStateOwner : StateOwner
-{
-    
+public class BossStateOwner : MonoBehaviour
+{ 
     
 }

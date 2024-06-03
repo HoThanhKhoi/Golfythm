@@ -419,8 +419,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 761902895c7e958458f1f4d13ac85571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useAnimator: 0
-  anim: {fileID: 0}
+  useAnimator: 1
+  anim: {fileID: 379201227}
   <StateDataList>k__BackingField: []
 --- !u!1 &444106718
 GameObject:
