@@ -8,8 +8,6 @@ public class BossLV1 : StateOwner
     protected override void Awake()
     {
         base.Awake();
-
-        stateMachine = new BossLV1_StateMachine(this);
     }
 
     private void Start()

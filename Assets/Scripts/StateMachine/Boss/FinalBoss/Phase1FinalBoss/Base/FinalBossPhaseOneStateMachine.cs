@@ -2,13 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FinalBossPhaseOneStateMachine : StateMachine<FinalBossPhaseOne>
+public class FinalBossPhaseOneStateMachine : StateMachine<FinalBossPhaseOne, FinalBossPhaseOneStateMachine.State>
 {
-    public FinalBossPhaseOneStateMachine(FinalBossPhaseOne owner) : base(owner)
-    {
-        SetUpStateMachine();
-    }
-
     public enum State
     {
         Idle,
@@ -27,8 +22,10 @@ public class FinalBossPhaseOneStateMachine : StateMachine<FinalBossPhaseOne>
 
     protected override void SetUpStateMachine()
     {
-        AddState(State.Idle, new FinalBossPhaseOneState_Idle("Idle", owner, this));
-        
+        AddState(State.Idle, new FinalBossPhaseOneState_Idle(owner, this));
+        AddState(State.Run, new FinalBossPhaseOneState_Run(owner, this));
+
+        Debug.Log("Set up");
 
         ChangeState(State.Idle);
     }

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallState_Stay : State<Ball>
+public class BallState_Stay : State<Ball, BallStateMachine.State>
 {
-    public BallState_Stay(string animBoolName, Ball owner, StateMachine<Ball> stateMachine) : base(animBoolName, owner, stateMachine)
+    public BallState_Stay(Ball owner, StateMachine<Ball, BallStateMachine.State> stateMachine) : base(owner, stateMachine)
     {
     }
 

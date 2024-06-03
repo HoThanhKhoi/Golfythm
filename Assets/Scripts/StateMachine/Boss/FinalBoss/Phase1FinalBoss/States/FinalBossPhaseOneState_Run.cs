@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FinalBossPhaseOneState_Run : State<FinalBossPhaseOne>
+public class FinalBossPhaseOneState_Run : State<FinalBossPhaseOne, FinalBossPhaseOneStateMachine.State>
 {
-	public FinalBossPhaseOneState_Run(string animBoolName, FinalBossPhaseOne owner, StateMachine<FinalBossPhaseOne> stateMachine) : base(animBoolName, owner, stateMachine)
-	{
-	}
+    public FinalBossPhaseOneState_Run(FinalBossPhaseOne owner, StateMachine<FinalBossPhaseOne, FinalBossPhaseOneStateMachine.State> stateMachine) : base(owner, stateMachine)
+    {
+    }
 }

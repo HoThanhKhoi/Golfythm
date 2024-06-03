@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallState_DecreaseBounciness : State<Ball>
+public class BallState_DecreaseBounciness : State<Ball, BallStateMachine.State>
 {
-    public BallState_DecreaseBounciness(string animBoolName, Ball owner, StateMachine<Ball> stateMachine) : base(animBoolName, owner, stateMachine)
+    public BallState_DecreaseBounciness(Ball owner, StateMachine<Ball, BallStateMachine.State> stateMachine) : base(owner, stateMachine)
     {
     }
 

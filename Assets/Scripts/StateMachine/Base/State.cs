@@ -1,52 +1,79 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class State<TOwner> where TOwner : StateOwner
+public abstract class State<TOwner, EState> where TOwner : StateOwner where EState : Enum
 {
-    protected string animBoolName;
     protected TOwner owner;
-    protected StateMachine<TOwner> stateMachine;
+    protected StateMachine<TOwner, EState> stateMachine;
 
     protected Animator anim;
     protected float stateTimer;
 
-    public State(string animBoolName, TOwner owner, StateMachine<TOwner> stateMachine)
+    private AnimationClip animClip;
+    private int animationHash;
+    protected float animationLength;
+    private float animationTimer;
+
+    #region Setup
+    public State(TOwner owner, StateMachine<TOwner, EState> stateMachine)
     {
-        this.animBoolName = animBoolName;
         this.owner = owner;
         this.stateMachine = stateMachine;
     }
 
+    public void SetupAnimationClip(AnimationClip clip)
+    {
+        animClip = clip;
+        animationHash = Animator.StringToHash(clip.name);
+        animationLength = clip.length;
+    }
+    #endregion
+
+    #region State Function
     public virtual void Enter()
     {
         anim = owner.anim;
+        animationTimer = animationLength;
 
-        if (owner.useAnimator)
-        {
-            anim.SetBool(animBoolName, true);
-        }
+        PlayAnimationFromBeginning();
     }
     public virtual void Exit()
     {
-        if (owner.useAnimator)
-        {
-            anim.SetBool(animBoolName, false);
-        }
+
     }
     public virtual void Update()
     {
         stateTimer -= Time.deltaTime;
+        animationTimer -= Time.deltaTime;
     }
     public virtual void FixedUpdate() { }
-
-    public virtual bool TimeOut()
-    {
-        return stateTimer <= 0;
-    }
-
     public virtual void OnTriggerEnter2D(Collider2D other) { }
     public virtual void OnTriggerExit2D(Collider2D other) { }
     public virtual void OnCollisionEnter2D(Collision2D other) { }
     public virtual void OnCollisionExit2D(Collision2D other) { }
+    #endregion
+
+    #region Utils
+    public virtual bool TimeOut()
+    {
+        return stateTimer <= 0;
+    }
+    #endregion
+
+    #region Animation Functions
+    protected virtual void PlayAnimationFromBeginning()
+    {
+        if (anim != null)
+        {
+            anim.Play(animationHash, 0, 0.0f);
+        }
+    }
+
+    protected virtual bool IsAnimationFinished()
+    {
+        return animationTimer <= 0;
+    }
+    #endregion
 }
