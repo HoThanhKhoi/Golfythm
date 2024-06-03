@@ -14,7 +14,7 @@ public class PlayerState_Swing : State<Player, PlayerStateMachine.State>
 
     private int direction = 1;
 
-    public PlayerState_Swing(Player owner, StateMachine<Player, PlayerStateMachine.State> stateMachine) : base(owner, stateMachine)
+    public PlayerState_Swing(Player owner, StateMachine<Player, PlayerStateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
     {
     }
 

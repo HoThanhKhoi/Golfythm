@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossLV1State_Idle : State<BossLV1, BossLV1_StateMachine.State>
 {
-    public BossLV1State_Idle(BossLV1 owner, StateMachine<BossLV1, BossLV1_StateMachine.State> stateMachine) : base(owner, stateMachine)
+    public BossLV1State_Idle(BossLV1 owner, StateMachine<BossLV1, BossLV1_StateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
     {
     }
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ball : StateOwner
+public class Ball : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Collider2D coll;
@@ -30,9 +30,9 @@ public class Ball : StateOwner
         this.player = player;
         this.playerOffset = playerOffset;
 
-        //bouncePhysics = NewPhysicsMaterial("Bounce", bounciness)
+        bouncePhysics = NewPhysicsMaterial("Bounce", bounciness, 20);
 
-        //ma    xBounciness = ballMaxBounciness;
+        //maxBounciness = ballMaxBounciness;
 
         gameObject.SetActive(true);
     }

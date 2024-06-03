@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class StateMachine<TOwner, EState> : MonoBehaviour where TOwner : StateOwner where EState : Enum
+public abstract class StateMachine<TOwner, EState> : MonoBehaviour where TOwner : MonoBehaviour where EState : Enum
 {
+    [SerializeField] private bool useAnimator = false;
+    [SerializeField] protected Animator anim;
     protected TOwner owner;
     public State<TOwner, EState> currentState;
 
@@ -47,7 +49,7 @@ public abstract class StateMachine<TOwner, EState> : MonoBehaviour where TOwner 
     {
         string eStateName = eState.ToString();
 
-        if(owner.useAnimator)
+        if(useAnimator)
         {
             //Add animation clip to state
             StateData<EState> stateData = StateDataList.Find(x => x.State.ToString() == eStateName);

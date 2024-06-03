@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerState_Idle : State<Player, PlayerStateMachine.State>
 {
-    public PlayerState_Idle(Player owner, StateMachine<Player, PlayerStateMachine.State> stateMachine) : base(owner, stateMachine)
+    public PlayerState_Idle(Player owner, StateMachine<Player, PlayerStateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
     {
     }
 
