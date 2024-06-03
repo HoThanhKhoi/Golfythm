@@ -8,15 +8,5 @@ public class FinalBossPhaseOneState_Idle : State<FinalBossPhaseOne>
 	{
 	}
 
-	// Start is called before the first frame update
-	void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
