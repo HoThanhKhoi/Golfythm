@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossLV1 : MonoBehaviour
+public class BossLV1 : StateOwner
 {
     private BossLV1_StateMachine stateMachine;
 
@@ -13,11 +13,11 @@ public class BossLV1 : MonoBehaviour
 
     private void Update()
     {
-        stateMachine.currentState.Update();
+        stateMachine.CurrentState.Update();
     }
 
     private void FixedUpdate()
     {
-        stateMachine.currentState.FixedUpdate();
+        stateMachine.CurrentState.FixedUpdate();
     }
 }

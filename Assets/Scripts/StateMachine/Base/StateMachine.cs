@@ -3,17 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class StateMachine<TOwner, EState> : MonoBehaviour where TOwner : MonoBehaviour where EState : Enum
+public abstract class StateMachine<TOwner, EState> : MonoBehaviour where TOwner : StateOwner where EState : Enum
 {
     [SerializeField] private bool useAnimator = false;
     [SerializeField] protected Animator anim;
     protected TOwner owner;
-    public State<TOwner, EState> currentState;
+    private State<TOwner, EState> currentState;
 
-    private Dictionary<Enum, State<TOwner, EState>> stateDictionary;
+    public EState PrevEState { get; set; }
+    public EState CurrentEState { get; set; }
+    public State<TOwner, EState> CurrentState { get { return currentState; } }
+
+    private Dictionary<EState, State<TOwner, EState>> stateDictionary;
     [field: SerializeField] public List<StateData<EState>> StateDataList { get; private set; }
-
-
     private void Awake()
     {
         owner = GetComponent<TOwner>();
@@ -23,14 +25,14 @@ public abstract class StateMachine<TOwner, EState> : MonoBehaviour where TOwner 
             owner = gameObject.AddComponent<TOwner>();
         }
 
-        stateDictionary = new Dictionary<Enum, State<TOwner, EState>>();
+        stateDictionary = new Dictionary<EState, State<TOwner, EState>>();
 
         SetUpStateMachine();
     }
 
     protected abstract void SetUpStateMachine();
 
-    public void ChangeState(Enum eState)
+    public void ChangeState(EState eState)
     {
         if (currentState == stateDictionary[eState])
         {
@@ -39,9 +41,12 @@ public abstract class StateMachine<TOwner, EState> : MonoBehaviour where TOwner 
 
         if (currentState != null)
         {
+            PrevEState = CurrentEState;
             currentState.Exit();
         }
+
         currentState = stateDictionary[eState];
+        CurrentEState = eState;
         currentState.Enter();
     }
 
@@ -49,7 +54,7 @@ public abstract class StateMachine<TOwner, EState> : MonoBehaviour where TOwner 
     {
         string eStateName = eState.ToString();
 
-        if(useAnimator)
+        if (useAnimator)
         {
             //Add animation clip to state
             StateData<EState> stateData = StateDataList.Find(x => x.State.ToString() == eStateName);

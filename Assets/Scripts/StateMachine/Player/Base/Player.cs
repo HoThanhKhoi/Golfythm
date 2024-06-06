@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : StateOwner
 {
     [Header("Preference")]
     public InputReader inputReader;

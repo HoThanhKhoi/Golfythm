@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class State<TOwner, EState> where TOwner : MonoBehaviour where EState : Enum
+public abstract class State<TOwner, EState> where TOwner : StateOwner where EState : Enum
 {
     protected TOwner owner;
     protected StateMachine<TOwner, EState> stateMachine;
@@ -74,6 +74,11 @@ public abstract class State<TOwner, EState> where TOwner : MonoBehaviour where E
     protected virtual bool IsAnimationFinished()
     {
         return animationTimer <= 0;
+    }
+
+    protected virtual void StopAnimation()
+    {
+        anim.speed = 0;
     }
     #endregion
 }
