@@ -63,7 +63,9 @@ public abstract class State<TOwner, EState> where TOwner : StateOwner where ESta
     #endregion
 
     #region Animation Functions
-    protected virtual void PlayAnimationFromBeginning()
+    public virtual void AnimationTrigger() { }
+
+    protected void PlayAnimationFromBeginning()
     {
         if (anim != null)
         {
@@ -71,12 +73,12 @@ public abstract class State<TOwner, EState> where TOwner : StateOwner where ESta
         }
     }
 
-    protected virtual bool IsAnimationFinished()
+    protected bool IsAnimationFinished()
     {
         return animationTimer <= 0;
     }
 
-    protected virtual void StopAnimation()
+    protected void StopAnimation()
     {
         anim.speed = 0;
     }
