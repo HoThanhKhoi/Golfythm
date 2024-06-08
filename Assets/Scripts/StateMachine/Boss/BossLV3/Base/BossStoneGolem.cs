@@ -33,15 +33,20 @@ public class BossStoneGolem : BossStateOwner
     public float ZipShootCooldown { get { return zipShootCooldown; } }
 
     [Header("Lazer Cast")]
+    [SerializeField] private Transform laserShootPoint;
+    [SerializeField] private GameObject laserPrefab;
     [SerializeField] private int maxLazerCastCount = 3;
-    [SerializeField] private GameObject lazerCastPrefab;
-    [SerializeField] private Transform lazerCastSpawnPoint;
-    [SerializeField] private float lazerCastSpeed = 30f;
-    [SerializeField] private float lazerCastCooldown = 1f;
+    [SerializeField] private float laserSpeed = 20f;
+    [SerializeField] private float maxLazerLength = 100f;
+    [SerializeField] private LayerMask laserCollisionMask;
+    [SerializeField] private float laserFollowDelay = .2f;
+
+
 
 
     private int armProjectileCount = 0;
     private int zipShootCount = 0;
+    private int laserCastCount = 0;
 
     private void Start()
     {
@@ -61,6 +66,8 @@ public class BossStoneGolem : BossStateOwner
     public bool IsProjectileCountFull() => armProjectileCount >= maxProjectileCount;
 
     public bool IsZipShootCountFull() => zipShootCount >= maxZipShootCount;
+
+    public bool IsLaserCastCountFull() => laserCastCount >= maxLazerCastCount;
 
     public void SetProjectileCountToZero() => armProjectileCount = 0;
 
@@ -92,5 +99,11 @@ public class BossStoneGolem : BossStateOwner
                 zipIndicator.gameObject.SetActive(false);
             }
         }
+    }
+
+    public void CastLaser()
+    {
+        laserCastCount++;
+        
     }
 }

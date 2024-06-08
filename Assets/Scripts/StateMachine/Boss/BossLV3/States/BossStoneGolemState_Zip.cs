@@ -37,14 +37,17 @@ public class BossStoneGolemState_Zip : State<BossStoneGolem, BossStoneGolemState
             }
         }
 
-        if(owner.Rb.velocity.magnitude <= 2f && delay <= 0)
+        if (owner.Rb.velocity.magnitude <= 2f && delay <= 0)
         {
             if (owner.IsZipShootCountFull())
             {
                 owner.SetActiveZipIndicator(false);
                 stateMachine.ChangeState(BossStoneGolemStateMachine.State.FlyToCenter);
             }
-            owner.SetActiveZipIndicator(true);
+            else
+            {
+                owner.SetActiveZipIndicator(true);
+            }
         }
     }
 
@@ -62,15 +65,5 @@ public class BossStoneGolemState_Zip : State<BossStoneGolem, BossStoneGolemState
         base.Exit();
 
         owner.StopMoving();
-    }
-
-
-    public override void OnCollisionEnter2D(Collision2D other)
-    {
-        base.OnCollisionEnter2D(other);
-
-        owner.StopMoving();
-
-        Debug.Log("zero");
     }
 }

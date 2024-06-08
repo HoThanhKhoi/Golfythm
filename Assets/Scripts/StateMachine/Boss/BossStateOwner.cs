@@ -85,7 +85,7 @@ public class BossStateOwner : StateOwner
         rb.velocity = GetDirectionToPlayer() * speed;
     }
 
-    public float DistanceToPlayer()
+    public float GetDistanceToPlayer()
     {
         return Vector2.Distance(transform.position, GetPlayerPosition());
     }
@@ -97,7 +97,7 @@ public class BossStateOwner : StateOwner
         rb.velocity = moveDirection * speed;
     }
 
-    public float DistanceToPosition(Vector2 position)
+    public float GetDistanceToPosition(Vector2 position)
     {
         return Vector2.Distance((Vector2) transform.position, position);
     }
