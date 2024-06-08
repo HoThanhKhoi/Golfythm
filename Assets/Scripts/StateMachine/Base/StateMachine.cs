@@ -50,6 +50,17 @@ public abstract class StateMachine<TOwner, EState> : MonoBehaviour where TOwner 
         currentState.Enter();
     }
 
+    public void ChangeState(EState eState, float delay)
+    {
+        StartCoroutine(ChangeStateAfterDelayCo(eState, delay));
+    }
+
+    private IEnumerator ChangeStateAfterDelayCo(EState eState, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        ChangeState(eState);
+    }
+
     protected void AddState(EState eState, State<TOwner, EState> state)
     {
         string eStateName = eState.ToString();
@@ -86,5 +97,10 @@ public abstract class StateMachine<TOwner, EState> : MonoBehaviour where TOwner 
         {
             currentState.FixedUpdate();
         }
+    }
+
+    public virtual void AnimationTrigger(int index)
+    {
+        currentState.AnimationTrigger(index);
     }
 }

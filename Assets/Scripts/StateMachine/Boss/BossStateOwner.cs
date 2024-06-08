@@ -34,11 +34,16 @@ public class BossStateOwner : StateOwner
         return playerPosition;
     }
 
-    public Vector2 GetDirectionToPlayer() => GetPlayerPosition() - (Vector2)transform.position;
+    public Vector2 GetDirectionToPlayer() => (GetPlayerPosition() - (Vector2)transform.position).normalized;
 
     public void FaceToPlayer()
     {
-        float xDirection = GetDirectionToPlayer().x > 0 ? 1 : -1;
+        FaceTo(GetPlayerPosition());
+    }
+
+    public void FaceTo(Vector2 destination)
+    {
+        float xDirection = destination.x > transform.position.x ? 1 : -1;
         transform.right = new Vector2(xDirection, transform.right.y);
     }
 

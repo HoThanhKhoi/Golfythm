@@ -18,6 +18,7 @@ public class BossStoneGolemState_FlyToCenter : State<BossStoneGolem, BossStoneGo
     {
         base.Update();
 
+        owner.FaceTo(owner.CenterTransform.position);
 
         if(owner.DistanceToPosition(owner.CenterTransform.position) < 0.001f)
         {

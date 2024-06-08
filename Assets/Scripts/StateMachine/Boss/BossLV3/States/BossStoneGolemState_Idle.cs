@@ -20,9 +20,12 @@ public class BossStoneGolemState_Idle : State<BossStoneGolem, BossStoneGolemStat
 
         owner.FaceToPlayer();
 
-        if(TimeOut())
+        if (TimeOut())
         {
-            stateMachine.ChangeState(BossStoneGolemStateMachine.State.RangeAttack);
+            if (!owner.IsProjectileCountFull())
+            {
+                stateMachine.ChangeState(BossStoneGolemStateMachine.State.RangeAttack);
+            }
         }
     }
 }

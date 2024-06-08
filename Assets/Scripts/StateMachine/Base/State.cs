@@ -63,7 +63,7 @@ public abstract class State<TOwner, EState> where TOwner : StateOwner where ESta
     #endregion
 
     #region Animation Functions
-    public virtual void AnimationTrigger() { }
+    public virtual void AnimationTrigger(int index) { }
 
     protected void PlayAnimationFromBeginning()
     {
@@ -81,6 +81,24 @@ public abstract class State<TOwner, EState> where TOwner : StateOwner where ESta
     protected void StopAnimation()
     {
         anim.speed = 0;
+    }
+
+    protected void PlayAnimationFromFrame(int frame)
+    {
+        if (anim != null && animClip != null)
+        {
+            int totalFrames = GetTotalFramesInClip(animClip);
+            float normalizedTime = (float)frame / totalFrames;
+            anim.Play(animationHash, 0, normalizedTime);
+        }
+    }
+
+    private int GetTotalFramesInClip(AnimationClip clip)
+    {
+        float clipLength = clip.length;
+        float frameRate = clip.frameRate;
+        int totalFrames = Mathf.RoundToInt(clipLength * frameRate);
+        return totalFrames;
     }
     #endregion
 }

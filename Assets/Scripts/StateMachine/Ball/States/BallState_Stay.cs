@@ -12,8 +12,6 @@ public class BallState_Stay : State<Ball, BallStateMachine.State>
     {
         base.Enter();
 
-        Debug.Log("Stay");
-
         owner.Rb.velocity = Vector3.zero;
     }
 }

@@ -11,7 +11,7 @@ public class BossStoneGolemStateMachine : StateMachine<BossStoneGolem, BossStone
         Idle,
         ArmorBuff,
         Glowing,
-        Imune,
+        Zip,
         LaserCast,
         MeleeAttack,
         RangeAttack,
@@ -26,7 +26,7 @@ public class BossStoneGolemStateMachine : StateMachine<BossStoneGolem, BossStone
         AddState(State.Idle, new BossStoneGolemState_Idle(owner, this, anim));
         AddState(State.ArmorBuff, new BossStoneGolemState_ArmorBuff(owner, this, anim));
         AddState(State.Glowing, new BossStoneGolemState_Glowing(owner, this, anim));
-        AddState(State.Imune, new BossStoneGolemState_Imune(owner, this, anim));
+        AddState(State.Zip, new BossStoneGolemState_Zip(owner, this, anim));
         AddState(State.LaserCast, new BossStoneGolemState_LaserCast(owner, this, anim));
         AddState(State.MeleeAttack, new BossStoneGolemState_MeleeAttack(owner, this, anim));
         AddState(State.RangeAttack, new BossStoneGolemState_RangeAttack(owner, this, anim));
