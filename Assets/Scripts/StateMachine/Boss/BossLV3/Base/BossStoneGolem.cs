@@ -33,16 +33,26 @@ public class BossStoneGolem : BossStateOwner
     public float ZipShootCooldown { get { return zipShootCooldown; } }
 
     [Header("Lazer Cast")]
-    [SerializeField] private Transform laserShootPoint;
     [SerializeField] private GameObject laserPrefab;
+    [SerializeField] private GameObject laserOrigin;
+    [SerializeField] private GameObject laserBeam;
+    [SerializeField] private GameObject laserParent;
+    [SerializeField] private GameObject laserImpact;
+    [SerializeField] private LayerMask laserCollisionLayer;
+    [SerializeField] private LayerMask laserImpactLayer;
+
     [SerializeField] private int maxLazerCastCount = 3;
     [SerializeField] private float laserSpeed = 20f;
-    [SerializeField] private float maxLazerLength = 100f;
-    [SerializeField] private LayerMask laserCollisionMask;
-    [SerializeField] private float laserFollowDelay = .2f;
+    [SerializeField] private float maxLazerLength = 500f;
+    [SerializeField] private float laserShootTime = 3f;
 
+    [SerializeField] private float laserRotationSpeed = 2f;
 
+    public float LaserShootTime { get { return laserShootTime; } }
 
+    private SpriteRenderer laserBeamSpriteRenderer;
+    private Vector2 currentHitPoint;
+    private bool canSpawnImpact = false;
 
     private int armProjectileCount = 0;
     private int zipShootCount = 0;
@@ -51,11 +61,17 @@ public class BossStoneGolem : BossStateOwner
     private void Start()
     {
         armProjectileCount = 0;
+
+        laserOrigin.SetActive(false);
+        laserBeam.SetActive(false);
+
+        laserBeamSpriteRenderer = laserBeam.GetComponent<SpriteRenderer>();
     }
 
     public void SpawnArmProjectile()
     {
-        GameObject armProjectile = Instantiate(armProjectilePrefab, armProjectileSpawnPoint.transform.position, Quaternion.identity);
+        GameObject armProjectile = ObjectPoolingManager.Instance.SpawnFromPool("Stone Golem Arm", armProjectileSpawnPoint.position, Quaternion.identity);
+        //GameObject armProjectile = Instantiate(armProjectilePrefab, armProjectileSpawnPoint.transform.position, Quaternion.identity);
 
         GolemArmProjectile projectile = armProjectile.GetComponent<GolemArmProjectile>();
         projectile.SetUp(player, armProjectileSpeed, armProjectileRotateSpeed, (Vector2)transform.right);
@@ -76,14 +92,14 @@ public class BossStoneGolem : BossStateOwner
     public void ShootSelfToPlayer()
     {
         zipShootCount++;
-        rb.AddForce(GetDirectionToPlayer() * zipShootSpeed, ForceMode2D.Impulse);
+        rb.AddForce(GetDirectionToPlayer(transform.position) * zipShootSpeed, ForceMode2D.Impulse);
     }
 
     public void SetActiveZipIndicator(bool active)
     {
-        if(active)
+        if (active)
         {
-            if(zipIndicator != null)
+            if (zipIndicator != null)
             {
                 zipIndicator.gameObject.SetActive(true);
 
@@ -94,7 +110,7 @@ public class BossStoneGolem : BossStateOwner
 
         else
         {
-            if(zipIndicator != null)
+            if (zipIndicator != null)
             {
                 zipIndicator.gameObject.SetActive(false);
             }
@@ -104,6 +120,77 @@ public class BossStoneGolem : BossStateOwner
     public void CastLaser()
     {
         laserCastCount++;
-        
+        laserOrigin.SetActive(true);
+    }
+
+    public void LaserStartShoot()
+    {
+        Animator laserOriginAnimator = laserOrigin.GetComponent<Animator>();
+        laserOriginAnimator.SetBool("Shooting", true);
+        laserBeam.SetActive(true);
+    }
+
+    public void ShootingLaser()
+    {
+
+        PointLaserToPlayer();
+        RayCastLaser();
+    }
+
+    public void EndShootingLaser()
+    {
+        laserBeam.SetActive(false);
+        laserOrigin.SetActive(false);
+    }
+
+    public void PointLaserToPlayer()
+    {
+        Vector2 direction = GetDirectionToPlayer(laserOrigin.transform.position);
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        // Create the target rotation
+        Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
+
+        laserParent.transform.rotation = Quaternion.Lerp(laserParent.transform.rotation, targetRotation, laserRotationSpeed * Time.deltaTime);
+    }
+
+    private void RayCastLaser()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(laserOrigin.transform.position, laserParent.transform.right, Mathf.Infinity, laserCollisionLayer);
+        RaycastHit2D impactHit = Physics2D.Raycast(laserOrigin.transform.position, laserParent.transform.right, Mathf.Infinity, laserImpactLayer);
+
+        float laserLength = maxLazerLength;
+
+        if (hit.collider != null)
+        {
+            if (Vector2.Distance(hit.point, currentHitPoint) >= .1f)
+            {
+                canSpawnImpact = true;
+                currentHitPoint = hit.point;
+            }
+
+            if (!impactHit.collider.CompareTag("FX"))
+            {
+                GameObject impactInstacne = ObjectPoolingManager.Instance.SpawnFromPool("Laser Impact", hit.point, Quaternion.identity);
+
+                //StartCoroutine(ImpactCo(hit));
+            }
+
+            laserLength = Vector2.Distance(laserOrigin.transform.position, hit.point);
+        }
+
+        ChangeLaserSize(laserLength);
+    }
+
+    //private IEnumerator ImpactCo(RaycastHit2D hit)
+    //{
+    //    yield return new WaitForSeconds(.375f);
+    //    impactInstacne.SetActive(false);
+    //}
+
+    private void ChangeLaserSize(float size)
+    {
+        laserBeamSpriteRenderer.size = new Vector2(size, laserBeamSpriteRenderer.size.y);
     }
 }

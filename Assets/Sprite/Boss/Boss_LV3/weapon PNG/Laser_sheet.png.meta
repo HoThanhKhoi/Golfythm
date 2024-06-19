@@ -45,7 +45,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 8
@@ -165,12 +165,12 @@ TextureImporter:
       name: Laser_sheet_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1300
-        width: 300
-        height: 100
+        x: 35
+        y: 1347
+        width: 36
+        height: 39
       alignment: 9
-      pivot: {x: 0.17333333, y: 0.66999996}
+      pivot: {x: 0.5, y: 0.51282054}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -186,12 +186,12 @@ TextureImporter:
       name: Laser_sheet_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1200
-        width: 300
-        height: 100
+        x: 35
+        y: 1247
+        width: 36
+        height: 39
       alignment: 9
-      pivot: {x: 0.17333333, y: 0.67}
+      pivot: {x: 0.5, y: 0.51282054}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -204,142 +204,16 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Laser_sheet_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1100
-        width: 300
-        height: 100
-      alignment: 9
-      pivot: {x: 0.17333333, y: 0.67}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 659e7b74ede46ce4e9a4bad8fae06a34
-      internalID: 1828266025
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Laser_sheet_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1000
-        width: 300
-        height: 100
-      alignment: 9
-      pivot: {x: 0.17333333, y: 0.67}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: be14561fad6fa06418dac3e01c709ff5
-      internalID: 352096177
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Laser_sheet_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 900
-        width: 300
-        height: 100
+        x: 35
+        y: 1147
+        width: 36
+        height: 39
       alignment: 9
-      pivot: {x: 0.17333333, y: 0.67}
+      pivot: {x: 0.5, y: 0.51282054}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b7b2c0cd9850420478b1fc8eca39c338
-      internalID: 1939164105
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Laser_sheet_5
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 800
-        width: 300
-        height: 100
-      alignment: 9
-      pivot: {x: 0.17333333, y: 0.67}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a291d081122166f468068a34775356b7
-      internalID: -529052070
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Laser_sheet_6
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 700
-        width: 300
-        height: 100
-      alignment: 9
-      pivot: {x: 0.17333333, y: 0.67}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ee9fbec740f4da64184e7141a953c43e
-      internalID: 1841441909
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Laser_sheet_7
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 600
-        width: 300
-        height: 100
-      alignment: 9
-      pivot: {x: 0.17333333, y: 0.67}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3504808cb0d594b4b93e3bb6b7793312
-      internalID: 476938704
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Laser_sheet_8
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 500
-        width: 300
-        height: 100
-      alignment: 9
-      pivot: {x: 0.17333333, y: 0.67}
-      border: {x: 76, y: 64, z: 5, w: 31}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -354,19 +228,187 @@ TextureImporter:
       name: Laser_sheet_9
       rect:
         serializedVersion: 2
-        x: 0
-        y: 400
-        width: 300
-        height: 100
-      alignment: 9
-      pivot: {x: 0.17333333, y: 0.67}
-      border: {x: 76, y: 64, z: 3, w: 31}
+        x: 30
+        y: 445
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71d2c661b565a0e499f59959c9d1bc2f
+      spriteID: 140f5d255713b1a42899a668d3590c6b
+      internalID: -266495953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_sheet_14
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 947
+        width: 36
+        height: 39
+      alignment: 9
+      pivot: {x: 0.5, y: 0.51282054}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c563df303c96b31439a677c35c682924
+      internalID: 680611125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_sheet_29
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 545
+        width: 226
+        height: 44
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65f35fcdaa3ee9d45b76356eb661b018
+      internalID: -154747786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_sheet_2
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 847
+        width: 36
+        height: 39
+      alignment: 9
+      pivot: {x: 0.5, y: 0.51282054}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f697d6237b81b64088596b983c9fac4
+      internalID: 1841441909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_sheet_3
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 1047
+        width: 36
+        height: 39
+      alignment: 9
+      pivot: {x: 0.5, y: 0.51282054}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 817f8097f83b601468ce315526a77815
+      internalID: 476938704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_sheet_5
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 747
+        width: 36
+        height: 39
+      alignment: 9
+      pivot: {x: 0.5, y: 0.51282054}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2d09439b364f5f439068d0806663690
       internalID: 71300745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_sheet_6
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 647
+        width: 36
+        height: 39
+      alignment: 9
+      pivot: {x: 0.5, y: 0.51282054}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: faa126df809c99e4bb8d0ecf8493290b
+      internalID: -2065167519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_sheet_7
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 545
+        width: 44
+        height: 44
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ec1099dbd58ab743a5730a5dd9c07f6
+      internalID: 1418816962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_sheet_8
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 445
+        width: 226
+        height: 44
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26e2e8618de35fc4b9e0c84a373b20d2
+      internalID: -1671279332
       vertices: []
       indices: 
       edges: []
@@ -375,19 +417,19 @@ TextureImporter:
       name: Laser_sheet_10
       rect:
         serializedVersion: 2
-        x: 0
-        y: 300
-        width: 300
-        height: 100
+        x: 74
+        y: 345
+        width: 226
+        height: 44
       alignment: 9
-      pivot: {x: 0.17333333, y: 0.67}
-      border: {x: 76, y: 64, z: 3, w: 31}
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 03fbda8c3bd9d934f80ddc2b9a62c4e3
-      internalID: -2065167519
+      spriteID: 41a11299360f8a1439dbf7273260a22f
+      internalID: 1828266025
       vertices: []
       indices: 
       edges: []
@@ -396,19 +438,19 @@ TextureImporter:
       name: Laser_sheet_11
       rect:
         serializedVersion: 2
-        x: 0
-        y: 200
-        width: 300
-        height: 100
-      alignment: 9
-      pivot: {x: 0.17333333, y: 0.67}
-      border: {x: 76, y: 64, z: 3, w: 31}
+        x: 30
+        y: 345
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5836c0dace747844880cb36bf848f139
-      internalID: 1418816962
+      spriteID: f0200b259b97d8445ae3f570a9fbfe96
+      internalID: 352096177
       vertices: []
       indices: 
       edges: []
@@ -417,19 +459,19 @@ TextureImporter:
       name: Laser_sheet_12
       rect:
         serializedVersion: 2
-        x: 0
-        y: 100
-        width: 300
-        height: 100
+        x: 74
+        y: 245
+        width: 226
+        height: 44
       alignment: 9
-      pivot: {x: 0.17333333, y: 0.67}
-      border: {x: 76, y: 64, z: 3, w: 30}
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8116a6c3837c95948ac686974905cfb2
-      internalID: -1671279332
+      spriteID: da64d839aa184df44acb8d7dc8d0fdef
+      internalID: 1939164105
       vertices: []
       indices: 
       edges: []
@@ -438,19 +480,103 @@ TextureImporter:
       name: Laser_sheet_13
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 300
-        height: 100
-      alignment: 9
-      pivot: {x: 0.17333333, y: 0.67}
-      border: {x: 76, y: 64, z: 3, w: 31}
+        x: 30
+        y: 245
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 140f5d255713b1a42899a668d3590c6b
-      internalID: -266495953
+      spriteID: 6deec0832196c34499c9e7bebe73e742
+      internalID: -529052070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_sheet_15
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 145
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6cc132520787434bb8f441e6211252d
+      internalID: -1844491328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_sheet_16
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 145
+        width: 226
+        height: 44
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc5a8d361f73b1743a69e740489ad665
+      internalID: 1280779080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_sheet_17
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 45
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fa5a4155067b274eb45f258fedf9a0e
+      internalID: 212379981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Laser_sheet_18
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 45
+        width: 226
+        height: 44
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f1dab008799092498ba1cddb1bfd2d2
+      internalID: 1331111868
       vertices: []
       indices: 
       edges: []
@@ -468,18 +594,39 @@ TextureImporter:
     nameFileIdTable:
       Laser_sheet_0: 80990532
       Laser_sheet_1: 1335669280
-      Laser_sheet_10: -2065167519
-      Laser_sheet_11: 1418816962
-      Laser_sheet_12: -1671279332
-      Laser_sheet_13: -266495953
-      Laser_sheet_2: 1828266025
-      Laser_sheet_3: 352096177
-      Laser_sheet_4: 1939164105
-      Laser_sheet_5: -529052070
-      Laser_sheet_6: 1841441909
-      Laser_sheet_7: 476938704
-      Laser_sheet_8: 499145385
-      Laser_sheet_9: 71300745
+      Laser_sheet_10: 1828266025
+      Laser_sheet_11: 352096177
+      Laser_sheet_12: 1939164105
+      Laser_sheet_13: -529052070
+      Laser_sheet_14: 680611125
+      Laser_sheet_15: -1844491328
+      Laser_sheet_16: 1280779080
+      Laser_sheet_17: 212379981
+      Laser_sheet_18: 1331111868
+      Laser_sheet_19: -234420704
+      Laser_sheet_2: 1841441909
+      Laser_sheet_20: 251178519
+      Laser_sheet_21: 1128133214
+      Laser_sheet_22: -1995542773
+      Laser_sheet_23: -190815915
+      Laser_sheet_24: -337391481
+      Laser_sheet_25: 1040941578
+      Laser_sheet_26: -1674097560
+      Laser_sheet_27: 464355428
+      Laser_sheet_28: -1294664855
+      Laser_sheet_29: -154747786
+      Laser_sheet_3: 476938704
+      Laser_sheet_30: 1083397197
+      Laser_sheet_31: -196902071
+      Laser_sheet_32: -1694594684
+      Laser_sheet_33: 338387918
+      Laser_sheet_34: -833005268
+      Laser_sheet_4: 499145385
+      Laser_sheet_5: 71300745
+      Laser_sheet_6: -2065167519
+      Laser_sheet_7: 1418816962
+      Laser_sheet_8: -1671279332
+      Laser_sheet_9: -266495953
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

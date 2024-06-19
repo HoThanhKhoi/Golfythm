@@ -8,4 +8,24 @@ public class BossStoneGolemState_LaserCast : State<BossStoneGolem, BossStoneGole
     {
     }
 
+    public override void Enter()
+    {
+        base.Enter();
+
+        stateTimer = animationLength * 20;
+
+        owner.CastLaser();
+    }
+
+    public override void Update()
+    {
+        base.Update();
+
+        owner.PointLaserToPlayer();
+
+        if(TimeOut())
+        {
+            stateMachine.ChangeState(BossStoneGolemStateMachine.State.LaserShoot);
+        }
+    }
 }

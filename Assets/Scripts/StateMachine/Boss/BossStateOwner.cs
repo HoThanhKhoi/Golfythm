@@ -15,7 +15,7 @@ public class BossStateOwner : StateOwner
     [SerializeField] private float detectionRadius = 10f;
     [SerializeField] private float detectionDistance = 0f;
 
-    private LayerMask playerLayer;
+    protected LayerMask playerLayer;
 
     private void OnEnable()
     {
@@ -34,7 +34,7 @@ public class BossStateOwner : StateOwner
         return playerPosition;
     }
 
-    public Vector2 GetDirectionToPlayer() => (GetPlayerPosition() - (Vector2)transform.position).normalized;
+    public Vector2 GetDirectionToPlayer(Vector2 origin) => (GetPlayerPosition() - origin).normalized;
 
     public void FaceToPlayer()
     {
@@ -52,11 +52,11 @@ public class BossStateOwner : StateOwner
         rb.velocity = Vector2.zero;
     }
 
-    public bool DetectPlayer()
+    public bool DetectPlayer(Vector2 origin)
     {
-        Vector2 rayDirection = GetDirectionToPlayer();
+        Vector2 rayDirection = GetDirectionToPlayer(origin);
 
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, detectionRadius, rayDirection, detectionDistance, playerLayer);
+        RaycastHit2D hit = Physics2D.CircleCast(origin, detectionRadius, rayDirection, detectionDistance, playerLayer);
 
         if (hit.collider != null)
         {
@@ -82,7 +82,7 @@ public class BossStateOwner : StateOwner
     }
     public void MoveToPlayer(float speed)
     {
-        rb.velocity = GetDirectionToPlayer() * speed;
+        rb.velocity = GetDirectionToPlayer(transform.position) * speed;
     }
 
     public float GetDistanceToPlayer()

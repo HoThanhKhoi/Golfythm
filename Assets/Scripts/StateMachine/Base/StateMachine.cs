@@ -99,6 +99,38 @@ public abstract class StateMachine<TOwner, EState> : MonoBehaviour where TOwner 
         }
     }
 
+    protected void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (currentState != null)
+        {
+            currentState.OnCollisionEnter2D(collision);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (currentState != null)
+        {
+            currentState.OnCollisionExit2D(collision);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (currentState != null)
+        {
+            currentState.OnTriggerEnter2D(collision);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (currentState != null)
+        {
+            currentState.OnTriggerExit2D(collision);
+        }
+    }
+
     public virtual void AnimationTrigger(int index)
     {
         currentState.AnimationTrigger(index);

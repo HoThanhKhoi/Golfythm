@@ -66,4 +66,11 @@ public class BossStoneGolemState_Zip : State<BossStoneGolem, BossStoneGolemState
 
         owner.StopMoving();
     }
+
+    public override void OnCollisionEnter2D(Collision2D other)
+    {
+        base.OnCollisionEnter2D(other);
+
+        ObjectPoolingManager.Instance.SpawnFromPool("Laser Impact", other.contacts[0].point, Quaternion.identity);
+    }
 }

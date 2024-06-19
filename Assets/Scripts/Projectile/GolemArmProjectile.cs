@@ -59,6 +59,7 @@ public class GolemArmProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        ObjectPoolingManager.Instance.SpawnFromPool("Laser Impact", transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

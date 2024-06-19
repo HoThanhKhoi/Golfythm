@@ -10,8 +10,9 @@ public class BossStoneGolemState_Glowing : State<BossStoneGolem, BossStoneGolemS
     public override void Update()
     {
         base.Update();
+        owner.FaceToPlayer();
 
-        if(IsAnimationFinished())
+        if (IsAnimationFinished())
         {
             stateMachine.ChangeState(BossStoneGolemStateMachine.State.LaserCast);
         }

@@ -16,7 +16,8 @@ public class BossStoneGolemStateMachine : StateMachine<BossStoneGolem, BossStone
         MeleeAttack,
         RangeAttack,
         Hurt,
-        Death
+        Death,
+        LaserShoot
     }
 
     protected override void SetUpStateMachine()
@@ -32,6 +33,7 @@ public class BossStoneGolemStateMachine : StateMachine<BossStoneGolem, BossStone
         AddState(State.RangeAttack, new BossStoneGolemState_RangeAttack(owner, this, anim));
         AddState(State.Hurt, new BossStoneGolemState_Hurt(owner, this, anim));
         AddState(State.Death, new BossStoneGolemState_Death(owner, this, anim));
+        AddState(State.LaserShoot, new BossStoneGolemState_LaserShoot(owner, this, anim));
 
         ChangeState(State.Born);
     }

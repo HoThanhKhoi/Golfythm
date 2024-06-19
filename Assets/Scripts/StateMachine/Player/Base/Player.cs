@@ -67,7 +67,6 @@ public class Player : StateOwner
     [SerializeField] private Transform ballSpawnPos;
     [SerializeField] private float ballGravity;
     [SerializeField] private float ballBounciness = .5f;
-    [SerializeField] private float ballHaha;
     public Vector2 HitDirection { get; set; }
 
     private int facing = 1;
