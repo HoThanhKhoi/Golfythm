@@ -71,7 +71,6 @@ public class BossStoneGolem : BossStateOwner
     public void SpawnArmProjectile()
     {
         GameObject armProjectile = ObjectPoolingManager.Instance.SpawnFromPool("Stone Golem Arm", armProjectileSpawnPoint.position, Quaternion.identity);
-        //GameObject armProjectile = Instantiate(armProjectilePrefab, armProjectileSpawnPoint.transform.position, Quaternion.identity);
 
         GolemArmProjectile projectile = armProjectile.GetComponent<GolemArmProjectile>();
         projectile.SetUp(player, armProjectileSpeed, armProjectileRotateSpeed, (Vector2)transform.right);
@@ -84,10 +83,6 @@ public class BossStoneGolem : BossStateOwner
     public bool IsZipShootCountFull() => zipShootCount >= maxZipShootCount;
 
     public bool IsLaserCastCountFull() => laserCastCount >= maxLazerCastCount;
-
-    public void SetProjectileCountToZero() => armProjectileCount = 0;
-
-    public void SetZipShootCountToZero() => zipShootCount = 0;
 
     public void ShootSelfToPlayer()
     {
@@ -132,7 +127,6 @@ public class BossStoneGolem : BossStateOwner
 
     public void ShootingLaser()
     {
-
         PointLaserToPlayer();
         RayCastLaser();
     }
@@ -149,7 +143,6 @@ public class BossStoneGolem : BossStateOwner
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        // Create the target rotation
         Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
 
         laserParent.transform.rotation = Quaternion.Lerp(laserParent.transform.rotation, targetRotation, laserRotationSpeed * Time.deltaTime);
@@ -173,8 +166,6 @@ public class BossStoneGolem : BossStateOwner
             if (!impactHit.collider.CompareTag("FX"))
             {
                 GameObject impactInstacne = ObjectPoolingManager.Instance.SpawnFromPool("Laser Impact", hit.point, Quaternion.identity);
-
-                //StartCoroutine(ImpactCo(hit));
             }
 
             laserLength = Vector2.Distance(laserOrigin.transform.position, hit.point);
@@ -183,14 +174,15 @@ public class BossStoneGolem : BossStateOwner
         ChangeLaserSize(laserLength);
     }
 
-    //private IEnumerator ImpactCo(RaycastHit2D hit)
-    //{
-    //    yield return new WaitForSeconds(.375f);
-    //    impactInstacne.SetActive(false);
-    //}
-
     private void ChangeLaserSize(float size)
     {
         laserBeamSpriteRenderer.size = new Vector2(size, laserBeamSpriteRenderer.size.y);
+    }
+
+    public void ResetAttackCount()
+    {
+        armProjectileCount = 0;
+        zipShootCount = 0;
+        laserCastCount = 0;
     }
 }

@@ -1883,7 +1883,7 @@ PrefabInstance:
       objectReference: {fileID: 979900178}
     - target: {fileID: 8520117174634118635, guid: cc57cfb28341efc4abd6dfa1b2695e5e, type: 3}
       propertyPath: maxZipShootCount
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8520117174634118635, guid: cc57cfb28341efc4abd6dfa1b2695e5e, type: 3}
       propertyPath: zipShootCooldown
@@ -1899,7 +1899,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8520117174634118635, guid: cc57cfb28341efc4abd6dfa1b2695e5e, type: 3}
       propertyPath: maxProjectileCount
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8520117174634118635, guid: cc57cfb28341efc4abd6dfa1b2695e5e, type: 3}
       propertyPath: distanceToPlayerToShoot

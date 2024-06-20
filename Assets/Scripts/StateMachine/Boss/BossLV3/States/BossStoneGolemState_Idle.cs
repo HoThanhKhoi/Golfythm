@@ -34,8 +34,6 @@ public class BossStoneGolemState_Idle : State<BossStoneGolem, BossStoneGolemStat
             {
                 stateMachine.ChangeState(BossStoneGolemStateMachine.State.Glowing);
             }
-
-
         }
     }
 }
