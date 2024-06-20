@@ -15,7 +15,7 @@ public class BossStateOwner : StateOwner
     [SerializeField] private float detectionRadius = 10f;
     [SerializeField] private float detectionDistance = 0f;
 
-    private LayerMask playerLayer;
+    protected LayerMask playerLayer;
 
     private void OnEnable()
     {
@@ -34,11 +34,16 @@ public class BossStateOwner : StateOwner
         return playerPosition;
     }
 
-    public Vector2 GetDirectionToPlayer() => GetPlayerPosition() - (Vector2)transform.position;
+    public Vector2 GetDirectionToPlayer(Vector2 origin) => (GetPlayerPosition() - origin).normalized;
 
     public void FaceToPlayer()
     {
-        float xDirection = GetDirectionToPlayer().x > 0 ? 1 : -1;
+        FaceTo(GetPlayerPosition());
+    }
+
+    public void FaceTo(Vector2 destination)
+    {
+        float xDirection = destination.x > transform.position.x ? 1 : -1;
         transform.right = new Vector2(xDirection, transform.right.y);
     }
 
@@ -47,11 +52,11 @@ public class BossStateOwner : StateOwner
         rb.velocity = Vector2.zero;
     }
 
-    public bool DetectPlayer()
+    public bool DetectPlayer(Vector2 origin)
     {
-        Vector2 rayDirection = GetDirectionToPlayer();
+        Vector2 rayDirection = GetDirectionToPlayer(origin);
 
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, detectionRadius, rayDirection, detectionDistance, playerLayer);
+        RaycastHit2D hit = Physics2D.CircleCast(origin, detectionRadius, rayDirection, detectionDistance, playerLayer);
 
         if (hit.collider != null)
         {
@@ -77,10 +82,10 @@ public class BossStateOwner : StateOwner
     }
     public void MoveToPlayer(float speed)
     {
-        rb.velocity = GetDirectionToPlayer() * speed;
+        rb.velocity = GetDirectionToPlayer(transform.position) * speed;
     }
 
-    public float DistanceToPlayer()
+    public float GetDistanceToPlayer()
     {
         return Vector2.Distance(transform.position, GetPlayerPosition());
     }
@@ -92,7 +97,7 @@ public class BossStateOwner : StateOwner
         rb.velocity = moveDirection * speed;
     }
 
-    public float DistanceToPosition(Vector2 position)
+    public float GetDistanceToPosition(Vector2 position)
     {
         return Vector2.Distance((Vector2) transform.position, position);
     }

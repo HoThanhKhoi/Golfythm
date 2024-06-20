@@ -50,6 +50,17 @@ public abstract class StateMachine<TOwner, EState> : MonoBehaviour where TOwner 
         currentState.Enter();
     }
 
+    public void ChangeState(EState eState, float delay)
+    {
+        StartCoroutine(ChangeStateAfterDelayCo(eState, delay));
+    }
+
+    private IEnumerator ChangeStateAfterDelayCo(EState eState, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        ChangeState(eState);
+    }
+
     protected void AddState(EState eState, State<TOwner, EState> state)
     {
         string eStateName = eState.ToString();
@@ -86,5 +97,42 @@ public abstract class StateMachine<TOwner, EState> : MonoBehaviour where TOwner 
         {
             currentState.FixedUpdate();
         }
+    }
+
+    protected void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (currentState != null)
+        {
+            currentState.OnCollisionEnter2D(collision);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (currentState != null)
+        {
+            currentState.OnCollisionExit2D(collision);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (currentState != null)
+        {
+            currentState.OnTriggerEnter2D(collision);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (currentState != null)
+        {
+            currentState.OnTriggerExit2D(collision);
+        }
+    }
+
+    public virtual void AnimationTrigger(int index)
+    {
+        currentState.AnimationTrigger(index);
     }
 }
