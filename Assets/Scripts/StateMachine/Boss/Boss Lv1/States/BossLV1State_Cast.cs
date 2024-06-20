@@ -10,12 +10,16 @@ public class BossLV1State_Cast : State<BossLV1>
 
     public override void Enter()
     {
-        Debug.Log("Cast");
-        stateMachine.ChangeState(BossLV1_StateMachine.State.Cast);
+        base.Enter();
     }
 
     public override void Update()
     {
-        Debug.Log("Exit Cast");
+        base.Update();
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
     }
 }

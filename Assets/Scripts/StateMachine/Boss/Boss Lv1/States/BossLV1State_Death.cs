@@ -10,12 +10,16 @@ public class BossLV1State_Death : State<BossLV1>
 
     public override void Enter()
     {
-        Debug.Log("Death");
-        stateMachine.ChangeState(BossLV1_StateMachine.State.Death);
+        base.Enter();
     }
 
     public override void Update()
     {
-        Debug.Log("Exit Death");
+        base.Update();
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
     }
 }

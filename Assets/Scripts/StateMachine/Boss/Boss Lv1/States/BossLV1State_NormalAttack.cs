@@ -11,7 +11,7 @@ public class BossLV1State_NormalAttack : State<BossLV1>
     public override void Enter()
     {
         base.Enter();
-        stateTimer = 2f;
+        stateTimer = 1f;
     }
 
     public override void Update()

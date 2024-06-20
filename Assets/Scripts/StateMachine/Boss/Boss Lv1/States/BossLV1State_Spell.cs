@@ -10,12 +10,16 @@ public class BossLV1State_Spell : State<BossLV1>
 
     public override void Enter()
     {
-        Debug.Log("Spell");
-        stateMachine.ChangeState(BossLV1_StateMachine.State.Spell);
+        base.Enter();
     }
 
     public override void Update()
     {
-        Debug.Log("Exit Spell");
+        base.Update();
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
     }
 }

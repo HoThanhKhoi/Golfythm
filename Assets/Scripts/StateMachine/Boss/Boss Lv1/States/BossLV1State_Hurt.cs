@@ -10,12 +10,16 @@ public class BossLV1State_Hurt : State<BossLV1>
 
     public override void Enter()
     {
-        Debug.Log("Hurt");
-        stateMachine.ChangeState(BossLV1_StateMachine.State.Hurt);
+        base.Enter();
     }
 
     public override void Update()
     {
-        Debug.Log("Exit Hurt");
+        base.Update();
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
     }
 }
