@@ -123,7 +123,7 @@ public class RhythmPattern : MonoBehaviour
         yield return new WaitForSeconds(destroyDuration);
 
         // Play note sound and destroy the note object
-        audioSource.PlayOneShot(noteSound);
+        //audioSource.PlayOneShot(noteSound);
         Destroy(noteObject);
     }
 
