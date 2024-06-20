@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerState_Aim : State<Player>
+public class PlayerState_Aim : State<Player, PlayerStateMachine.State>
 {
     private float direction = 1f;
 
-    public PlayerState_Aim(string animBoolName, Player owner, StateMachine<Player> stateMachine) : base(animBoolName, owner, stateMachine)
+    public PlayerState_Aim(Player owner, StateMachine<Player, PlayerStateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
     {
     }
 
@@ -17,6 +17,8 @@ public class PlayerState_Aim : State<Player>
         owner.inputReader.SwingEvent += ChangeToSwingState;
 
         owner.DotsActive(true);
+
+        Debug.Log("Aim");
     }
 
     public override void Update()
@@ -67,6 +69,6 @@ public class PlayerState_Aim : State<Player>
         owner.inputReader.AimEvent -= ChangeToIdleState;
         owner.inputReader.SwingEvent -= ChangeToSwingState;
 
-        owner.DotsActive(false);
+        //owner.DotsActive(false);
     }
 }

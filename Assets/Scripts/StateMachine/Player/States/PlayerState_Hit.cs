@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerState_Hit : State<Player>
+public class PlayerState_Hit : State<Player, PlayerStateMachine.State>
 {
-    private float stateTimer;
-    public PlayerState_Hit(string animBoolName, Player owner, StateMachine<Player> stateMachine) : base(animBoolName, owner, stateMachine)
+    public PlayerState_Hit(Player owner, StateMachine<Player, PlayerStateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
     {
     }
 
@@ -15,18 +14,5 @@ public class PlayerState_Hit : State<Player>
 
         owner.SetUpBall();
         owner.CameraFollowBall();
-
-        stateTimer = 1f;
-    }
-
-    public override void Update()
-    {
-        base.Update();
-
-        stateTimer -= Time.deltaTime;
-        if(stateTimer <= 0)
-        {
-            stateMachine.ChangeState(PlayerStateMachine.State.Idle);
-        }
     }
 }

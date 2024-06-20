@@ -2,24 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossLV1State_Spell : State<BossLV1>
+public class BossLV1State_Spell : State<BossLV1, BossLV1_StateMachine.State>
 {
-    public BossLV1State_Spell(string animBoolName, BossLV1 owner, StateMachine<BossLV1> stateMachine) : base(animBoolName, owner, stateMachine)
+    public BossLV1State_Spell(BossLV1 owner, StateMachine<BossLV1, BossLV1_StateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
     {
     }
 
     public override void Enter()
     {
-        base.Enter();
+        Debug.Log("Spell");
+
     }
 
     public override void Update()
     {
-        base.Update();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
+        Debug.Log("Exit Spell");
     }
 }

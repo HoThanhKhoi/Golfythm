@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerState_Swing : State<Player>
+public class PlayerState_Swing : State<Player, PlayerStateMachine.State>
 {
     private float fakeSpinAngle;
     private float peakAngle;
@@ -14,7 +14,7 @@ public class PlayerState_Swing : State<Player>
 
     private int direction = 1;
 
-    public PlayerState_Swing(string animBoolName, Player owner, StateMachine<Player> stateMachine) : base(animBoolName, owner, stateMachine)
+    public PlayerState_Swing(Player owner, StateMachine<Player, PlayerStateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
     {
     }
 

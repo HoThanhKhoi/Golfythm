@@ -1,21 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerState_Idle : State<Player>
+public class PlayerState_Idle : State<Player, PlayerStateMachine.State>
 {
-    public PlayerState_Idle(string animBoolName, Player owner, StateMachine<Player> stateMachine) : base(animBoolName, owner, stateMachine)
+    public PlayerState_Idle(Player owner, StateMachine<Player, PlayerStateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
     {
-        
     }
-
 
     public override void Enter()
     {
         base.Enter();
 
         owner.inputReader.AimEvent += ChangeToAimState;
-
     }
 
     public override void Update()
