@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ball : MonoBehaviour
+public class Ball : StateOwner
 {
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Collider2D coll;
@@ -52,22 +52,22 @@ public class Ball : MonoBehaviour
 
     private void FixedUpdate()
     {
-        stateMachine.currentState.FixedUpdate();
+        stateMachine.CurrentState.FixedUpdate();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        stateMachine.currentState.OnCollisionEnter2D(collision);
+        stateMachine.CurrentState.OnCollisionEnter2D(collision);
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        stateMachine.currentState.OnCollisionExit2D(collision);
+        stateMachine.CurrentState.OnCollisionExit2D(collision);
     }
 
     private void Update()
     {
-        stateMachine.currentState.Update();
+        stateMachine.CurrentState.Update();
     }
 
     public void TeleportPlayerToBall()
