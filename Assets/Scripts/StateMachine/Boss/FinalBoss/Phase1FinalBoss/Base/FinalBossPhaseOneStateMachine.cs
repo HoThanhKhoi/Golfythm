@@ -35,7 +35,7 @@ public class FinalBossPhaseOneStateMachine : StateMachine<FinalBossPhaseOne, Fin
 		AddState(State.On_Hit, new FinalBossPhaseOneState_OnHit(owner, this, anim));
 		AddState(State.Death, new FinalBossPhaseOneState_Death(owner, this, anim));
 
-		Debug.Log("Set up");
+		
 
         ChangeState(State.Idle);
     }
