@@ -19,8 +19,9 @@ public class BossStoneGolem : BossStateOwner
     [SerializeField] private Transform armProjectileSpawnPoint;
     [SerializeField] private float armProjectileSpeed = 50f;
     [SerializeField] private float armProjectileRotateSpeed = 100f;
-    [SerializeField] private int maxProjectileCount = 3;
     [SerializeField] private float projectileCooldown = 1f;
+    [SerializeField] private float projectileInitialDelay = 0.5f;
+    [SerializeField] private int maxProjectileCount = 3;
 
     public float ProjectileCooldown { get { return projectileCooldown; } }
 
@@ -70,10 +71,11 @@ public class BossStoneGolem : BossStateOwner
 
     public void SpawnArmProjectile()
     {
+        bool isFLipped = transform.right.x < 0;
         GameObject armProjectile = ObjectPoolingManager.Instance.SpawnFromPool("Stone Golem Arm", armProjectileSpawnPoint.position, Quaternion.identity);
 
         GolemArmProjectile projectile = armProjectile.GetComponent<GolemArmProjectile>();
-        projectile.SetUp(player, armProjectileSpeed, armProjectileRotateSpeed, (Vector2)transform.right);
+        projectile.SetUp(player, armProjectileSpeed, armProjectileRotateSpeed, (Vector2)transform.right, isFLipped, projectileInitialDelay);
 
         armProjectileCount++;
     }

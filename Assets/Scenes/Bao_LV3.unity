@@ -415,11 +415,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7364809963625779279, guid: 567f729e194ce354c93aca8f1c08d397, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 22.3
       objectReference: {fileID: 0}
     - target: {fileID: 7364809963625779279, guid: 567f729e194ce354c93aca8f1c08d397, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2.8
       objectReference: {fileID: 0}
     - target: {fileID: 7364809963625779279, guid: 567f729e194ce354c93aca8f1c08d397, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1899,7 +1899,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8520117174634118635, guid: cc57cfb28341efc4abd6dfa1b2695e5e, type: 3}
       propertyPath: maxProjectileCount
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8520117174634118635, guid: cc57cfb28341efc4abd6dfa1b2695e5e, type: 3}
       propertyPath: distanceToPlayerToShoot
@@ -1908,6 +1908,10 @@ PrefabInstance:
     - target: {fileID: 8520117174634118635, guid: cc57cfb28341efc4abd6dfa1b2695e5e, type: 3}
       propertyPath: laserImpactLayer.m_Bits
       value: 375
+      objectReference: {fileID: 0}
+    - target: {fileID: 8520117174634118635, guid: cc57cfb28341efc4abd6dfa1b2695e5e, type: 3}
+      propertyPath: armProjectileRotateSpeed
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 8520117174634118635, guid: cc57cfb28341efc4abd6dfa1b2695e5e, type: 3}
       propertyPath: laserCollisionLayer.m_Bits

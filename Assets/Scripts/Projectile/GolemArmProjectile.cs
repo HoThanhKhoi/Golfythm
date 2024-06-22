@@ -7,22 +7,22 @@ public class GolemArmProjectile : MonoBehaviour
     private Player player;
     private float speed;
     private float rotateSpeed;
+    private bool isFlipped;
 
-    private float delayTime = 0.5f;
+    private float initialDelay = 0.5f;
     private float delayTimer;
-
-    private float scale;
 
     [SerializeField] private Rigidbody2D rb;
 
-    public void SetUp(Player player, float speed, float rotateSpeed, Vector2 rightTransform)
+    public void SetUp(Player player, float speed, float rotateSpeed, Vector2 rightTransform, bool isFlipped, float initialDelay)
     {
         this.player = player;
         this.speed = speed;
         this.rotateSpeed = rotateSpeed;
+        this.isFlipped = isFlipped;
+        this.initialDelay = initialDelay;
 
-        delayTimer = delayTime;
-        scale = 1f;
+        delayTimer = initialDelay;
 
         rb.AddForce(rightTransform * 50, ForceMode2D.Impulse);
     }
@@ -34,13 +34,8 @@ public class GolemArmProjectile : MonoBehaviour
 
         if (speed <= 10f)
         {
-            scale -= Time.deltaTime * .05f;
-            transform.localScale *= scale;
-
-            if (scale <= .1f)
-            {
-                Destroy(gameObject);
-            }
+            ObjectPoolingManager.Instance.SpawnFromPool("Laser Impact", transform.position, Quaternion.identity);
+            Destroy(gameObject);
         }
     }
 
@@ -48,12 +43,7 @@ public class GolemArmProjectile : MonoBehaviour
     {
         if (delayTimer <= 0)
         {
-            Vector2 direction = (player.transform.position - transform.position).normalized;
-            float rotateAmount = Vector3.Cross(transform.right, direction).z;
-
-            rb.angularVelocity = -rotateAmount * rotateSpeed;
-
-            rb.velocity = -transform.right * speed;
+            FollowPlayer();
         }
     }
 
@@ -61,5 +51,19 @@ public class GolemArmProjectile : MonoBehaviour
     {
         ObjectPoolingManager.Instance.SpawnFromPool("Laser Impact", transform.position, Quaternion.identity);
         Destroy(gameObject);
+    }
+
+    private void FollowPlayer()
+    {
+        Vector2 direction = player.transform.position - transform.position;
+        direction.Normalize();
+
+        Vector2 adjustedDirection = isFlipped ? -direction : direction;
+        Vector2 adjustedRightTransform = isFlipped? -transform.right : transform.right;
+
+        float rotateAmount = Vector3.Cross(adjustedDirection, -transform.right).z;
+        rb.angularVelocity = rotateAmount * rotateSpeed;
+
+        rb.velocity = adjustedRightTransform * speed;
     }
 }
