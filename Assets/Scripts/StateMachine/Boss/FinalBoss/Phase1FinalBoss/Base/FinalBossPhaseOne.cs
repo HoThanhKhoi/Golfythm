@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class FinalBossPhaseOne : BossStateOwner
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	[Header("Boss Center")]
+	[SerializeField] private Transform bossCenter;
+	public Transform BossCenter => bossCenter;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	[Header("Idle")]
+    [SerializeField] private float idleDuration = 7f;
+
+	public float IdleDuration => idleDuration;
+	//public float IdleDuration { get => idleDuration; }
+	//public float IdleDuration { get { return idleDuration; } }
+    //3 cau i chang nhau
+
+	[Header("Run")]
+    [SerializeField] private float runSpeed = 5f;
+	public float RunSpeed => runSpeed;
+
+	[SerializeField] private float runDuration = 10f;
+	public float RunDuration => runDuration;	
 }

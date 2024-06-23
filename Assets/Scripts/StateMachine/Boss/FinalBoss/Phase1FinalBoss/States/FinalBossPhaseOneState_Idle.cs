@@ -12,16 +12,20 @@ public class FinalBossPhaseOneState_Idle : State<FinalBossPhaseOne, FinalBossPha
     {
         base.Enter();
 
-        Debug.Log("Boss Idle");
-        stateTimer = 1f;
+        stateTimer = owner.IdleDuration;
+
+        owner.StopMoving();
     }
 
     public override void Update()
     {
         base.Update();
 
-        if (stateTimer < 0)
+        owner.FaceToPlayer();
+
+        if (TimeOut() && owner.DetectPlayer(owner.transform.position))
         {
+            Debug.Log("Ngu");
             stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Run);
         }
     }
