@@ -194,7 +194,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c875aced3cfa45642bbcad7d18157db5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useAnimator: 0
   rb: {fileID: -4427776207781473883}
   coll: {fileID: 5413297836064348163}
 --- !u!114 &7013440337471054222
@@ -209,4 +208,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f260c20724097f84190687f6529b55bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useAnimator: 0
+  anim: {fileID: 0}
   <StateDataList>k__BackingField: []

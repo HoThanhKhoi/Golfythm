@@ -40,7 +40,6 @@ public class Ball : StateOwner
     public void HitBall(Vector2 direction, float swingForce)
     {
         rb.velocity = direction * swingForce;
-        stateMachine.ChangeState(BallStateMachine.State.Move);
     }
 
     private void Start()
@@ -75,7 +74,7 @@ public class Ball : StateOwner
         stayPosition = transform.position;
         if (player != null)
         {
-            player.ChangeState(PlayerStateMachine.State.Idle);
+            //player.ChangeState(PlayerStateMachine.State.Idle);
             player.transform.position = stayPosition + playerOffset;
         }
     }

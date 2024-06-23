@@ -46,7 +46,7 @@ public class PlayerState_Swing : State<Player, PlayerStateMachine.State>
 
         if (fakeSpinAngle < -100)
         {
-            stateMachine.ChangeState(PlayerStateMachine.State.Hit);
+            stateMachine.ChangeState(PlayerStateMachine.State.Ball);
         }
     }
 
