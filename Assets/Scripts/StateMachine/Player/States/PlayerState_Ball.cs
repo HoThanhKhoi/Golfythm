@@ -11,11 +11,13 @@ public class PlayerState_Ball : State<Player, PlayerStateMachine.State>
     public override void Enter()
     {
         base.Enter();
+        owner.Rb.isKinematic = false;
 
         if (owner.BounceMaterial != null)
         {
             owner.SetPhysicMaterial(owner.BounceMaterial);
         }
+
 
         owner.HitBall(owner.HitDirection, owner.SwingForce);
 
@@ -27,9 +29,9 @@ public class PlayerState_Ball : State<Player, PlayerStateMachine.State>
     {
         base.Update();
 
-        if (owner.IsGrounded() && owner.Rb.velocity.y < 0)
+        if (owner.IsGrounded())
         {
-            //owner.Rb.drag = owner.BallGroundDrag;
+            owner.Rb.drag = owner.BallGroundDrag;
 
             if (owner.IsStopMoving())
             {
@@ -40,5 +42,15 @@ public class PlayerState_Ball : State<Player, PlayerStateMachine.State>
         {
             owner.Rb.drag = owner.BallAirDrag;
         }
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+
+        owner.Rb.isKinematic = true;
+        owner.Rb.velocity = Vector2.zero;
+        owner.SetPhysicMaterial(owner.NoBounceMaterial);
+        owner.SetActivePlayerVisual(true);
     }
 }

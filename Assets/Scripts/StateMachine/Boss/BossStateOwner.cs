@@ -17,14 +17,8 @@ public class BossStateOwner : StateOwner
     [SerializeField] private float detectionRadius = 10f;
     [SerializeField] private float detectionDistance = 0f;
 
-    protected LayerMask playerLayer;
+    [SerializeField] private LayerMask detectionLayer;
 
-    private void OnEnable()
-    {
-        playerLayer = player.gameObject.layer;
-    }
-
-    
     public Vector2 GetPlayerPosition()
     {
         Vector2 playerPosition = Vector2.zero;
@@ -59,38 +53,20 @@ public class BossStateOwner : StateOwner
     {
         Vector2 rayDirection = GetDirectionToPlayer(origin);
 
-        RaycastHit2D hit = Physics2D.CircleCast(origin, detectionRadius, rayDirection, detectionDistance);
+        RaycastHit2D hit = Physics2D.CircleCast(origin, detectionRadius, rayDirection, detectionDistance, detectionLayer);
 
-        Debug.Log(hit.transform.name);
-        //Debug.Log(rayDirection + " " + origin + " " + detectionRadius + " " + rayDirection + " " + detectionDistance + " " + playerLayer.ToString());
-
+        DebugDrawCircleCast(origin, detectionRadius, rayDirection, detectionDistance);
 
         if (hit.collider != null)
         {
-			Debug.Log(hit);
-
-			Player detectedPlayer;
-            if (hit.transform.TryGetComponent<Player>(out detectedPlayer))
+            if (hit.collider.CompareTag("Player"))
             {
-                player = detectedPlayer;
                 return true;
             }
         }
-
-        DebugDrawCircleCast(transform.position, rayDirection, detectionRadius, detectionDistance, Color.red);
-
-        
-
         return false;
     }
 
-    void DebugDrawCircleCast(Vector2 origin, Vector2 direction, float radius, float distance, Color color)
-    {
-        Vector2 endPosition = origin + direction * distance;
-        Debug.DrawLine(origin, endPosition, color);
-        Debug.DrawLine(origin + new Vector2(radius, 0), endPosition + new Vector2(radius, 0), color);
-        Debug.DrawLine(origin - new Vector2(radius, 0), endPosition - new Vector2(radius, 0), color);
-    }
     public void MoveToPlayer(float speed)
     {
         MoveToPosition(GetPlayerPosition(), speed);
@@ -103,20 +79,46 @@ public class BossStateOwner : StateOwner
 
     public void MoveToPosition(Vector2 position, float speed)
     {
-        Vector2 moveDirection = position - (Vector2) transform.position;
+        Vector2 moveDirection = position - (Vector2)transform.position;
 
         rb.velocity = moveDirection * speed;
     }
 
     public float GetDistanceToPosition(Vector2 position)
     {
-        return Vector2.Distance((Vector2) transform.position, position);
+        return Vector2.Distance((Vector2)transform.position, position);
     }
 
- //   protected void OnDrawGizmos()
- //   {
-	//	Vector2 rayDirection = GetDirectionToPlayer(this.transform.position);
+    #region Debug Gizmos
+    void DebugDrawCircleCast(Vector2 origin, float radius, Vector2 direction, float distance)
+    {
+        // Draw the initial circle
+        DebugDrawCircle(origin, radius, Color.red);
 
-	//	DebugDrawCircleCast(transform.position, rayDirection, detectionRadius, detectionDistance, Color.red);
-	//}
+        // Draw the final circle
+        Vector2 endPosition = origin + direction.normalized * distance;
+        DebugDrawCircle(endPosition, radius, Color.red);
+
+        // Draw the connecting line
+        Debug.DrawLine(origin, endPosition, Color.red);
+    }
+
+    void DebugDrawCircle(Vector2 position, float radius, Color color)
+    {
+        int segments = 20;
+        float angle = 0f;
+        float angleStep = 360f / segments;
+
+        Vector3 prevPoint = position + new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * radius;
+
+        for (int i = 1; i <= segments; i++)
+        {
+            angle += angleStep;
+            Vector3 newPoint = position + new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * radius;
+            Debug.DrawLine(prevPoint, newPoint, color);
+            prevPoint = newPoint;
+        }
+    }
+
+    #endregion
 }

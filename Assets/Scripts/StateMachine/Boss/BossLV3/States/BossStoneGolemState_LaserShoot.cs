@@ -28,8 +28,7 @@ public class BossStoneGolemState_LaserShoot : State<BossStoneGolem, BossStoneGol
 
             if (owner.IsLaserCastCountFull())
             {
-                owner.ResetAttackCount();
-                stateMachine.ChangeState(BossStoneGolemStateMachine.State.Idle);
+                stateMachine.ChangeState(BossStoneGolemStateMachine.State.Rest);
             }
             else
             {

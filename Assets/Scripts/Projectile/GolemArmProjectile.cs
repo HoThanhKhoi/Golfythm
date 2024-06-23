@@ -35,7 +35,7 @@ public class GolemArmProjectile : MonoBehaviour
         if (speed <= 10f)
         {
             ObjectPoolingManager.Instance.SpawnFromPool("Laser Impact", transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
@@ -50,7 +50,7 @@ public class GolemArmProjectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         ObjectPoolingManager.Instance.SpawnFromPool("Laser Impact", transform.position, Quaternion.identity);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     private void FollowPlayer()

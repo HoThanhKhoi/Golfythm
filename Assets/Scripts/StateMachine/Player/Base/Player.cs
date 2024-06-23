@@ -64,16 +64,19 @@ public class Player : StateOwner
 
     [Header("Ball")]
     [SerializeField] private float ballBounciness = .5f;
-    [SerializeField] private float ballFriction = 1f;
+    [SerializeField] private float ballFriction = 1;
     [SerializeField] private float ballAirDrag = 0f;
     [SerializeField] private float ballGroundDrag = .8f;
+    [SerializeField] private float stopMovingThreshold = .2f;
+    [SerializeField] private float ballGroundCheckDistance = .3f;
+    [SerializeField] private float ballGravity = 4;
+    [SerializeField] private LayerMask groundLayer;
 
     public float BallAirDrag { get { return ballAirDrag; } }
     public float BallGroundDrag { get { return ballGroundDrag; } }
 
     public Vector2 HitDirection { get; set; }
 
-    private int facing = 1;
     private GameObject[] dots;
     private Ball ball;
 
@@ -84,10 +87,10 @@ public class Player : StateOwner
     public PhysicsMaterial2D BounceMaterial { get; private set; }
     public PhysicsMaterial2D NoBounceMaterial { get; private set; }
 
-    private GameObject playerVisual;
+    public GameObject PlayerVisual { get; private set; }
+    public int PlayerVisualFacing { get => PlayerVisual.transform.right.x > 0 ? 1 : -1; }
     [SerializeField] private Vector2 playerVisualTransformOffset = new Vector2(0, 1f);
     private Transform club;
-    private float ballGravity;
 
     private void Awake()
     {
@@ -98,13 +101,13 @@ public class Player : StateOwner
 
     private void Start()
     {
-        playerVisual = ObjectPoolingManager.Instance.SpawnFromPool("Player Visual", (Vector2)transform.position + playerVisualTransformOffset, Quaternion.identity);
+        PlayerVisual = ObjectPoolingManager.Instance.SpawnFromPool("Player Visual", (Vector2)transform.position + playerVisualTransformOffset, Quaternion.identity);
 
-        club = playerVisual.transform.Find("Club");
+        club = PlayerVisual.transform.Find("Club");
 
-        ballGravity = Rb.gravityScale;
+        Rb.gravityScale = ballGravity;
 
-        playerVisual.SetActive(false);
+        PlayerVisual.SetActive(false);
 
         BounceMaterial = new PhysicsMaterial2D("Bounce")
         {
@@ -126,6 +129,8 @@ public class Player : StateOwner
 
     public void SpinClub(float angle)
     {
+        int facing = -PlayerVisualFacing;
+
         Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, angle) * -facing);
         club.transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, ClubSpinSpeed);
     }
@@ -139,11 +144,11 @@ public class Player : StateOwner
     {
         if (active)
         {
-            playerVisual = ObjectPoolingManager.Instance.SpawnFromPool("Player Visual", (Vector2)transform.position + playerVisualTransformOffset, Quaternion.identity);
+            PlayerVisual = ObjectPoolingManager.Instance.SpawnFromPool("Player Visual", (Vector2)transform.position + playerVisualTransformOffset, Quaternion.identity);
         }
         else
         {
-            playerVisual.SetActive(false);
+            PlayerVisual.SetActive(false);
         }
     }
 
@@ -188,12 +193,12 @@ public class Player : StateOwner
 
     public bool IsGrounded()
     {
-        return Physics2D.Raycast(transform.position, Vector2.down, .5f);
+        return Physics2D.Raycast(transform.position, Vector2.down, ballGroundCheckDistance + coll.radius, groundLayer);
     }
 
     public bool IsStopMoving()
     {
-        return Rb.velocity.magnitude < 0.2f;
+        return Rb.velocity.magnitude < stopMovingThreshold;
     }
 
     public void SetPhysicMaterial(PhysicsMaterial2D material)

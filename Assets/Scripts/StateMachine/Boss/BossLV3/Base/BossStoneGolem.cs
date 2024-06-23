@@ -11,8 +11,16 @@ public class BossStoneGolem : BossStateOwner
     public float FlySpeed { get { return flySpeed; } }
     public Transform CenterTransform { get { return centerTransform; } }
 
-    [Header("Attack")]
-    [SerializeField] private float attackRange;
+    [Header("Idle")]
+    [SerializeField] private float idleTime;
+    public float IdleTime { get { return idleTime; } }
+
+    [Header("Rest")]
+    [SerializeField] private float restTime;
+    [SerializeField] private float restFallSpeed;
+
+    public float RestTime { get { return restTime; } }
+    public float RestFallSpeed { get {return restFallSpeed; } }
 
     [Header("Projectile")]
     [SerializeField] private GameObject armProjectilePrefab;
@@ -29,7 +37,6 @@ public class BossStoneGolem : BossStateOwner
     [SerializeField] private LineRenderer zipIndicator;
     [SerializeField] private float zipShootSpeed = 30f;
     [SerializeField] private float zipShootCooldown = 1f;
-    [SerializeField] private float distanceToPlayerToShoot = 10f;
     [SerializeField] private float maxZipShootCount = 3;
     public float ZipShootCooldown { get { return zipShootCooldown; } }
 
@@ -43,7 +50,6 @@ public class BossStoneGolem : BossStateOwner
     [SerializeField] private LayerMask laserImpactLayer;
 
     [SerializeField] private int maxLazerCastCount = 3;
-    [SerializeField] private float laserSpeed = 20f;
     [SerializeField] private float maxLazerLength = 500f;
     [SerializeField] private float laserShootTime = 3f;
 
@@ -53,7 +59,6 @@ public class BossStoneGolem : BossStateOwner
 
     private SpriteRenderer laserBeamSpriteRenderer;
     private Vector2 currentHitPoint;
-    private bool canSpawnImpact = false;
 
     private int armProjectileCount = 0;
     private int zipShootCount = 0;
@@ -89,7 +94,8 @@ public class BossStoneGolem : BossStateOwner
     public void ShootSelfToPlayer()
     {
         zipShootCount++;
-        rb.AddForce(GetDirectionToPlayer(transform.position) * zipShootSpeed, ForceMode2D.Impulse);
+
+        rb.AddForce(GetDirectionToPlayer(transform.position) * (zipShootSpeed * Rb.mass), ForceMode2D.Impulse);
     }
 
     public void SetActiveZipIndicator(bool active)
@@ -161,7 +167,6 @@ public class BossStoneGolem : BossStateOwner
         {
             if (Vector2.Distance(hit.point, currentHitPoint) >= .1f)
             {
-                canSpawnImpact = true;
                 currentHitPoint = hit.point;
             }
 

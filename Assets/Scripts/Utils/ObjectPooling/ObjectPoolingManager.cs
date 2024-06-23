@@ -15,8 +15,9 @@ public class ObjectPoolingManager : Singleton<ObjectPoolingManager>
     [SerializeField] private List<Pool> poolList;
     private Dictionary<string, Queue<GameObject>> poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         SetUpAllPool();
     }
 

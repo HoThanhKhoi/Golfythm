@@ -27,6 +27,7 @@ public class BossStoneGolemState_RangeAttack : State<BossStoneGolem, BossStoneGo
             else
             {
                 stateTimer = owner.ProjectileCooldown;
+                owner.FaceToPlayer();
                 PlayAnimationFromFrame(4);
             }
         }

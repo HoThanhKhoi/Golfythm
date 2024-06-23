@@ -13,9 +13,6 @@ public class PlayerState_Idle : State<Player, PlayerStateMachine.State>
     {
         base.Enter();
 
-        owner.SetActivePlayerVisual(true);
-
-        owner.SetPhysicMaterial(owner.NoBounceMaterial);
         owner.inputReader.AimEvent += ChangeToAimState;
     }
 
