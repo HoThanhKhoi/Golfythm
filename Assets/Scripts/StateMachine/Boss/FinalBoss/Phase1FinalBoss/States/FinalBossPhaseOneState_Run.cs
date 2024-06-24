@@ -21,13 +21,12 @@ public class FinalBossPhaseOneState_Run : State<FinalBossPhaseOne, FinalBossPhas
 	{
 		base.Update();
 
+		owner.FaceToPlayer(owner.BossCenter.position);
 		owner.MoveToPlayer(owner.RunSpeed);
 
-		Debug.Log(owner.GetDistanceToPlayer());
-
-		if (TimeOut() || owner.GetDistanceToPlayer() <= owner.AttackRange)
+		if (TimeOut() || owner.GetDistanceToPlayer(owner.BossCenter.position) < owner.AttackRange)
 		{
-			stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Idle);
+			stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Combo);
 		}
 	}
 }

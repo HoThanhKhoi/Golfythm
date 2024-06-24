@@ -23,10 +23,13 @@ public class FinalBossPhaseOneState_Idle : State<FinalBossPhaseOne, FinalBossPha
 
         owner.FaceToPlayer();
 
-        if (TimeOut() && owner.DetectPlayer(owner.BossCenter.position))
+        if (TimeOut() && owner.DetectPlayer(owner.BossCenter.position) && owner.GetDistanceToPlayer(owner.BossCenter.position) > owner.AttackRange)
         {
-            Debug.Log("Ngu");
             stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Run);
         }
+        else if(TimeOut() && owner.GetDistanceToPlayer(owner.BossCenter.position) <= owner.AttackRange)
+        {
+            stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Combo);
+		}
     }
 }
