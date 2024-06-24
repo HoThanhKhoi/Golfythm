@@ -38,9 +38,20 @@ public class BossStateOwner : StateOwner
         FaceTo(GetPlayerPosition());
     }
 
+    public void FaceToPlayer(Vector2 origin)
+    {
+        FaceTo(origin, GetPlayerPosition());
+    }
+
     public void FaceTo(Vector2 destination)
     {
         float xDirection = destination.x > transform.position.x ? 1 : -1;
+        transform.right = new Vector2(xDirection, transform.right.y);
+    }
+
+    public void FaceTo(Vector2 origin, Vector2 destination)
+    {
+        float xDirection = destination.x > origin.x ? 1 : -1;
         transform.right = new Vector2(xDirection, transform.right.y);
     }
 
