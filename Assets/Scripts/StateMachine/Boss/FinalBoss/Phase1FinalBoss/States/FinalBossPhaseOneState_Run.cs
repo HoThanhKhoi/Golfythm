@@ -21,11 +21,9 @@ public class FinalBossPhaseOneState_Run : State<FinalBossPhaseOne, FinalBossPhas
 	{
 		base.Update();
 
-		if (TimeOut() || owner.GetDistanceToPlayer() <= 1f)
+		if (TimeOut())
 		{
 			stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Idle);
 		}
-
-
 	}
 }

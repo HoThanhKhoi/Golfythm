@@ -23,7 +23,7 @@ public class FinalBossPhaseOneState_Idle : State<FinalBossPhaseOne, FinalBossPha
 
         owner.FaceToPlayer();
 
-        if (TimeOut() && owner.DetectPlayer(owner.transform.position))
+        if (TimeOut())
         {
             Debug.Log("Ngu");
             stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Run);
