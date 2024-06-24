@@ -21,5 +21,10 @@ public class FinalBossPhaseOne : BossStateOwner
 	public float RunSpeed => runSpeed;
 
 	[SerializeField] private float runDuration = 10f;
-	public float RunDuration => runDuration;	
+	public float RunDuration => runDuration;
+
+
+	[Header("Attack")]
+	[SerializeField] private float attackRange = 1f;
+	public float AttackRange => attackRange;
 }

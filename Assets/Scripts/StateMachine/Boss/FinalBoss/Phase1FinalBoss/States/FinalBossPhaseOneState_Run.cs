@@ -14,14 +14,18 @@ public class FinalBossPhaseOneState_Run : State<FinalBossPhaseOne, FinalBossPhas
 
 		stateTimer = owner.RunDuration;
 
-		owner.MoveToPlayer(owner.RunSpeed);
+		
 	}
 
 	public override void Update()
 	{
 		base.Update();
 
-		if (TimeOut())
+		owner.MoveToPlayer(owner.RunSpeed);
+
+		Debug.Log(owner.GetDistanceToPlayer());
+
+		if (TimeOut() || owner.GetDistanceToPlayer() <= owner.AttackRange)
 		{
 			stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Idle);
 		}
