@@ -77,9 +77,21 @@ public class BossStateOwner : StateOwner
         return Vector2.Distance(transform.position, GetPlayerPosition());
     }
 
-    public void MoveToPosition(Vector2 position, float speed)
+    public float GetDistanceToPlayer(Vector2 origin)
     {
-        Vector2 moveDirection = position - (Vector2)transform.position;
+        return Vector2.Distance(origin, GetPlayerPosition());
+    }
+
+    public void MoveToPosition(Vector2 destination, float speed)
+    {
+        Vector2 moveDirection = destination - (Vector2)transform.position;
+
+        rb.velocity = moveDirection * speed;
+    }
+
+    public void MoveToPosition(Vector2 origin, Vector2 destination, float speed)
+    {
+        Vector2 moveDirection = destination - origin;
 
         rb.velocity = moveDirection * speed;
     }
@@ -87,6 +99,11 @@ public class BossStateOwner : StateOwner
     public float GetDistanceToPosition(Vector2 position)
     {
         return Vector2.Distance((Vector2)transform.position, position);
+    }
+
+    public float GetDistanceToPosition(Vector2 origin, Vector2 position)
+    {
+        return Vector2.Distance(origin, position);
     }
 
     #region Debug Gizmos
