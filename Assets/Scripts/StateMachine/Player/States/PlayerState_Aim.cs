@@ -17,19 +17,23 @@ public class PlayerState_Aim : State<Player, PlayerStateMachine.State>
         owner.inputReader.SwingEvent += ChangeToSwingState;
 
         owner.DotsActive(true);
-
-        Debug.Log("Aim");
     }
 
     public override void Update()
     {
         base.Update();
+        int facing = owner.inputReader.AimDirection.x > 0 ? -1 : 1;
 
         BounceSwingForceBetweenMaxAndMin();
 
         owner.SpinClub(owner.ClubSpinAngle);
 
         owner.SetUpDotsPosition();
+
+        if (owner.PlayerVisual != null)
+        {
+            owner.PlayerVisual.transform.right = new Vector2(facing, 0);
+        }
     }
 
     private void BounceSwingForceBetweenMaxAndMin()
@@ -69,6 +73,6 @@ public class PlayerState_Aim : State<Player, PlayerStateMachine.State>
         owner.inputReader.AimEvent -= ChangeToIdleState;
         owner.inputReader.SwingEvent -= ChangeToSwingState;
 
-        //owner.DotsActive(false);
+        owner.DotsActive(false);
     }
 }

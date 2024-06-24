@@ -11,16 +11,25 @@ public class BossStoneGolem : BossStateOwner
     public float FlySpeed { get { return flySpeed; } }
     public Transform CenterTransform { get { return centerTransform; } }
 
-    [Header("Attack")]
-    [SerializeField] private float attackRange;
+    [Header("Idle")]
+    [SerializeField] private float idleTime;
+    public float IdleTime { get { return idleTime; } }
+
+    [Header("Rest")]
+    [SerializeField] private float restTime;
+    [SerializeField] private float restFallSpeed;
+
+    public float RestTime { get { return restTime; } }
+    public float RestFallSpeed { get {return restFallSpeed; } }
 
     [Header("Projectile")]
     [SerializeField] private GameObject armProjectilePrefab;
     [SerializeField] private Transform armProjectileSpawnPoint;
     [SerializeField] private float armProjectileSpeed = 50f;
     [SerializeField] private float armProjectileRotateSpeed = 100f;
-    [SerializeField] private int maxProjectileCount = 3;
     [SerializeField] private float projectileCooldown = 1f;
+    [SerializeField] private float projectileInitialDelay = 0.5f;
+    [SerializeField] private int maxProjectileCount = 3;
 
     public float ProjectileCooldown { get { return projectileCooldown; } }
 
@@ -28,7 +37,6 @@ public class BossStoneGolem : BossStateOwner
     [SerializeField] private LineRenderer zipIndicator;
     [SerializeField] private float zipShootSpeed = 30f;
     [SerializeField] private float zipShootCooldown = 1f;
-    [SerializeField] private float distanceToPlayerToShoot = 10f;
     [SerializeField] private float maxZipShootCount = 3;
     public float ZipShootCooldown { get { return zipShootCooldown; } }
 
@@ -42,7 +50,6 @@ public class BossStoneGolem : BossStateOwner
     [SerializeField] private LayerMask laserImpactLayer;
 
     [SerializeField] private int maxLazerCastCount = 3;
-    [SerializeField] private float laserSpeed = 20f;
     [SerializeField] private float maxLazerLength = 500f;
     [SerializeField] private float laserShootTime = 3f;
 
@@ -52,7 +59,6 @@ public class BossStoneGolem : BossStateOwner
 
     private SpriteRenderer laserBeamSpriteRenderer;
     private Vector2 currentHitPoint;
-    private bool canSpawnImpact = false;
 
     private int armProjectileCount = 0;
     private int zipShootCount = 0;
@@ -70,11 +76,11 @@ public class BossStoneGolem : BossStateOwner
 
     public void SpawnArmProjectile()
     {
+        bool isFLipped = transform.right.x < 0;
         GameObject armProjectile = ObjectPoolingManager.Instance.SpawnFromPool("Stone Golem Arm", armProjectileSpawnPoint.position, Quaternion.identity);
-        //GameObject armProjectile = Instantiate(armProjectilePrefab, armProjectileSpawnPoint.transform.position, Quaternion.identity);
 
         GolemArmProjectile projectile = armProjectile.GetComponent<GolemArmProjectile>();
-        projectile.SetUp(player, armProjectileSpeed, armProjectileRotateSpeed, (Vector2)transform.right);
+        projectile.SetUp(player, armProjectileSpeed, armProjectileRotateSpeed, (Vector2)transform.right, isFLipped, projectileInitialDelay);
 
         armProjectileCount++;
     }
@@ -85,14 +91,11 @@ public class BossStoneGolem : BossStateOwner
 
     public bool IsLaserCastCountFull() => laserCastCount >= maxLazerCastCount;
 
-    public void SetProjectileCountToZero() => armProjectileCount = 0;
-
-    public void SetZipShootCountToZero() => zipShootCount = 0;
-
     public void ShootSelfToPlayer()
     {
         zipShootCount++;
-        rb.AddForce(GetDirectionToPlayer(transform.position) * zipShootSpeed, ForceMode2D.Impulse);
+
+        rb.AddForce(GetDirectionToPlayer(transform.position) * (zipShootSpeed * Rb.mass), ForceMode2D.Impulse);
     }
 
     public void SetActiveZipIndicator(bool active)
@@ -132,7 +135,6 @@ public class BossStoneGolem : BossStateOwner
 
     public void ShootingLaser()
     {
-
         PointLaserToPlayer();
         RayCastLaser();
     }
@@ -149,7 +151,6 @@ public class BossStoneGolem : BossStateOwner
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        // Create the target rotation
         Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
 
         laserParent.transform.rotation = Quaternion.Lerp(laserParent.transform.rotation, targetRotation, laserRotationSpeed * Time.deltaTime);
@@ -166,15 +167,12 @@ public class BossStoneGolem : BossStateOwner
         {
             if (Vector2.Distance(hit.point, currentHitPoint) >= .1f)
             {
-                canSpawnImpact = true;
                 currentHitPoint = hit.point;
             }
 
             if (!impactHit.collider.CompareTag("FX"))
             {
                 GameObject impactInstacne = ObjectPoolingManager.Instance.SpawnFromPool("Laser Impact", hit.point, Quaternion.identity);
-
-                //StartCoroutine(ImpactCo(hit));
             }
 
             laserLength = Vector2.Distance(laserOrigin.transform.position, hit.point);
@@ -183,14 +181,15 @@ public class BossStoneGolem : BossStateOwner
         ChangeLaserSize(laserLength);
     }
 
-    //private IEnumerator ImpactCo(RaycastHit2D hit)
-    //{
-    //    yield return new WaitForSeconds(.375f);
-    //    impactInstacne.SetActive(false);
-    //}
-
     private void ChangeLaserSize(float size)
     {
         laserBeamSpriteRenderer.size = new Vector2(size, laserBeamSpriteRenderer.size.y);
+    }
+
+    public void ResetAttackCount()
+    {
+        armProjectileCount = 0;
+        zipShootCount = 0;
+        laserCastCount = 0;
     }
 }

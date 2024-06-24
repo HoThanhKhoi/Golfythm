@@ -22,10 +22,18 @@ public class BossStoneGolemState_LaserShoot : State<BossStoneGolem, BossStoneGol
 
         owner.ShootingLaser();
 
-        if(TimeOut())
+        if (TimeOut())
         {
             owner.EndShootingLaser();
-            stateMachine.ChangeState(BossStoneGolemStateMachine.State.Glowing);
+
+            if (owner.IsLaserCastCountFull())
+            {
+                stateMachine.ChangeState(BossStoneGolemStateMachine.State.Rest);
+            }
+            else
+            {
+                stateMachine.ChangeState(BossStoneGolemStateMachine.State.Glowing);
+            }
         }
     }
 }

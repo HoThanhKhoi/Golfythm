@@ -11,7 +11,7 @@ public class BossStoneGolemState_Idle : State<BossStoneGolem, BossStoneGolemStat
     {
         base.Enter();
 
-        stateTimer = 2f;
+        stateTimer = owner.IdleTime;
     }
 
     public override void Update()
@@ -34,8 +34,6 @@ public class BossStoneGolemState_Idle : State<BossStoneGolem, BossStoneGolemStat
             {
                 stateMachine.ChangeState(BossStoneGolemStateMachine.State.Glowing);
             }
-
-
         }
     }
 }
