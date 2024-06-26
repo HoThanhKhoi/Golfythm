@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerState_Aim : State<Player, PlayerStateMachine.State>
 {
     private float direction = 1f;
-
+    private float initialRightTransformX;
     public PlayerState_Aim(Player owner, StateMachine<Player, PlayerStateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
     {
     }
@@ -16,13 +16,15 @@ public class PlayerState_Aim : State<Player, PlayerStateMachine.State>
         owner.inputReader.AimEvent += ChangeToIdleState;
         owner.inputReader.SwingEvent += ChangeToSwingState;
 
+        initialRightTransformX = owner.PlayerVisual.transform.right.x;
+
         owner.DotsActive(true);
     }
 
     public override void Update()
     {
         base.Update();
-        int facing = owner.inputReader.AimDirection.x > 0 ? -1 : 1;
+        bool flip = owner.inputReader.AimDirection.x < 0;
 
         BounceSwingForceBetweenMaxAndMin();
 
@@ -32,7 +34,7 @@ public class PlayerState_Aim : State<Player, PlayerStateMachine.State>
 
         if (owner.PlayerVisual != null)
         {
-            owner.PlayerVisual.transform.right = new Vector2(facing, 0);
+            owner.FlipPlayerVisual(flip, initialRightTransformX);
         }
     }
 

@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - FX
+  - Grass
+  - SlowZone
   - Terrain
   layers:
   - Default
@@ -17,7 +19,7 @@ TagManager:
   - Enemy
   - EnemyProjectile
   - Ground
-  - 
+  - Grass
   - 
   - 
   - 
