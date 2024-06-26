@@ -166,7 +166,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 75478f195e980f648946f8807724b457, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -270,9 +270,9 @@ MonoBehaviour:
   gridRows: 5
   noteScaleFactor: 1.5
   noteSpawnInterval: 0.6
-  noteSound: {fileID: 8300000, guid: 75478f195e980f648946f8807724b457, type: 3}
+  noteSound: {fileID: 0}
   minDistanceFromPreviousNote: 1
-  maxDistanceFromPreviousNote: 5
+  maxDistanceFromPreviousNote: 3
   ghostCircleDuration: 0.5
   destroyDuration: 0.7
 --- !u!1 &1751836545
@@ -311,7 +311,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.2679245, g: 0.2679245, b: 0.2679245, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
