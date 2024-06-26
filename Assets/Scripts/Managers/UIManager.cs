@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : Singleton<UIManager>
 {
+    [field:SerializeField] public PlayerHealthUI PlayerHealthUI { get; private set; }
+
     IEnumerator WaitForSecondsToLoadScene(float seconds, int sceneNumber)
     {
         yield return new WaitForSeconds(seconds);
@@ -21,8 +23,6 @@ public class UIManager : Singleton<UIManager>
     {
         StartCoroutine(WaitForSecondsToLoadScene(0.25f, (level + 1)));
     }
-
-
 
     public void QuitGame()
     {

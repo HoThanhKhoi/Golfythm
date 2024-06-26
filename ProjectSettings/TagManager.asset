@@ -7,6 +7,7 @@ TagManager:
   - FX
   - Grass
   - SlowZone
+  - EnemyAttack
   - Terrain
   layers:
   - Default
