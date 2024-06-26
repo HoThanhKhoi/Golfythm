@@ -7,6 +7,7 @@ public class PlayerState_Ball : State<Player, PlayerStateMachine.State>
     private GameObject slowZone;
     private Vector2 playerDirectionTowardsGrass;
     private Transform grass;
+    private bool canSlowTime = true;
     public PlayerState_Ball(Player owner, StateMachine<Player, PlayerStateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
     {
     }
@@ -20,7 +21,6 @@ public class PlayerState_Ball : State<Player, PlayerStateMachine.State>
         {
             owner.SetPhysicMaterial(owner.BounceMaterial);
         }
-
 
         owner.HitBall(owner.HitDirection, owner.SwingForce);
 
@@ -38,8 +38,10 @@ public class PlayerState_Ball : State<Player, PlayerStateMachine.State>
 
             if (owner.IsStopMoving())
             {
-                owner.SetActivePlayerVisual(true, Vector2.up);
-                stateMachine.ChangeState(PlayerStateMachine.State.Idle);
+                owner.MoveToCheckPoint();
+                canSlowTime = false;
+                playerDirectionTowardsGrass = slowZone.transform.position - grass.transform.position;
+                owner.SetActivePlayerVisual(true, playerDirectionTowardsGrass);
             }
         }
         else
@@ -89,8 +91,10 @@ public class PlayerState_Ball : State<Player, PlayerStateMachine.State>
         {
             GameManager.Instance.TimeManager.SetTimeScale(0.05f);
             slowZone = other.gameObject;
+            owner.CheckPoint = slowZone.transform.position;
             grass = slowZone.transform.parent;
             owner.inputReader.SwingEvent += Bounce;
+            canSlowTime = true;
         }
     }
 
@@ -98,11 +102,15 @@ public class PlayerState_Ball : State<Player, PlayerStateMachine.State>
     {
         base.OnTriggerExit2D(other);
 
-        if (other.CompareTag("SlowZone"))
+        if (canSlowTime)
         {
-            owner.inputReader.SwingEvent -= Bounce;
-            GameManager.Instance.TimeManager.SetTimeScale(1f);
+            if (other.CompareTag("SlowZone"))
+            {
+                owner.inputReader.SwingEvent -= Bounce;
+                GameManager.Instance.TimeManager.SetTimeScale(1f);
+            }
         }
+
     }
 
     public void Bounce()

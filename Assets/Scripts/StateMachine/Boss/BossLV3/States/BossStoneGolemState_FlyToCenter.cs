@@ -11,6 +11,7 @@ public class BossStoneGolemState_FlyToCenter : State<BossStoneGolem, BossStoneGo
     {
         base.Enter();
 
+        owner.Rb.isKinematic = true;
         MoveToCenter();
     }
 
@@ -32,6 +33,7 @@ public class BossStoneGolemState_FlyToCenter : State<BossStoneGolem, BossStoneGo
         base.Exit();
 
         owner.Rb.velocity = Vector2.zero;
+        owner.Rb.isKinematic = false;
     }
 
     private void MoveToCenter()
