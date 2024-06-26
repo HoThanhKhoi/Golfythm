@@ -14,6 +14,8 @@ public class FinalBossPhaseOneState_Idle : State<FinalBossPhaseOne, FinalBossPha
 
 		stateTimer = owner.IdleDuration;
 
+		owner.Rb.gravityScale = 1;
+
 		owner.StopMoving();
 	}
 
@@ -23,10 +25,10 @@ public class FinalBossPhaseOneState_Idle : State<FinalBossPhaseOne, FinalBossPha
 
 		owner.FaceToPlayer(owner.BossCenter.position);
 
-		if (TimeOut() 
-			&& owner.DetectPlayer(owner.BossCenter.position))
+		if (TimeOut())
 		{
-			if(owner.GetPlayerPosition().y <= (owner.BossCenter.position.y + 3f))
+			if(owner.GetPlayerPosition().y <= (owner.BossCenter.position.y + 4f) 
+				&& owner.GetPlayerPosition().y >= (owner.BossCenter.position.y - 4f))
 			{
 				if (owner.GetDistanceToPlayer(owner.BossCenter.position) > owner.AttackRange)
 				{
@@ -46,9 +48,13 @@ public class FinalBossPhaseOneState_Idle : State<FinalBossPhaseOne, FinalBossPha
 					stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Combo);
 				}
 			}
-			else if (owner.GetPlayerPosition().y > (owner.BossCenter.position.y + 5f))
+			else if (owner.GetPlayerPosition().y > (owner.BossCenter.position.y + 4f))
 			{
 				stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Jump);
+			}
+			else if (owner.GetPlayerPosition().y < (owner.BossCenter.position.y - 4f))
+			{
+				stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Dash);
 			}
 		}
 		

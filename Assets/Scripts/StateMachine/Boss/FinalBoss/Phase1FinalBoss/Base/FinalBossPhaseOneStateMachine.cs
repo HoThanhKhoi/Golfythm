@@ -17,8 +17,9 @@ public class FinalBossPhaseOneStateMachine : StateMachine<FinalBossPhaseOne, Fin
         Combo,
         Block,
         On_Hit,
-        Death
-    }
+        Death,
+		Shield_Crashing
+	}
 
     protected override void SetUpStateMachine()
     {
@@ -28,6 +29,7 @@ public class FinalBossPhaseOneStateMachine : StateMachine<FinalBossPhaseOne, Fin
 		AddState(State.Jump, new FinalBossPhaseOneState_Jump(owner, this, anim));
 		AddState(State.Fall, new FinalBossPhaseOneState_Fall(owner, this, anim));
 		AddState(State.Shield_Crash_Startup, new FinalBossPhaseOneState_ShieldCrashStartup(owner, this, anim));
+		AddState(State.Shield_Crashing, new FinalBossPhaseOneState_ShieldCrashing(owner, this, anim));
 		AddState(State.Shield_Crash_Landing, new FinalBossPhaseOneState_ShieldCrashLanding(owner, this, anim));
 		AddState(State.AirCombo, new FinalBossPhaseOneState_AirCombo(owner, this, anim));
 		AddState(State.Combo, new FinalBossPhaseOneState_Combo(owner, this, anim));
