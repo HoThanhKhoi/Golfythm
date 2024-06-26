@@ -7,7 +7,6 @@ public class PlayerState_Ball : State<Player, PlayerStateMachine.State>
     private GameObject slowZone;
     private Vector2 playerDirectionTowardsGrass;
     private Transform grass;
-    private bool canSlowTime = true;
     public PlayerState_Ball(Player owner, StateMachine<Player, PlayerStateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
     {
     }
@@ -38,10 +37,8 @@ public class PlayerState_Ball : State<Player, PlayerStateMachine.State>
 
             if (owner.IsStopMoving())
             {
-                owner.MoveToCheckPoint();
-                canSlowTime = false;
-                playerDirectionTowardsGrass = slowZone.transform.position - grass.transform.position;
-                owner.SetActivePlayerVisual(true, playerDirectionTowardsGrass);
+                RespawnPlayer();
+                owner.Damage(1);
             }
         }
         else
@@ -76,10 +73,16 @@ public class PlayerState_Ball : State<Player, PlayerStateMachine.State>
         {
             if (slowZone != null)
             {
-                playerDirectionTowardsGrass = slowZone.transform.position - other.transform.position;
+                playerDirectionTowardsGrass = slowZone.transform.position - grass.transform.position;
                 owner.SetActivePlayerVisual(true, playerDirectionTowardsGrass);
             }
             stateMachine.ChangeState(PlayerStateMachine.State.Idle);
+        }
+
+        if(other.collider.CompareTag("Obstacle"))
+        {
+            RespawnPlayer();
+            owner.Damage(1);
         }
     }
 
@@ -94,7 +97,7 @@ public class PlayerState_Ball : State<Player, PlayerStateMachine.State>
             owner.CheckPoint = slowZone.transform.position;
             grass = slowZone.transform.parent;
             owner.inputReader.SwingEvent += Bounce;
-            canSlowTime = true;
+            owner.CanSlowTime = true;
         }
     }
 
@@ -102,7 +105,7 @@ public class PlayerState_Ball : State<Player, PlayerStateMachine.State>
     {
         base.OnTriggerExit2D(other);
 
-        if (canSlowTime)
+        if (owner.CanSlowTime)
         {
             if (other.CompareTag("SlowZone"))
             {
@@ -122,5 +125,13 @@ public class PlayerState_Ball : State<Player, PlayerStateMachine.State>
 
         owner.Rb.velocity = bounceDirection;
         GameManager.Instance.TimeManager.SetTimeScale(1f);
+    }
+
+    public void RespawnPlayer()
+    {
+        owner.MoveToCheckPoint();
+        owner.CanSlowTime = false;
+        playerDirectionTowardsGrass = slowZone.transform.position - grass.transform.position;
+        owner.SetActivePlayerVisual(true, playerDirectionTowardsGrass);
     }
 }

@@ -5,23 +5,23 @@ using UnityEngine;
 
 public class StateOwner : MonoBehaviour
 {
-    [SerializeField] protected int maxHealth;
-    protected int currentHealth;
+    [field:SerializeField] public int MaxHealth {  get; set; }
+    public int CurrentHealth {  get; set; }
 
     public event Action<int> OnHealthChanged;
 
     protected void Start()
     {
-        currentHealth = maxHealth;
+        CurrentHealth = MaxHealth;
     }
 
 
     public void Damage(int damage)
     {
-        currentHealth -= damage;
-        OnHealthChanged?.Invoke(currentHealth);
+        CurrentHealth -= damage;
+        OnHealthChanged?.Invoke(CurrentHealth);
 
-        if (currentHealth <= 0)
+        if (CurrentHealth <= 0)
         {
             Dead();
         }
@@ -29,10 +29,10 @@ public class StateOwner : MonoBehaviour
 
     public bool IsDead()
     {
-        return currentHealth <= 0;
+        return CurrentHealth <= 0;
     }
 
     public void Dead() { }
 
-    public void ResetHealth() { currentHealth = maxHealth; }
+    public void ResetHealth() { CurrentHealth = MaxHealth; }
 }

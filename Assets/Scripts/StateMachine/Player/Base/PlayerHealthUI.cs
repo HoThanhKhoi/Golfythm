@@ -9,7 +9,6 @@ public class PlayerHealthUI : MonoBehaviour
     [SerializeField] private Player player;
 
     [Header("Player Health")]
-    [SerializeField] private int numberOfHearts;
     [SerializeField] private Sprite fullHeartSprite;
     [SerializeField] private Sprite emptyHeartSprite;
     [SerializeField] private GameObject heart;
@@ -28,7 +27,7 @@ public class PlayerHealthUI : MonoBehaviour
 
     public void SetUpHealth()
     {
-        for (int i = 0; i < numberOfHearts; i++)
+        for (int i = 0; i < player.MaxHealth; i++)
         {
             GameObject heartGameObject = Instantiate(heart, heartSpawnPos.position, Quaternion.identity, heartContainer);
             heartGameObject.GetComponent<RectTransform>().anchoredPosition += new Vector2(heartDistance * i, 0);
@@ -42,8 +41,12 @@ public class PlayerHealthUI : MonoBehaviour
 
     public void UpdateHealth(int currentHealth)
     {
-        if(player.IsDead()) { return; }
-        for(int i = numberOfHearts - 1; i >= currentHealth; i--)
+        if (currentHealth < 0) { return; }
+        for(int i = 0; i < currentHealth; i++)
+        {
+            heartImageList[i].sprite = fullHeartSprite;
+        }
+        for(int i = currentHealth; i < heartImageList.Count; i++)
         {
             heartImageList[i].sprite = emptyHeartSprite;
         }

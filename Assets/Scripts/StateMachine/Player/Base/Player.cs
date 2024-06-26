@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class Player : StateOwner
 {
-    [SerializeField] private int numberOfHearts;
-
     [Header("Preference")]
     public InputReader inputReader;
     [SerializeField] private GameObject dotPrefab;
@@ -291,7 +289,7 @@ public class Player : StateOwner
         if (collision.CompareTag("FX") || collision.CompareTag("EnemyAttack"))
         {
             Damage(1);
-            Debug.Log(currentHealth);
+            Debug.Log(CurrentHealth);
         }
     }
 
