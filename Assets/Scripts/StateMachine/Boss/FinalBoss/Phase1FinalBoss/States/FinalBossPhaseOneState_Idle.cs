@@ -4,29 +4,53 @@ using UnityEngine;
 
 public class FinalBossPhaseOneState_Idle : State<FinalBossPhaseOne, FinalBossPhaseOneStateMachine.State>
 {
-    public FinalBossPhaseOneState_Idle(FinalBossPhaseOne owner, StateMachine<FinalBossPhaseOne, FinalBossPhaseOneStateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
-    {
-    }
+	public FinalBossPhaseOneState_Idle(FinalBossPhaseOne owner, StateMachine<FinalBossPhaseOne, FinalBossPhaseOneStateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
+	{
+	}
 
-    public override void Enter()
-    {
-        base.Enter();
+	public override void Enter()
+	{
+		base.Enter();
 
-        stateTimer = owner.IdleDuration;
+		stateTimer = owner.IdleDuration;
 
-        owner.StopMoving();
-    }
+		owner.StopMoving();
+	}
 
-    public override void Update()
-    {
-        base.Update();
+	public override void Update()
+	{
+		base.Update();
 
-        owner.FaceToPlayer();
+		owner.FaceToPlayer(owner.BossCenter.position);
 
-        if (TimeOut() && owner.DetectPlayer(owner.transform.position))
-        {
-            Debug.Log("Ngu");
-            stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Run);
-        }
-    }
+		if (TimeOut() 
+			&& owner.DetectPlayer(owner.BossCenter.position))
+		{
+			if(owner.GetPlayerPosition().y <= (owner.BossCenter.position.y + 3f))
+			{
+				if (owner.GetDistanceToPlayer(owner.BossCenter.position) > owner.AttackRange)
+				{
+					if (owner.RunCounter > 0)
+					{
+						owner.DecreaseRunCounter();
+						stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Run);
+					}
+					else if (owner.RunCounter == 0)
+					{
+						owner.ResetRunCounter();
+						stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Dash);
+					}
+				}
+				else if (owner.GetDistanceToPlayer(owner.BossCenter.position) <= owner.AttackRange)
+				{
+					stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Combo);
+				}
+			}
+			else if (owner.GetPlayerPosition().y > (owner.BossCenter.position.y + 5f))
+			{
+				stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Jump);
+			}
+		}
+		
+	}
 }

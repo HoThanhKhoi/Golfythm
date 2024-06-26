@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class FinalBossPhaseOneState_Run : State<FinalBossPhaseOne, FinalBossPhaseOneStateMachine.State>
 {
-    public FinalBossPhaseOneState_Run(FinalBossPhaseOne owner, StateMachine<FinalBossPhaseOne, FinalBossPhaseOneStateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
-    {
-    }
+	public FinalBossPhaseOneState_Run(FinalBossPhaseOne owner, StateMachine<FinalBossPhaseOne, FinalBossPhaseOneStateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
+	{
+	}
 
 	public override void Enter()
 	{
@@ -14,18 +14,31 @@ public class FinalBossPhaseOneState_Run : State<FinalBossPhaseOne, FinalBossPhas
 
 		stateTimer = owner.RunDuration;
 
-		owner.MoveToPlayer(owner.RunSpeed);
+
 	}
 
 	public override void Update()
 	{
 		base.Update();
 
-		if (TimeOut() || owner.GetDistanceToPlayer() <= 1f)
+		owner.FaceToPlayer(owner.BossCenter.position);
+		owner.MoveToPlayerHorizontal(owner.BossCenter.position, owner.RunSpeed);
+
+		if (owner.GetPlayerPosition().y <= (owner.BossCenter.position.y + 3f))
+		{
+			if (owner.GetDistanceToPlayer(owner.BossCenter.position) < owner.AttackRange)
+			{
+				stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Combo);
+			}
+			else if (TimeOut())
+			{
+				stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Idle);
+			}
+		}
+		else if(owner.GetPlayerPosition().y > (owner.BossCenter.position.y + 5f))
 		{
 			stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Idle);
 		}
-
 
 	}
 }

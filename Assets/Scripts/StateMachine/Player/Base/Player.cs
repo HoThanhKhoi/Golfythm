@@ -10,8 +10,8 @@ public class Player : StateOwner
     public InputReader inputReader;
     [SerializeField] private GameObject dotPrefab;
     [SerializeField] private Transform dotParent;
-    [SerializeField] private Transform club;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
+
 
     [Header("Club Spin")]
     [SerializeField] private float maxClubSpinAngle;
@@ -63,31 +63,84 @@ public class Player : StateOwner
     [SerializeField] private int numberOfDots;
 
     [Header("Ball")]
-    [SerializeField] private GameObject ballPrefab;
-    [SerializeField] private Transform ballSpawnPos;
-    [SerializeField] private float ballGravity;
     [SerializeField] private float ballBounciness = .5f;
+    [SerializeField] private float ballFriction = 1;
+    [SerializeField] private float ballAirDrag = 0f;
+    [SerializeField] private float ballGroundDrag = .8f;
+    [SerializeField] private float stopMovingThreshold = .2f;
+    [SerializeField] private float ballGravity = 4;
+
+    [Header("Collision Check")]
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float ballGroundCheckDistance = .3f;
+    [SerializeField] private LayerMask grassLayer;
+    [SerializeField] private float ballGrassCheckRadius = .6f;
+
+    public float BallAirDrag { get { return ballAirDrag; } }
+    public float BallGroundDrag { get { return ballGroundDrag; } }
+
     public Vector2 HitDirection { get; set; }
 
-    private int facing = 1;
     private GameObject[] dots;
     private Ball ball;
 
-    private void Start()
+    public Rigidbody2D Rb { get; private set; }
+    private CircleCollider2D coll;
+
+    //Physic Material
+    public PhysicsMaterial2D BounceMaterial { get; private set; }
+    public PhysicsMaterial2D NoBounceMaterial { get; private set; }
+
+    public GameObject PlayerVisual { get; private set; }
+    public int PlayerVisualFacing { get; set; }
+    [SerializeField] private float playerVisualTransformOffset;
+    private Transform club;
+    private Vector2 playerVisualInitialScale;
+    public Vector2 AimDirection { get; private set; }
+
+    private void Awake()
     {
         swingForce = minSwingForce;
-        ball = Instantiate(ballPrefab, ballSpawnPos.position, Quaternion.identity).GetComponent<Ball>();
+        Rb = GetComponent<Rigidbody2D>();
+        coll = GetComponent<CircleCollider2D>();
+    }
 
-        ball.SetUpBall(spawnPos: ballSpawnPos.position, gravityScale: ballGravity, player: this, playerOffset: transform.position, bounciness: ballBounciness);
+    private void Start()
+    {
+        PlayerVisual = ObjectPoolingManager.Instance.SpawnFromPool("Player Visual", (Vector2)transform.position + Vector2.up * playerVisualTransformOffset, Quaternion.identity);
+
+        club = PlayerVisual.transform.Find("Club");
+
+        Rb.gravityScale = ballGravity;
+
+        PlayerVisual.SetActive(false);
+
+        playerVisualInitialScale = PlayerVisual.transform.localScale;
+
+        BounceMaterial = new PhysicsMaterial2D("Bounce")
+        {
+            bounciness = ballBounciness,
+            friction = ballFriction
+        };
+        NoBounceMaterial = new PhysicsMaterial2D("No Bounce")
+        {
+            bounciness = 0,
+            friction = ballFriction
+        };
 
         GenerateDots();
         SetUpDotsPosition();
+
+        SetPhysicMaterial(BounceMaterial);
+        DotsActive(false);
     }
 
     public void SpinClub(float angle)
     {
+        int facing = -PlayerVisualFacing;
+
         Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, angle) * -facing);
-        club.transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, ClubSpinSpeed);
+        club.transform.rotation = Quaternion.Lerp(club.transform.rotation, targetRotation, ClubSpinSpeed);
     }
 
     public void SlightlyChangeSwingForceTo(float to)
@@ -95,16 +148,41 @@ public class Player : StateOwner
         swingForce = Mathf.Lerp(swingForce, to, SwingForceSpeed * Time.deltaTime);
     }
 
-    #region Aiming
+    public void SetActivePlayerVisual(bool active, Vector2 upDirection)
+    {
+        upDirection = upDirection.normalized;
+        Vector2 offSet = (Vector2)transform.position + upDirection * playerVisualTransformOffset;
 
+        if (active)
+        {
+            PlayerVisual = ObjectPoolingManager.Instance.SpawnFromPool("Player Visual", offSet, Quaternion.identity);
+            PlayerVisual.transform.up = upDirection;
+        }
+        else
+        {
+            SetActivePlayerVisual(false);
+        }
+    }
+
+    public void SetActivePlayerVisual(bool active)
+    {
+        if (PlayerVisual == null)
+        {
+            return;
+        }
+
+        PlayerVisual.SetActive(active);
+    }
+
+    #region Aiming
     private void GenerateDots()
     {
         dots = new GameObject[numberOfDots];
 
         for (int i = 0; i < numberOfDots; i++)
         {
-            dots[i] = Instantiate(dotPrefab, transform.position, Quaternion.identity, dotParent);
-            dots[i].SetActive(false);
+            dots[i] = ObjectPoolingManager.Instance.SpawnFromPool("Dot Trajectory", transform.position, Quaternion.identity);
+            dots[i].transform.SetParent(dotParent.transform);
         }
     }
 
@@ -118,7 +196,7 @@ public class Player : StateOwner
 
     private Vector2 DotPosition(float t)
     {
-        Vector2 position = (Vector2) dotParent.transform.position
+        Vector2 position = (Vector2)dotParent.transform.position
             + inputReader.AimDirection * swingForce * t
             + 0.5f * Physics2D.gravity * ballGravity * t * t;
 
@@ -133,32 +211,68 @@ public class Player : StateOwner
         }
     }
 
-    #endregion
-
-    #region Hit ball
-    public void SetUpBall()
+    public void FlipPlayerVisual(bool flip, float initialRightTransformX)
     {
-        Vector2 playerOffSet = transform.position - ballSpawnPos.position;
-        //ball.SetUpBall(ballSpawnPos.position, HitDirection, swingForce, ballGravity, this, playerOffSet, ballBounciness);
-    }
-    #endregion
-
-    #region Camera Handling
-    private void CameraFollow(Transform target)
-    {
-        virtualCamera.m_Follow = target;
+        PlayerVisualFacing = Vector2.Dot((Vector2)PlayerVisual.transform.right, inputReader.AimDirection) > 0 ? -1 : 1;
     }
 
-    public void CameraFollowBall()
-    {
-        Debug.Log(ball);
-        CameraFollow(ball.transform);
-    }
     #endregion
 
-    #region Handle State Transition
-    public void ChangeState(Enum state)
+    public bool IsGrounded()
     {
+        return Physics2D.Raycast(transform.position, Vector2.down, ballGroundCheckDistance + coll.radius, groundLayer);
     }
-    #endregion
+
+    public bool IsTouchingGrass()
+    {
+        Collider2D coll = Physics2D.OverlapCircle(transform.position, ballGrassCheckRadius, grassLayer);
+        return coll != null;
+    }
+
+    public bool IsStopMoving()
+    {
+        return Rb.velocity.magnitude < stopMovingThreshold;
+    }
+
+    public void SetPhysicMaterial(PhysicsMaterial2D material)
+    {
+        coll.sharedMaterial = material;
+    }
+
+    public void HitBall(Vector2 direction, float swingForce)
+    {
+        Rb.velocity = direction * swingForce;
+    }
+
+    private void DrawCheckGround()
+    {
+        Debug.DrawRay(transform.position, Vector2.down * .5f, Color.red);
+    }
+
+    private void DrawCheckGrass()
+    {
+        DebugDrawCircle(transform.position, ballGrassCheckRadius, Color.green);
+    }
+
+    private void OnDrawGizmos()
+    {
+        DrawCheckGround();
+    }
+
+    void DebugDrawCircle(Vector2 position, float radius, Color color)
+    {
+        int segments = 20;
+        float angle = 0f;
+        float angleStep = 360f / segments;
+
+        Vector3 prevPoint = position + new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * radius;
+
+        for (int i = 1; i <= segments; i++)
+        {
+            angle += angleStep;
+            Vector3 newPoint = position + new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * radius;
+            Debug.DrawLine(prevPoint, newPoint, color);
+            prevPoint = newPoint;
+        }
+    }
 }

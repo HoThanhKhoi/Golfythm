@@ -19,6 +19,7 @@ public class PlayerState_Idle : State<Player, PlayerStateMachine.State>
     public override void Update()
     {
         base.Update();
+        owner.Rb.velocity = Vector2.zero;
 
         ReturnSwingForceToMin();
 

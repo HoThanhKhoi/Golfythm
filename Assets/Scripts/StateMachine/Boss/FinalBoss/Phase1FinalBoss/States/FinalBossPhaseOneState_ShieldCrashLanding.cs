@@ -7,4 +7,21 @@ public class FinalBossPhaseOneState_ShieldCrashLanding : State<FinalBossPhaseOne
     public FinalBossPhaseOneState_ShieldCrashLanding(FinalBossPhaseOne owner, StateMachine<FinalBossPhaseOne, FinalBossPhaseOneStateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
     {
     }
+
+	public override void Enter()
+	{
+		base.Enter();
+
+		stateTimer = animationLength;
+	}
+
+	public override void Update()
+	{
+		base.Update();
+
+		if(TimeOut())
+		{
+			stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Idle);
+		}
+	}
 }

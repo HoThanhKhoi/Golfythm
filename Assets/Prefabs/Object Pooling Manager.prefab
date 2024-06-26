@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4256074491519188042
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4037040826345340728}
+  - component: {fileID: 3591271937192743120}
+  m_Layer: 0
+  m_Name: Object Pooling Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4037040826345340728
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4256074491519188042}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.6627995, y: 22.10653, z: -1.7360018}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3591271937192743120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4256074491519188042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c55edd6b12bb62c4b98c58e0e14508fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolList:
+  - name: Laser Impact
+    prefab: {fileID: 5760102632597809165, guid: d497e62fc84c9db4684013e26ee18257, type: 3}
+    size: 50
+  - name: Stone Golem Arm
+    prefab: {fileID: 7825739491557981429, guid: 96f5e63030d8fa040a513ccb484f7f38, type: 3}
+    size: 10
+  - name: Player Visual
+    prefab: {fileID: 5335907188715792442, guid: c26da330bb823a244a4d94c41e128a51, type: 3}
+    size: 1
+  - name: Dot Trajectory
+    prefab: {fileID: 4555467459978082374, guid: 0df1996188c42304093753bd67518aaa, type: 3}
+    size: 100

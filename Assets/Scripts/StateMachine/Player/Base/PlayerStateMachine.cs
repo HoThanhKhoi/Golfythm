@@ -9,7 +9,7 @@ public class PlayerStateMachine : StateMachine<Player, PlayerStateMachine.State>
         Idle,
         Aim,
         Swing,
-        Hit
+        Ball
     }
 
     protected override void SetUpStateMachine()
@@ -17,8 +17,12 @@ public class PlayerStateMachine : StateMachine<Player, PlayerStateMachine.State>
         AddState(State.Idle, new PlayerState_Idle(owner, this, anim));
         AddState(State.Aim, new PlayerState_Aim(owner, this, anim));
         AddState(State.Swing, new PlayerState_Swing(owner, this, anim));
-        AddState(State.Hit, new PlayerState_Hit(owner, this, anim));
+        AddState(State.Ball, new PlayerState_Ball(owner, this, anim));
 
-        ChangeState(State.Idle);
+    }
+
+    private void Start()
+    {
+        ChangeState(State.Ball);
     }
 }
