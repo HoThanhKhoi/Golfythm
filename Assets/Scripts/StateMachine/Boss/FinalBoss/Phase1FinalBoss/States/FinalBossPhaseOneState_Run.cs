@@ -12,17 +12,20 @@ public class FinalBossPhaseOneState_Run : State<FinalBossPhaseOne, FinalBossPhas
 	{
 		base.Enter();
 
-		Debug.Log("Boss Idle");
-		stateTimer = 1f;
+		stateTimer = owner.RunDuration;
+
+		owner.MoveToPlayer(owner.RunSpeed);
 	}
 
 	public override void Update()
 	{
 		base.Update();
 
-		if (stateTimer < 0)
+		if (TimeOut() || owner.GetDistanceToPlayer() <= 1f)
 		{
-			stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Run);
+			stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Idle);
 		}
+
+
 	}
 }

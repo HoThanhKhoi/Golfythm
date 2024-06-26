@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
+using static UnityEngine.UI.Image;
 
 public class BossStateOwner : StateOwner
 {
@@ -22,6 +24,7 @@ public class BossStateOwner : StateOwner
         playerLayer = player.gameObject.layer;
     }
 
+    
     public Vector2 GetPlayerPosition()
     {
         Vector2 playerPosition = Vector2.zero;
@@ -56,11 +59,17 @@ public class BossStateOwner : StateOwner
     {
         Vector2 rayDirection = GetDirectionToPlayer(origin);
 
-        RaycastHit2D hit = Physics2D.CircleCast(origin, detectionRadius, rayDirection, detectionDistance, playerLayer);
+        RaycastHit2D hit = Physics2D.CircleCast(origin, detectionRadius, rayDirection, detectionDistance);
+
+        Debug.Log(hit.transform.name);
+        //Debug.Log(rayDirection + " " + origin + " " + detectionRadius + " " + rayDirection + " " + detectionDistance + " " + playerLayer.ToString());
+
 
         if (hit.collider != null)
         {
-            Player detectedPlayer;
+			Debug.Log(hit);
+
+			Player detectedPlayer;
             if (hit.transform.TryGetComponent<Player>(out detectedPlayer))
             {
                 player = detectedPlayer;
@@ -69,6 +78,8 @@ public class BossStateOwner : StateOwner
         }
 
         DebugDrawCircleCast(transform.position, rayDirection, detectionRadius, detectionDistance, Color.red);
+
+        
 
         return false;
     }
@@ -82,7 +93,7 @@ public class BossStateOwner : StateOwner
     }
     public void MoveToPlayer(float speed)
     {
-        rb.velocity = GetDirectionToPlayer(transform.position) * speed;
+        MoveToPosition(GetPlayerPosition(), speed);
     }
 
     public float GetDistanceToPlayer()
@@ -101,4 +112,11 @@ public class BossStateOwner : StateOwner
     {
         return Vector2.Distance((Vector2) transform.position, position);
     }
+
+ //   protected void OnDrawGizmos()
+ //   {
+	//	Vector2 rayDirection = GetDirectionToPlayer(this.transform.position);
+
+	//	DebugDrawCircleCast(transform.position, rayDirection, detectionRadius, detectionDistance, Color.red);
+	//}
 }
