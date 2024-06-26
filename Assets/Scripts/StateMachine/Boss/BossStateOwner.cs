@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEngine.UI.Image;
@@ -18,6 +19,34 @@ public class BossStateOwner : StateOwner
     [SerializeField] private float detectionDistance = 0f;
 
     [SerializeField] private LayerMask detectionLayer;
+
+
+    [Header("Detecting Ground")]
+	[SerializeField] private float groundDetectionRadius = 10f;
+	[SerializeField] private float groundDetectionDistance = 0f;
+
+	[SerializeField] private LayerMask groundLayer;
+
+
+
+    public bool IsOnGround(Vector2 origin)
+    {
+		Vector2 rayDirection = GetDirectionToPlayer(origin);
+
+		RaycastHit2D hit = Physics2D.CircleCast(origin, groundDetectionRadius, rayDirection, groundDetectionDistance, groundLayer);
+
+		DebugDrawCircleCast(origin, groundDetectionRadius, rayDirection, groundDetectionDistance);
+
+		if (hit.collider != null)
+		{
+			if (hit.collider.CompareTag("Terrain"))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 
     public Vector2 GetPlayerPosition()
     {
@@ -83,6 +112,21 @@ public class BossStateOwner : StateOwner
         MoveToPosition(GetPlayerPosition(), speed);
     }
 
+	public void MoveToPlayer(Vector2 origin, float speed)
+	{
+		MoveToPosition(origin, GetPlayerPosition(), speed);
+	}
+
+	public void MoveToPlayerHorizontal(Vector2 origin, float speed)
+    {
+        MoveToPositionHorizontal(origin, GetPlayerPosition(), speed);
+    }
+
+    public void MoveToPlayerVertical(Vector2 origin, float speed)
+    {
+		MoveToPositionVertical(origin, GetPlayerPosition(), speed);
+    }
+
     public float GetDistanceToPlayer()
     {
         return Vector2.Distance(transform.position, GetPlayerPosition());
@@ -107,7 +151,23 @@ public class BossStateOwner : StateOwner
         rb.velocity = moveDirection * speed;
     }
 
-    public float GetDistanceToPosition(Vector2 position)
+	public void MoveToPositionHorizontal(Vector2 origin, Vector2 destination, float speed)
+	{
+		
+		Vector2 moveDirection = new Vector2(destination.x - origin.x, 0f);
+
+		rb.velocity = moveDirection.normalized * speed;
+	}
+
+	public void MoveToPositionVertical(Vector2 origin, Vector2 destination, float speed)
+	{
+
+		Vector2 moveDirection = new Vector2(destination.y - origin.y, 0f);
+
+		rb.velocity = moveDirection.normalized * speed;
+	}
+
+	public float GetDistanceToPosition(Vector2 position)
     {
         return Vector2.Distance((Vector2)transform.position, position);
     }
@@ -147,6 +207,8 @@ public class BossStateOwner : StateOwner
             prevPoint = newPoint;
         }
     }
+
+
 
     #endregion
 }

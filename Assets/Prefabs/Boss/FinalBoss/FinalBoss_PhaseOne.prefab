@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7583683858555838302}
   - component: {fileID: 1467391630086696255}
   - component: {fileID: 2725380066264476208}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EffectsRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7952501270451055788}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BossCentrePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 3870754052124715008}
   - component: {fileID: 2338380735439435903}
   - component: {fileID: 3834512009240137429}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BossRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 7436309648997945172}
   - component: {fileID: 5196418993616716783}
   - component: {fileID: 9027312610241106146}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FinalBoss_PhaseOne
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,10 +297,15 @@ MonoBehaviour:
   rb: {fileID: 5196418993616716783}
   detectionRadius: 10
   detectionDistance: 0
+  detectionLayer:
+    serializedVersion: 2
+    m_Bits: 0
   bossCenter: {fileID: 7952501270451055788}
   idleDuration: 2
   runSpeed: 5
   runDuration: 10
+  dashDuration: 2
+  attackRange: 1
 --- !u!114 &7436309648997945172
 MonoBehaviour:
   m_ObjectHideFlags: 0

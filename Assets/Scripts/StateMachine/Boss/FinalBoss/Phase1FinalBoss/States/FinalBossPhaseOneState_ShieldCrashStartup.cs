@@ -8,4 +8,19 @@ public class FinalBossPhaseOneState_ShieldCrashStartup : State<FinalBossPhaseOne
     {
     }
 
+	public override void Enter()
+	{
+		base.Enter();
+	}
+
+	override public void Update()
+	{
+		base.Update();
+
+		if (owner.IsOnGround(owner.BossCenter.position))
+		{
+			stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Shield_Crash_Landing);
+		}
+	}
+
 }

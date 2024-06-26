@@ -5,9 +5,9 @@ using static UnityEngine.InputSystem.OnScreen.OnScreenStick;
 
 public class FinalBossPhaseOneState_Dash : State<FinalBossPhaseOne, FinalBossPhaseOneStateMachine.State>
 {
-    public FinalBossPhaseOneState_Dash(FinalBossPhaseOne owner, StateMachine<FinalBossPhaseOne, FinalBossPhaseOneStateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
-    {
-    }
+	public FinalBossPhaseOneState_Dash(FinalBossPhaseOne owner, StateMachine<FinalBossPhaseOne, FinalBossPhaseOneStateMachine.State> stateMachine, Animator anim) : base(owner, stateMachine, anim)
+	{
+	}
 
 	public override void Enter()
 	{
@@ -20,13 +20,29 @@ public class FinalBossPhaseOneState_Dash : State<FinalBossPhaseOne, FinalBossPha
 	{
 		base.Update();
 
-		if (owner.GetDistanceToPlayer(owner.BossCenter.position) < owner.AttackRange)
+		owner.MoveToPlayerHorizontal(owner.BossCenter.position, owner.RunSpeed);
+		if (owner.IsOnGround(owner.BossCenter.position))
 		{
-			stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Combo);
+			if (owner.GetDistanceToPlayer(owner.BossCenter.position) < owner.AttackRange)
+			{
+				stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Combo);
+			}
+			else if (TimeOut())
+			{
+				stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Idle);
+			}
 		}
-		else if(TimeOut())
+		else if(!owner.IsOnGround(owner.BossCenter.position))
 		{
-			stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Idle);
-		}
+			if (owner.GetDistanceToPlayer(owner.BossCenter.position) < owner.AttackRange)
+			{
+				stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.AirCombo);
+			}
+			else if (TimeOut())
+			{
+				stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Shield_Crash_Startup);
+			}
+		}	
+
 	}
 }
