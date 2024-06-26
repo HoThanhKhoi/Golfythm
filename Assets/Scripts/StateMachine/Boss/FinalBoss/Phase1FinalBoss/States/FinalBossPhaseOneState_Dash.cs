@@ -21,6 +21,7 @@ public class FinalBossPhaseOneState_Dash : State<FinalBossPhaseOne, FinalBossPha
 		base.Update();
 
 		owner.MoveToPlayerHorizontal(owner.BossCenter.position, owner.RunSpeed);
+
 		if (owner.IsOnGround(owner.BossCenter.position))
 		{
 			if (owner.GetDistanceToPlayer(owner.BossCenter.position) < owner.AttackRange)

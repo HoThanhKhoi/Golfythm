@@ -143031,7 +143031,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6256472549632770788, guid: 099e33b898b8172429c1d56b81c6ced2, type: 3}
       propertyPath: detectionRadius
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6256472549632770788, guid: 099e33b898b8172429c1d56b81c6ced2, type: 3}
       propertyPath: detectionDistance

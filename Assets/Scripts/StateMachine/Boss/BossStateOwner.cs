@@ -162,7 +162,7 @@ public class BossStateOwner : StateOwner
 	public void MoveToPositionVertical(Vector2 origin, Vector2 destination, float speed)
 	{
 
-		Vector2 moveDirection = new Vector2(destination.y - origin.y, 0f);
+		Vector2 moveDirection = new Vector2(0f, destination.y - origin.y);
 
 		rb.velocity = moveDirection.normalized * speed;
 	}

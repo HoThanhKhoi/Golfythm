@@ -17,9 +17,7 @@ public class FinalBossPhaseOneState_Jump : State<FinalBossPhaseOne, FinalBossPha
 	{
 		base.Update();
 
-		Debug.Log("Jumping");
-		owner.FaceToPlayer();
-		owner.MoveToPlayerVertical(owner.BossCenter.position, owner.JumpSpeed);
+		
 
 		if (owner.GetPlayerPosition().y == owner.BossCenter.position.y)
 		{
@@ -32,7 +30,13 @@ public class FinalBossPhaseOneState_Jump : State<FinalBossPhaseOne, FinalBossPha
 				stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Dash);
 			}
 		}
+	}
 
+	public override void FixedUpdate()
+	{
+		base.FixedUpdate();
 
+		owner.FaceToPlayer();
+		owner.MoveToPlayerVertical(owner.BossCenter.position, owner.JumpSpeed);
 	}
 }
