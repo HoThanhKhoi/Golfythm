@@ -10,7 +10,7 @@ public class NoteSpawner : MonoBehaviour
 	public int gridColumns;
 	public int gridRows;
 	public float noteScaleFactor;
-	//public AudioClip noteSound;
+
 	public int minDistanceFromPreviousNote;
 	public int maxDistanceFromPreviousNote;
 	public float ghostCircleDuration;
@@ -20,15 +20,26 @@ public class NoteSpawner : MonoBehaviour
 	private float spriteWidth, spriteHeight;
 	private float verticalSize, horizontalSize;
 	private Dictionary<Vector2, GameObject> activeNotes = new Dictionary<Vector2, GameObject>();
-	//private AudioSource audioSource;
 
 	private Vector2 previousNotePosition = Vector2.zero;
 	private List<float> noteTimes;
 
+	public delegate void NoteSpawnedHandler(GameObject noteObject, Vector2 gridPosition);
+	public event NoteSpawnedHandler OnNoteSpawned;
+
+	public delegate void NoteDestroyedHandler(GameObject noteObject, bool isMissed);
+	public event NoteDestroyedHandler OnNoteDestroyed;
+
+
+	[System.Serializable]
+	public class NoteChart
+	{
+		public List<float> beatTimes;
+	}
+
 	private void Start()
 	{
 		UpdateGridParameters();
-		//audioSource = gameObject.GetComponent<AudioSource>();
 		LoadNoteChart();
 	}
 
@@ -77,7 +88,7 @@ public class NoteSpawner : MonoBehaviour
 				Vector2 mirrorPosition = GetMirrorPosition(newNotePosition);
 				SpawnGhost(newNotePosition);
 				SpawnGhost(mirrorPosition);
-				//audioSource.PlayOneShot(noteSound);
+
 				yield return new WaitForSeconds(ghostCircleDuration);
 				SpawnNoteAtPosition(newNotePosition);
 				SpawnNoteAtPosition(mirrorPosition);
@@ -89,7 +100,7 @@ public class NoteSpawner : MonoBehaviour
 				if (spawnOnLeft)
 				{
 					SpawnGhost(newNotePosition);
-					//audioSource.PlayOneShot(noteSound);
+					
 					yield return new WaitForSeconds(ghostCircleDuration);
 					SpawnNoteAtPosition(newNotePosition);
 				}
@@ -97,7 +108,7 @@ public class NoteSpawner : MonoBehaviour
 				{
 					Vector2 mirrorPosition = GetMirrorPosition(newNotePosition);
 					SpawnGhost(mirrorPosition);
-					//audioSource.PlayOneShot(noteSound);
+					
 					yield return new WaitForSeconds(ghostCircleDuration);
 					SpawnNoteAtPosition(mirrorPosition);
 				}
@@ -162,19 +173,12 @@ public class NoteSpawner : MonoBehaviour
 
 		GameObject ghostObject = new GameObject("Ghost");
 		ghostObject.transform.position = worldPosition;
-		ghostObject.transform.localScale = Vector3.zero; // Start scale
+		ghostObject.transform.localScale = Vector3.zero;
 		var ghostRenderer = ghostObject.AddComponent<SpriteRenderer>();
 		ghostRenderer.sprite = ghostSprite;
 		ghostRenderer.color = Color.red;
 
 		StartCoroutine(AnimateGhostCircle(ghostObject));
-	}
-
-	private Vector3 GetWorldPositionFromGrid(Vector2 gridPosition)
-	{
-		float posX = -horizontalSize + gridPosition.x * spriteWidth + spriteWidth / 2;
-		float posY = -verticalSize + gridPosition.y * spriteHeight + spriteHeight / 2;
-		return new Vector3(posX, posY, 0);
 	}
 
 	private void SpawnNoteAtPosition(Vector2 gridPosition)
@@ -189,21 +193,42 @@ public class NoteSpawner : MonoBehaviour
 		spriteRenderer.sprite = noteSprite;
 
 		activeNotes[gridPosition] = noteObject;
-		StartCoroutine(DestroyNoteAfterBeat(noteObject));
+		OnNoteSpawned?.Invoke(noteObject, gridPosition);
+		StartCoroutine(DestroyNoteAfterBeat(noteObject, gridPosition));
 	}
 
-	private IEnumerator DestroyNoteAfterBeat(GameObject noteObject)
+	public void MarkNoteAsHit(GameObject noteObject, Vector2 gridPosition)
+	{
+		if (activeNotes.ContainsKey(gridPosition))
+		{
+			activeNotes.Remove(gridPosition);
+			Destroy(noteObject);
+		}
+	}
+
+	private IEnumerator DestroyNoteAfterBeat(GameObject noteObject, Vector2 gridPosition)
 	{
 		yield return new WaitForSeconds(destroyDuration);
 
-		activeNotes.Remove(GetGridPositionFromWorld(noteObject.transform.position));
-		Destroy(noteObject);
+		if (activeNotes.ContainsKey(gridPosition))
+		{
+			activeNotes.Remove(gridPosition);
+			OnNoteDestroyed?.Invoke(noteObject, true);
+			Destroy(noteObject);
+		}
+	}
+
+	private Vector3 GetWorldPositionFromGrid(Vector2 gridPosition)
+	{
+		float posX = -horizontalSize + gridPosition.x * spriteWidth + spriteWidth / 2;
+		float posY = -verticalSize + gridPosition.y * spriteHeight + spriteHeight / 2;
+		return new Vector3(posX, posY, 0);
 	}
 
 	private IEnumerator AnimateGhostCircle(GameObject ghostObject)
 	{
 		float elapsedTime = 0f;
-		Vector3 targetScale = new Vector3(1, 1, 1); // Fixed size for ghost circle
+		Vector3 targetScale = new Vector3(1, 1, 1);
 
 		while (elapsedTime < ghostCircleDuration)
 		{
@@ -216,7 +241,7 @@ public class NoteSpawner : MonoBehaviour
 		Destroy(ghostObject);
 	}
 
-	private Vector2 GetGridPositionFromWorld(Vector3 worldPosition)
+	public Vector2 GetGridPositionFromWorld(Vector3 worldPosition)
 	{
 		float posX = (worldPosition.x + horizontalSize) / spriteWidth;
 		float posY = (worldPosition.y + verticalSize) / spriteHeight;
@@ -248,10 +273,4 @@ public class NoteSpawner : MonoBehaviour
 		}
 	}
 
-	[System.Serializable]
-	public class NoteChart
-	{
-		public List<float> beatTimes;
-	}
 }
-
