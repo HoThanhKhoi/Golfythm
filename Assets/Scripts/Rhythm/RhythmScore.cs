@@ -3,9 +3,15 @@ using System.Collections.Generic;
 
 public class RhythmScore : MonoBehaviour
 {
-	public float perfectHitThreshold = 0.1f; // Time window for a perfect hit
-	public float goodHitThreshold = 0.2f;    // Time window for a good hit
-	public float missThreshold = 0.3f;       // Time window for a miss
+	public float perfectHit; 
+	public float goodHit;    
+	public float miss;       
+
+	public int perfectScore;
+	public int goodScore;
+	public int missScore;
+
+	public InputReader inputReader;
 
 	private NoteSpawner noteSpawner;
 	private Dictionary<GameObject, float> noteSpawnTimes = new Dictionary<GameObject, float>();
@@ -19,6 +25,11 @@ public class RhythmScore : MonoBehaviour
 		noteSpawner.OnNoteDestroyed += HandleNoteDestroyed;
 	}
 
+	private void Update()
+	{
+		CheckForTouchHit();
+	}
+
 	private void HandleNoteSpawned(GameObject noteObject, Vector2 gridPosition)
 	{
 		noteSpawnTimes[noteObject] = Time.time;
@@ -29,24 +40,18 @@ public class RhythmScore : MonoBehaviour
 		if (isMissed)
 		{
 			combo = 0;
-			score -= 10; // Subtract points for missed notes
+			score -= missScore; 
 			Debug.Log("Miss! Score: " + score + " Combo: " + combo);
 		}
-		noteSpawnTimes.Remove(noteObject); // Ensure note is removed from the dictionary
+		noteSpawnTimes.Remove(noteObject); 
 	}
 
-	private void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			CheckForHit();
-		}
-	}
 
-	private void CheckForHit()
+	private void CheckForTouchHit()
 	{
 		List<GameObject> notesToRemove = new List<GameObject>();
-		foreach (var kvp in noteSpawnTimes)
+
+		foreach (var kvp in new Dictionary<GameObject, float>(noteSpawnTimes))
 		{
 			GameObject note = kvp.Key;
 			if (note == null) continue;
@@ -54,42 +59,56 @@ public class RhythmScore : MonoBehaviour
 			float spawnTime = kvp.Value;
 			float elapsedTime = Time.time - spawnTime;
 
-			if (elapsedTime <= perfectHitThreshold)
+			foreach (Touch touch in Input.touches)
 			{
-				HandleHit(note, "Perfect");
-				notesToRemove.Add(note);
-			}
-			else if (elapsedTime <= goodHitThreshold)
-			{
-				HandleHit(note, "Good");
-				notesToRemove.Add(note);
-			}
-			else if (elapsedTime <= missThreshold)
-			{
-				notesToRemove.Add(note);
+				if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
+				{
+					Vector2 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+					if (Vector2.Distance(touchPosition, note.transform.position) <= perfectHit)
+					{
+						HandleHit(note, "Perfect");
+						notesToRemove.Add(note);
+						break;
+					}
+					else if (Vector2.Distance(touchPosition, note.transform.position) <= goodHit)
+					{
+						HandleHit(note, "Good");
+						notesToRemove.Add(note);
+						break;
+					}
+					else if (elapsedTime > miss)
+					{
+						notesToRemove.Add(note);
+					}
+				}
 			}
 		}
 
 		foreach (var note in notesToRemove)
 		{
-			noteSpawnTimes.Remove(note);
-			if (note != null) Destroy(note);
+			if (noteSpawnTimes.ContainsKey(note))
+			{
+				noteSpawnTimes.Remove(note);
+				Destroy(note);
+			}
 		}
 	}
+
 
 	private void HandleHit(GameObject note, string hitType)
 	{
 		Vector2 gridPosition = noteSpawner.GetGridPositionFromWorld(note.transform.position);
 		noteSpawner.MarkNoteAsHit(note, gridPosition);
+
 		switch (hitType)
 		{
 			case "Perfect":
-				score += 100;
+				score += perfectScore;
 				combo++;
 				Debug.Log("Perfect Hit! Score: " + score + " Combo: " + combo);
 				break;
 			case "Good":
-				score += 50;
+				score += goodScore;
 				combo++;
 				Debug.Log("Good Hit! Score: " + score + " Combo: " + combo);
 				break;

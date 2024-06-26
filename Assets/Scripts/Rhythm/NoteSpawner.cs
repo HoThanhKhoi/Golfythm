@@ -78,7 +78,7 @@ public class NoteSpawner : MonoBehaviour
 		for (int i = 0; i < noteTimes.Count; i++)
 		{
 			float waitTime = noteTimes[i] - (Time.time - startTime);
-			yield return new WaitForSeconds(waitTime - ghostCircleDuration);
+			yield return new WaitForSeconds(waitTime - ghostCircleDuration - 0.2f);
 
 			Vector2 newNotePosition = GetNextRandomGridPosition(previousNotePosition);
 
@@ -202,6 +202,7 @@ public class NoteSpawner : MonoBehaviour
 		if (activeNotes.ContainsKey(gridPosition))
 		{
 			activeNotes.Remove(gridPosition);
+			OnNoteDestroyed?.Invoke(noteObject, false);
 			Destroy(noteObject);
 		}
 	}
@@ -228,7 +229,7 @@ public class NoteSpawner : MonoBehaviour
 	private IEnumerator AnimateGhostCircle(GameObject ghostObject)
 	{
 		float elapsedTime = 0f;
-		Vector3 targetScale = new Vector3(1, 1, 1);
+		Vector3 targetScale = new Vector3(noteScaleFactor, noteScaleFactor, 1) * 0.8f;
 
 		while (elapsedTime < ghostCircleDuration)
 		{
