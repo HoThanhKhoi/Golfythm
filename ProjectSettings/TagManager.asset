@@ -8,6 +8,7 @@ TagManager:
   - Grass
   - SlowZone
   - EnemyAttack
+  - Obstacle
   - Terrain
   layers:
   - Default
