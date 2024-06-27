@@ -16,7 +16,7 @@ public class StateOwner : MonoBehaviour
     }
 
 
-    public void Damage(int damage)
+    public virtual void Damage(int damage)
     {
         CurrentHealth -= damage;
         OnHealthChanged?.Invoke(CurrentHealth);
