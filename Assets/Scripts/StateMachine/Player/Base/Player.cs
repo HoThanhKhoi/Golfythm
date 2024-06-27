@@ -103,6 +103,16 @@ public class Player : StateOwner
     public Transform SlowZone { get; set; }
     public Transform Grass {  get; set; }
 
+    public override void Damage(int damage)
+    {
+        base.Damage(damage);
+
+        if(IsDead())
+        {
+            UIManager.Instance.SetActiveDeadMenu(true);
+        }
+    }
+
     private void Awake()
     {
         swingForce = minSwingForce;
