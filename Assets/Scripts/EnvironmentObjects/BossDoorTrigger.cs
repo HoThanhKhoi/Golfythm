@@ -6,7 +6,7 @@ public class BossDoorTrigger : MonoBehaviour
 {
     [SerializeField] GameObject bossDoor;
     [SerializeField] GameObject finalBossPhaseOne;
-
+    [SerializeField] List<GameObject> fans;
 	// Start is called before the first frame update
 	void Start()
     {
@@ -25,6 +25,13 @@ public class BossDoorTrigger : MonoBehaviour
         {
 			bossDoor.SetActive(true);
 			finalBossPhaseOne.SetActive(true);
+			foreach (GameObject fan in fans)
+            {
+                if (fan != null)
+                {
+					fan.SetActive(true);
+				}
+            }
 		}
     }
 }

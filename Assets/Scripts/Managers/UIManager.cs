@@ -32,7 +32,7 @@ public class UIManager : Singleton<UIManager>
     {
 		Time.timeScale = 1;
 		StartCoroutine(WaitForSecondsToLoadScene(0.25f, (level + 1)));
-    }
+	}
 
     public void QuitGame()
     {
@@ -42,8 +42,8 @@ public class UIManager : Singleton<UIManager>
     public void PauseMenu()
     {
 		pauseMenu.SetActive(true);
-
-        StartCoroutine(WaitForSecondsToPause(.5f));
+         Time.timeScale = 0;
+		//StartCoroutine(WaitForSecondsToPause(.5f));
 	}
 
 	public void Resume()
