@@ -5,14 +5,19 @@ using TMPro;
 
 public class RhythmScore : MonoBehaviour
 {
+	[Header("Hit Manager")]
 	public float perfectHit;
 	public float goodHit;
 	public float miss;
+	public int maxMiss;
+	public int maxNotes;
 
+	[Header("Scores")]
 	public int perfectScore;
 	public int goodScore;
 	public int missScore;
 
+	[Header("UI Elements")]
 	public TMP_Text scoreText;
 	public TMP_Text comboText;
 
@@ -20,8 +25,13 @@ public class RhythmScore : MonoBehaviour
 
 	private NoteSpawner noteSpawner;
 	private Dictionary<GameObject, float> noteSpawnTimes = new Dictionary<GameObject, float>();
+	private AudioSource audioSource;
+
 	private int score = 0;
 	private int combo = 0;
+	private int maxCombo = 0;
+	private int misses = 0;
+	private int noteSpawned = 0;
 
 	private void Start()
 	{
@@ -29,7 +39,10 @@ public class RhythmScore : MonoBehaviour
 		noteSpawner.OnNoteSpawned += HandleNoteSpawned;
 		noteSpawner.OnNoteDestroyed += HandleNoteDestroyed;
 
+		audioSource = GetComponent<AudioSource>();
+
 		UpdateScoreText();
+		UpdateComboText();
 	}
 
 	private void Update()
@@ -39,7 +52,12 @@ public class RhythmScore : MonoBehaviour
 
 	private void HandleNoteSpawned(GameObject noteObject, Vector2 gridPosition)
 	{
+		noteSpawned++;
 		noteSpawnTimes[noteObject] = Time.time;
+		if(noteSpawned >= maxNotes)
+		{
+			EndSong();
+		}
 	}
 
 	private void HandleNoteDestroyed(GameObject noteObject, bool isMissed)
@@ -48,7 +66,12 @@ public class RhythmScore : MonoBehaviour
 		{
 			combo = 0;
 			score -= missScore;
-			Debug.Log("Miss! Score: " + score + " Combo: " + combo);
+			misses++;
+			Debug.Log("Miss! Score: " + score + " Combo: " + combo + " Misses: " + misses);
+			if(misses >= maxMiss)
+			{
+				EndSong();
+			}
 
 			UpdateScoreText();
 			UpdateComboText();
@@ -122,6 +145,12 @@ public class RhythmScore : MonoBehaviour
 				Debug.Log("Good Hit! Score: " + score + " Combo: " + combo);
 				break;
 		}
+
+		if(combo > maxCombo)
+		{
+			maxCombo = combo;
+		}
+
 		UpdateScoreText();
 		UpdateComboText();
 	}
@@ -134,6 +163,13 @@ public class RhythmScore : MonoBehaviour
 	private void UpdateComboText()
 	{
 		comboText.text = combo + "\n Combo";
-		comboText.fontSize = 16;
+	}
+
+	private void EndSong()
+	{
+		audioSource.Stop();
+		noteSpawner.StopSpawning();
+		Debug.Log("Ending song.");
+		Debug.Log("Score: " + score + " Max Combo: " + maxCombo + " Misses: " + misses);
 	}
 }

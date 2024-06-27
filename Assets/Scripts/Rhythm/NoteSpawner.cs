@@ -299,4 +299,9 @@ public class NoteSpawner : MonoBehaviour
 			Gizmos.DrawWireSphere(new Vector3(posX, posY, 0), 0.2f);
 		}
 	}
+
+	public void StopSpawning()
+	{
+		StopAllCoroutines();
+	}
 }
