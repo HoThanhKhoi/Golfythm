@@ -134,6 +134,5 @@ public class RhythmScore : MonoBehaviour
 	private void UpdateComboText()
 	{
 		comboText.text = combo + "\n Combo";
-		comboText.fontSize = 16;
 	}
 }

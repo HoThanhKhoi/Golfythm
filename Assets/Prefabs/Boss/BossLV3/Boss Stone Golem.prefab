@@ -366,6 +366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c65a1239e7aa90c47b2e428c71e1928b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <MaxHealth>k__BackingField: 0
   player: {fileID: 0}
   rb: {fileID: 4012123233408706025}
   detectionRadius: 5
@@ -373,6 +374,11 @@ MonoBehaviour:
   detectionLayer:
     serializedVersion: 2
     m_Bits: 577
+  groundDetectionRadius: 10
+  groundDetectionDistance: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
   flySpeed: 1
   centerTransform: {fileID: 0}
   idleTime: 3
@@ -608,7 +614,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 6.25, y: 6.25}
+  m_Size: {x: 25, y: 25}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
