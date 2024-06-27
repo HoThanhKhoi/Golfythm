@@ -57,3 +57,6 @@ MonoBehaviour:
   - name: Dot Trajectory
     prefab: {fileID: 4555467459978082374, guid: 0df1996188c42304093753bd67518aaa, type: 3}
     size: 100
+  - name: Player Death Paricle
+    prefab: {fileID: 3613861034789399319, guid: 4391bbf107956ec4eb372bbc1e4e90e2, type: 3}
+    size: 1
