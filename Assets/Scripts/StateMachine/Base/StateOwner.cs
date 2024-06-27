@@ -10,7 +10,7 @@ public class StateOwner : MonoBehaviour
 
     public event Action<int> OnHealthChanged;
 
-    protected void Start()
+    protected virtual void Start()
     {
         CurrentHealth = MaxHealth;
     }

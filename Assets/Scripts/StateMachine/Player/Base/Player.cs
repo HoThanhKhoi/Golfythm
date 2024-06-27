@@ -82,7 +82,6 @@ public class Player : StateOwner
     public Vector2 HitDirection { get; set; }
 
     private GameObject[] dots;
-    private Ball ball;
 
     public Rigidbody2D Rb { get; private set; }
     private CircleCollider2D coll;
@@ -107,7 +106,7 @@ public class Player : StateOwner
         coll = GetComponent<CircleCollider2D>();
     }
 
-    protected void Start()
+    protected override void Start()
     {
         base.Start();
 
