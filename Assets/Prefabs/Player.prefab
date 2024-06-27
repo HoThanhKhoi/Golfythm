@@ -284,6 +284,7 @@ MonoBehaviour:
   dotPrefab: {fileID: 4555467459978082374, guid: 0df1996188c42304093753bd67518aaa, type: 3}
   dotParent: {fileID: 8905267263740005328}
   virtualCamera: {fileID: 0}
+  ballVisual: {fileID: 8365804727852767166}
   maxClubSpinAngle: 80
   minClubSpinAngle: 20
   maxSwingForce: 100

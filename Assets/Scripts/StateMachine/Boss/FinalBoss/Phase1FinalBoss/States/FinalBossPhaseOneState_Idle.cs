@@ -27,7 +27,7 @@ public class FinalBossPhaseOneState_Idle : State<FinalBossPhaseOne, FinalBossPha
 
 		if (TimeOut())
 		{
-			if(owner.GetPlayerPosition().y <= (owner.BossCenter.position.y + 4f) 
+			if (owner.GetPlayerPosition().y <= (owner.BossCenter.position.y + 4f)
 				&& owner.GetPlayerPosition().y >= (owner.BossCenter.position.y - 4f))
 			{
 				if (owner.GetDistanceToPlayer(owner.BossCenter.position) > owner.AttackRange)
@@ -57,6 +57,6 @@ public class FinalBossPhaseOneState_Idle : State<FinalBossPhaseOne, FinalBossPha
 				stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Dash);
 			}
 		}
-		
+
 	}
 }

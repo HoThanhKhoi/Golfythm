@@ -11,7 +11,7 @@ public class Player : StateOwner
     [SerializeField] private GameObject dotPrefab;
     [SerializeField] private Transform dotParent;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
-
+    [SerializeField] private SpriteRenderer ballVisual;
 
     [Header("Club Spin")]
     [SerializeField] private float maxClubSpinAngle;
@@ -70,6 +70,7 @@ public class Player : StateOwner
     [SerializeField] private float stopMovingThreshold = .2f;
     [SerializeField] private float ballGravity = 4;
 
+
     [Header("Collision Check")]
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float ballGroundCheckDistance = .3f;
@@ -98,6 +99,19 @@ public class Player : StateOwner
     private Vector2 playerVisualInitialScale;
     public Vector2 AimDirection { get; private set; }
     public Vector2 CheckPoint { get; set; }
+    public Vector2 PlayerDirectionTowardsGrass { get; set; }
+    public Transform SlowZone { get; set; }
+    public Transform Grass {  get; set; }
+
+    public override void Damage(int damage)
+    {
+        base.Damage(damage);
+
+        if(IsDead())
+        {
+            UIManager.Instance.SetActiveDeadMenu(true);
+        }
+    }
 
     private void Awake()
     {
@@ -295,5 +309,10 @@ public class Player : StateOwner
     public void MoveToCheckPoint()
     {
         transform.position = CheckPoint;
+    }
+
+    public void SetActiveBallVisual(bool active)
+    {
+        ballVisual.gameObject.SetActive(active);
     }
 }

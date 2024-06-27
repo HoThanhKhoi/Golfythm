@@ -8,6 +8,7 @@ public class UIManager : Singleton<UIManager>
 {
     [field:SerializeField] public PlayerHealthUI PlayerHealthUI { get; private set; }
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject deadMenu;
 
 	IEnumerator WaitForSecondsToLoadScene(float seconds, int sceneNumber)
     {
@@ -32,7 +33,7 @@ public class UIManager : Singleton<UIManager>
     {
 		Time.timeScale = 1;
 		StartCoroutine(WaitForSecondsToLoadScene(0.25f, (level + 1)));
-    }
+	}
 
     public void QuitGame()
     {
@@ -42,8 +43,8 @@ public class UIManager : Singleton<UIManager>
     public void PauseMenu()
     {
 		pauseMenu.SetActive(true);
-
-        StartCoroutine(WaitForSecondsToPause(.5f));
+         Time.timeScale = 0;
+		//StartCoroutine(WaitForSecondsToPause(.5f));
 	}
 
 	public void Resume()
@@ -51,4 +52,9 @@ public class UIManager : Singleton<UIManager>
 		Time.timeScale = 1;
 		pauseMenu.SetActive(false);
 	}
+
+    public void SetActiveDeadMenu(bool active)
+    {
+        deadMenu.SetActive(active);
+    }
 }

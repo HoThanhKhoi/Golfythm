@@ -23,7 +23,7 @@ public class GameManager : Singleton<GameManager>
 
     public void AddPlayerToTarget()
     {
-        cameraHandler.AddToTarget(player, 1, 10);
+        cameraHandler.AddToTarget(player, 1, 15);
     }
 
     public void RemovePlayerToTarget()
