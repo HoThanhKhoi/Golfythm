@@ -64,10 +64,17 @@ public class RhythmPatternEditor : EditorWindow
 			GUILayout.Label("Song Position: " + FormatTime(songPosition) + " / " + FormatTime(songDuration));
 		}
 
+		GUILayout.BeginHorizontal();
 		if (GUILayout.Button("Add Beat Time"))
 		{
 			AddBeatTime();
 		}
+
+		if (GUILayout.Button("Delete All Beat Times"))
+		{
+			DeleteAllBeatTimes();
+		}
+		GUILayout.EndHorizontal();
 
 		GUILayout.Space(20);
 
@@ -79,9 +86,15 @@ public class RhythmPatternEditor : EditorWindow
 		GUILayout.Space(20);
 
 		GUILayout.Label("Beat Times:", EditorStyles.boldLabel);
-		foreach (float beatTime in beatTimes)
+		for (int i = 0; i < beatTimes.Count; i++)
 		{
-			GUILayout.Label(FormatTime(beatTime));
+			GUILayout.BeginHorizontal();
+			GUILayout.Label(FormatTime(beatTimes[i]));
+			if (GUILayout.Button("Delete"))
+			{
+				DeleteBeatTime(i);
+			}
+			GUILayout.EndHorizontal();
 		}
 	}
 
@@ -161,6 +174,21 @@ public class RhythmPatternEditor : EditorWindow
 	{
 		beatTimes.Add(songPosition);
 		Debug.Log("Added Beat Time at: " + FormatTime(songPosition));
+	}
+
+	private void DeleteAllBeatTimes()
+	{
+		beatTimes.Clear();
+		Debug.Log("All beat times deleted.");
+	}
+
+	private void DeleteBeatTime(int index)
+	{
+		if (index >= 0 && index < beatTimes.Count)
+		{
+			beatTimes.RemoveAt(index);
+			Debug.Log("Deleted Beat Time at index: " + index);
+		}
 	}
 
 	private void SaveNoteChart()
