@@ -243,7 +243,6 @@ GameObject:
   - component: {fileID: 8918036348333414624}
   - component: {fileID: 2100110611920248328}
   - component: {fileID: 7385790225100924259}
-  - component: {fileID: 3862440121078961398}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -280,7 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59359c6c7e4cf04595ee0e4292ff6e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 0
+  <MaxHealth>k__BackingField: 10
   inputReader: {fileID: 11400000, guid: 727e1e4f3d06fe143a603bbb034a72ed, type: 2}
   dotPrefab: {fileID: 4555467459978082374, guid: 0df1996188c42304093753bd67518aaa, type: 3}
   dotParent: {fileID: 8905267263740005328}
@@ -304,9 +303,9 @@ MonoBehaviour:
   ballGroundCheckDistance: 0.3
   grassLayer:
     serializedVersion: 2
-    m_Bits: 0
-  ballGrassCheckRadius: 0.6
-  playerVisualTransformOffset: 0
+    m_Bits: 1024
+  ballGrassCheckRadius: 1
+  playerVisualTransformOffset: 2
 --- !u!114 &8918036348333414624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,48 +383,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!61 &3862440121078961398
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9096204242631683515}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.0241857}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.5503607}
-  m_EdgeRadius: 0
