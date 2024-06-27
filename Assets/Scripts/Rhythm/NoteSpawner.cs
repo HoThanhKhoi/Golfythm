@@ -30,7 +30,6 @@ public class NoteSpawner : MonoBehaviour
 	public delegate void NoteDestroyedHandler(GameObject noteObject, bool isMissed);
 	public event NoteDestroyedHandler OnNoteDestroyed;
 
-
 	[System.Serializable]
 	public class NoteChart
 	{
@@ -78,13 +77,12 @@ public class NoteSpawner : MonoBehaviour
 		for (int i = 0; i < noteTimes.Count; i++)
 		{
 			float waitTime = noteTimes[i] - (Time.time - startTime);
-			yield return new WaitForSeconds(waitTime - ghostCircleDuration - 0.2f);
+			yield return new WaitForSeconds(waitTime - ghostCircleDuration - 0.3f);
 
 			Vector2 newNotePosition = GetNextRandomGridPosition(previousNotePosition);
 
 			if (Random.value < simultaneousSpawnProbability)
 			{
-				// Spawn on both sides
 				Vector2 mirrorPosition = GetMirrorPosition(newNotePosition);
 				SpawnGhost(newNotePosition);
 				SpawnGhost(mirrorPosition);
@@ -95,12 +93,11 @@ public class NoteSpawner : MonoBehaviour
 			}
 			else
 			{
-				// Spawn on one side
 				bool spawnOnLeft = Random.value < 0.5f;
 				if (spawnOnLeft)
 				{
 					SpawnGhost(newNotePosition);
-					
+
 					yield return new WaitForSeconds(ghostCircleDuration);
 					SpawnNoteAtPosition(newNotePosition);
 				}
@@ -108,7 +105,7 @@ public class NoteSpawner : MonoBehaviour
 				{
 					Vector2 mirrorPosition = GetMirrorPosition(newNotePosition);
 					SpawnGhost(mirrorPosition);
-					
+
 					yield return new WaitForSeconds(ghostCircleDuration);
 					SpawnNoteAtPosition(mirrorPosition);
 				}
@@ -132,7 +129,6 @@ public class NoteSpawner : MonoBehaviour
 
 			newGridPosition = new Vector2(currentGridPos.x + tempRandomX * randomDirectionX, currentGridPos.y + tempRandomY * randomDirectionY);
 
-			// Clamp to ensure the new position is within the grid bounds
 			newGridPosition.x = Mathf.Clamp(newGridPosition.x, 0, gridColumns - 1);
 			newGridPosition.y = Mathf.Clamp(newGridPosition.y, 0, gridRows - 1);
 
@@ -273,5 +269,4 @@ public class NoteSpawner : MonoBehaviour
 			float posY = -verticalSize + note.Key.y * spriteHeight + spriteHeight / 2;
 		}
 	}
-
 }

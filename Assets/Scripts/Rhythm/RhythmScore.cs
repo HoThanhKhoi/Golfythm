@@ -1,15 +1,20 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using TMPro;
 
 public class RhythmScore : MonoBehaviour
 {
-	public float perfectHit; 
-	public float goodHit;    
-	public float miss;       
+	public float perfectHit;
+	public float goodHit;
+	public float miss;
 
 	public int perfectScore;
 	public int goodScore;
 	public int missScore;
+
+	public TMP_Text scoreText;
+	public TMP_Text comboText;
 
 	public InputReader inputReader;
 
@@ -23,6 +28,8 @@ public class RhythmScore : MonoBehaviour
 		noteSpawner = FindObjectOfType<NoteSpawner>();
 		noteSpawner.OnNoteSpawned += HandleNoteSpawned;
 		noteSpawner.OnNoteDestroyed += HandleNoteDestroyed;
+
+		UpdateScoreText();
 	}
 
 	private void Update()
@@ -40,12 +47,14 @@ public class RhythmScore : MonoBehaviour
 		if (isMissed)
 		{
 			combo = 0;
-			score -= missScore; 
+			score -= missScore;
 			Debug.Log("Miss! Score: " + score + " Combo: " + combo);
-		}
-		noteSpawnTimes.Remove(noteObject); 
-	}
 
+			UpdateScoreText();
+			UpdateComboText();
+		}
+		noteSpawnTimes.Remove(noteObject);
+	}
 
 	private void CheckForTouchHit()
 	{
@@ -61,7 +70,7 @@ public class RhythmScore : MonoBehaviour
 
 			foreach (Touch touch in Input.touches)
 			{
-				if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
+				if (touch.phase == TouchPhase.Began)
 				{
 					Vector2 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
 					if (Vector2.Distance(touchPosition, note.transform.position) <= perfectHit)
@@ -76,11 +85,12 @@ public class RhythmScore : MonoBehaviour
 						notesToRemove.Add(note);
 						break;
 					}
-					else if (elapsedTime > miss)
-					{
-						notesToRemove.Add(note);
-					}
 				}
+			}
+
+			if (elapsedTime > miss)
+			{
+				notesToRemove.Add(note);
 			}
 		}
 
@@ -93,7 +103,6 @@ public class RhythmScore : MonoBehaviour
 			}
 		}
 	}
-
 
 	private void HandleHit(GameObject note, string hitType)
 	{
@@ -113,5 +122,18 @@ public class RhythmScore : MonoBehaviour
 				Debug.Log("Good Hit! Score: " + score + " Combo: " + combo);
 				break;
 		}
+		UpdateScoreText();
+		UpdateComboText();
+	}
+
+	private void UpdateScoreText()
+	{
+		scoreText.text = "" + score;
+	}
+
+	private void UpdateComboText()
+	{
+		comboText.text = combo + "\n Combo";
+		comboText.fontSize = 16;
 	}
 }
