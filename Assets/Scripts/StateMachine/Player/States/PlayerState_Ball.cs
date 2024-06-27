@@ -99,6 +99,11 @@ public class PlayerState_Ball : State<Player, PlayerStateMachine.State>
             owner.inputReader.SwingEvent += Bounce;
             owner.CanSlowTime = true;
         }
+
+        if(other.CompareTag("BossTrigger"))
+        {
+            GameManager.Instance.StartBossState();
+        }
     }
 
     public override void OnTriggerExit2D(Collider2D other)
