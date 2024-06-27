@@ -7,8 +7,9 @@ using UnityEngine.SceneManagement;
 public class UIManager : Singleton<UIManager>
 {
     [field:SerializeField] public PlayerHealthUI PlayerHealthUI { get; private set; }
+    [SerializeField] private GameObject pauseMenu;
 
-    IEnumerator WaitForSecondsToLoadScene(float seconds, int sceneNumber)
+	IEnumerator WaitForSecondsToLoadScene(float seconds, int sceneNumber)
     {
         yield return new WaitForSeconds(seconds);
 
@@ -28,4 +29,16 @@ public class UIManager : Singleton<UIManager>
     {
         Application.Quit();
     }
+
+    public void PauseMenu()
+    {
+        Time.timeScale = 0;
+		pauseMenu.SetActive(true);
+	}
+
+	public void Resume()
+    {
+		Time.timeScale = 1;
+		pauseMenu.SetActive(false);
+	}
 }
