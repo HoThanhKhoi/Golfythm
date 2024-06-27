@@ -5,12 +5,14 @@ using System.IO;
 
 public class NoteSpawner : MonoBehaviour
 {
+	[Header("Sprites and Grid Settings")]
 	public Sprite noteSprite;
 	public Sprite ghostSprite;
 	public int gridColumns;
 	public int gridRows;
 	public float noteScaleFactor;
 
+	[Header("Note Timing Settings")]
 	public int minDistanceFromPreviousNote;
 	public int maxDistanceFromPreviousNote;
 	public float ghostCircleDuration;
@@ -20,7 +22,6 @@ public class NoteSpawner : MonoBehaviour
 	private float spriteWidth, spriteHeight;
 	private float verticalSize, horizontalSize;
 	private Dictionary<Vector2, GameObject> activeNotes = new Dictionary<Vector2, GameObject>();
-
 	private Vector2 previousNotePosition = Vector2.zero;
 	private List<float> noteTimes;
 
@@ -53,7 +54,7 @@ public class NoteSpawner : MonoBehaviour
 
 	private void LoadNoteChart()
 	{
-		string path = Application.dataPath + "/beatTimes.json";
+		string path = Path.Combine(Application.dataPath, "beatTimes.json");
 		if (File.Exists(path))
 		{
 			string json = File.ReadAllText(path);
@@ -67,48 +68,28 @@ public class NoteSpawner : MonoBehaviour
 		}
 		else
 		{
-			Debug.LogError("Note chart file not found at " + path);
+			Debug.LogError($"Note chart file not found at {path}");
 		}
 	}
 
 	private IEnumerator PlayNotes()
 	{
 		float startTime = Time.time;
-		for (int i = 0; i < noteTimes.Count; i++)
+
+		foreach (float noteTime in noteTimes)
 		{
-			float waitTime = noteTimes[i] - (Time.time - startTime);
+			float waitTime = noteTime - (Time.time - startTime);
 			yield return new WaitForSeconds(waitTime - ghostCircleDuration - 0.3f);
 
 			Vector2 newNotePosition = GetNextRandomGridPosition(previousNotePosition);
 
 			if (Random.value < simultaneousSpawnProbability)
 			{
-				Vector2 mirrorPosition = GetMirrorPosition(newNotePosition);
-				SpawnGhost(newNotePosition);
-				SpawnGhost(mirrorPosition);
-
-				yield return new WaitForSeconds(ghostCircleDuration);
-				SpawnNoteAtPosition(newNotePosition);
-				SpawnNoteAtPosition(mirrorPosition);
+				HandleSimultaneousSpawn(newNotePosition);
 			}
 			else
 			{
-				bool spawnOnLeft = Random.value < 0.5f;
-				if (spawnOnLeft)
-				{
-					SpawnGhost(newNotePosition);
-
-					yield return new WaitForSeconds(ghostCircleDuration);
-					SpawnNoteAtPosition(newNotePosition);
-				}
-				else
-				{
-					Vector2 mirrorPosition = GetMirrorPosition(newNotePosition);
-					SpawnGhost(mirrorPosition);
-
-					yield return new WaitForSeconds(ghostCircleDuration);
-					SpawnNoteAtPosition(mirrorPosition);
-				}
+				HandleSingleSpawn(newNotePosition);
 			}
 
 			previousNotePosition = newNotePosition;
@@ -122,39 +103,41 @@ public class NoteSpawner : MonoBehaviour
 
 		do
 		{
-			int tempRandomX = Random.Range(minDistanceFromPreviousNote, maxDistanceFromPreviousNote + 1);
-			int tempRandomY = Random.Range(minDistanceFromPreviousNote, maxDistanceFromPreviousNote + 1);
-			int randomDirectionX = Random.Range(0, 2) == 0 ? 1 : -1;
-			int randomDirectionY = Random.Range(0, 2) == 0 ? 1 : -1;
-
-			newGridPosition = new Vector2(currentGridPos.x + tempRandomX * randomDirectionX, currentGridPos.y + tempRandomY * randomDirectionY);
-
-			newGridPosition.x = Mathf.Clamp(newGridPosition.x, 0, gridColumns - 1);
-			newGridPosition.y = Mathf.Clamp(newGridPosition.y, 0, gridRows - 1);
-
+			newGridPosition = GenerateRandomPosition(currentGridPos);
 			attempts++;
 		}
-		while ((newGridPosition == currentGridPos ||
-				activeNotes.ContainsKey(newGridPosition) ||
-				activeNotes.ContainsKey(GetMirrorPosition(newGridPosition)) ||
-				!IsValidDistance(newGridPosition, currentGridPos)) && attempts < 100);
+		while ((newGridPosition == currentGridPos || IsPositionOccupied(newGridPosition) || !IsValidDistance(newGridPosition, currentGridPos)) && attempts < 100);
 
 		return newGridPosition;
 	}
 
+	private Vector2 GenerateRandomPosition(Vector2 currentGridPos)
+	{
+		int tempRandomX = Random.Range(minDistanceFromPreviousNote, maxDistanceFromPreviousNote + 1);
+		int tempRandomY = Random.Range(minDistanceFromPreviousNote, maxDistanceFromPreviousNote + 1);
+		int randomDirectionX = Random.Range(0, 2) == 0 ? 1 : -1;
+		int randomDirectionY = Random.Range(0, 2) == 0 ? 1 : -1;
+
+		Vector2 newGridPosition = new Vector2(currentGridPos.x + tempRandomX * randomDirectionX, currentGridPos.y + tempRandomY * randomDirectionY);
+
+		newGridPosition.x = Mathf.Clamp(newGridPosition.x, 0, gridColumns - 1);
+		newGridPosition.y = Mathf.Clamp(newGridPosition.y, 0, gridRows - 1);
+
+		return newGridPosition;
+	}
+
+	private bool IsPositionOccupied(Vector2 newGridPosition)
+	{
+		return activeNotes.ContainsKey(newGridPosition) || activeNotes.ContainsKey(GetMirrorPosition(newGridPosition));
+	}
+
 	private bool IsValidDistance(Vector2 newGridPosition, Vector2 currentGridPos)
 	{
-		Vector2 mirrorPosition = GetMirrorPosition(newGridPosition);
-
 		float distanceToCurrent = Vector2.Distance(newGridPosition, currentGridPos);
-		float distanceToMirror = Vector2.Distance(newGridPosition, mirrorPosition);
+		float distanceToMirror = Vector2.Distance(newGridPosition, GetMirrorPosition(newGridPosition));
 
-		bool isValidDistance = distanceToCurrent >= minDistanceFromPreviousNote &&
-							   distanceToCurrent <= maxDistanceFromPreviousNote &&
-							   distanceToMirror >= minDistanceFromPreviousNote &&
-							   distanceToMirror <= maxDistanceFromPreviousNote;
-
-		return isValidDistance;
+		return distanceToCurrent >= minDistanceFromPreviousNote && distanceToCurrent <= maxDistanceFromPreviousNote &&
+			   distanceToMirror >= minDistanceFromPreviousNote && distanceToMirror <= maxDistanceFromPreviousNote;
 	}
 
 	private Vector2 GetMirrorPosition(Vector2 originalPosition)
@@ -163,17 +146,50 @@ public class NoteSpawner : MonoBehaviour
 		return new Vector2(mirroredX, originalPosition.y);
 	}
 
+	private void HandleSimultaneousSpawn(Vector2 newNotePosition)
+	{
+		Vector2 mirrorPosition = GetMirrorPosition(newNotePosition);
+		SpawnGhost(newNotePosition);
+		SpawnGhost(mirrorPosition);
+
+		StartCoroutine(WaitAndSpawnNotes(newNotePosition, mirrorPosition));
+	}
+
+	private void HandleSingleSpawn(Vector2 newNotePosition)
+	{
+		bool spawnOnLeft = Random.value < 0.5f;
+
+		if (spawnOnLeft)
+		{
+			SpawnGhost(newNotePosition);
+			StartCoroutine(WaitAndSpawnSingleNoteAtPosition(newNotePosition));
+		}
+		else
+		{
+			Vector2 mirrorPosition = GetMirrorPosition(newNotePosition);
+			SpawnGhost(mirrorPosition);
+			StartCoroutine(WaitAndSpawnSingleNoteAtPosition(mirrorPosition));
+		}
+	}
+
+	private IEnumerator WaitAndSpawnNotes(Vector2 firstPosition, Vector2 secondPosition)
+	{
+		yield return new WaitForSeconds(ghostCircleDuration);
+		SpawnNoteAtPosition(firstPosition);
+		SpawnNoteAtPosition(secondPosition);
+	}
+
+	private IEnumerator WaitAndSpawnSingleNoteAtPosition(Vector2 position)
+	{
+		yield return new WaitForSeconds(ghostCircleDuration);
+		SpawnNoteAtPosition(position);
+	}
+
 	private void SpawnGhost(Vector2 gridPosition)
 	{
 		Vector3 worldPosition = GetWorldPositionFromGrid(gridPosition);
 
-		GameObject ghostObject = new GameObject("Ghost");
-		ghostObject.transform.position = worldPosition;
-		ghostObject.transform.localScale = Vector3.zero;
-		var ghostRenderer = ghostObject.AddComponent<SpriteRenderer>();
-		ghostRenderer.sprite = ghostSprite;
-		ghostRenderer.color = Color.red;
-
+		GameObject ghostObject = CreateGameObject("Ghost", worldPosition, ghostSprite, Color.red);
 		StartCoroutine(AnimateGhostCircle(ghostObject));
 	}
 
@@ -181,16 +197,25 @@ public class NoteSpawner : MonoBehaviour
 	{
 		Vector3 worldPosition = GetWorldPositionFromGrid(gridPosition);
 
-		GameObject noteObject = new GameObject("Note");
-		noteObject.transform.position = worldPosition;
+		GameObject noteObject = CreateGameObject("Note", worldPosition, noteSprite, Color.white);
 		noteObject.transform.localScale = new Vector3(noteScaleFactor, noteScaleFactor, 1);
-
-		var spriteRenderer = noteObject.AddComponent<SpriteRenderer>();
-		spriteRenderer.sprite = noteSprite;
 
 		activeNotes[gridPosition] = noteObject;
 		OnNoteSpawned?.Invoke(noteObject, gridPosition);
 		StartCoroutine(DestroyNoteAfterBeat(noteObject, gridPosition));
+	}
+
+	private GameObject CreateGameObject(string name, Vector3 position, Sprite sprite, Color color)
+	{
+		GameObject gameObject = new GameObject(name);
+		gameObject.transform.position = position;
+		gameObject.transform.localScale = Vector3.zero;
+
+		SpriteRenderer spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
+		spriteRenderer.sprite = sprite;
+		spriteRenderer.color = color;
+
+		return gameObject;
 	}
 
 	public void MarkNoteAsHit(GameObject noteObject, Vector2 gridPosition)
@@ -251,7 +276,11 @@ public class NoteSpawner : MonoBehaviour
 			return;
 
 		UpdateGridParameters();
+		DrawGridGizmos();
+	}
 
+	private void DrawGridGizmos()
+	{
 		Gizmos.color = Color.gray;
 		for (int x = 0; x < gridColumns; x++)
 		{
@@ -267,6 +296,7 @@ public class NoteSpawner : MonoBehaviour
 		{
 			float posX = -horizontalSize + note.Key.x * spriteWidth + spriteWidth / 2;
 			float posY = -verticalSize + note.Key.y * spriteHeight + spriteHeight / 2;
+			Gizmos.DrawWireSphere(new Vector3(posX, posY, 0), 0.2f);
 		}
 	}
 }
