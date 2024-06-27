@@ -21,7 +21,6 @@ public class PlayerState_Ball : State<Player, PlayerStateMachine.State>
             owner.SetPhysicMaterial(owner.BounceMaterial);
         }
 
-
         owner.HitBall(owner.HitDirection, owner.SwingForce);
 
         owner.SetActivePlayerVisual(false);
@@ -38,8 +37,8 @@ public class PlayerState_Ball : State<Player, PlayerStateMachine.State>
 
             if (owner.IsStopMoving())
             {
-                owner.SetActivePlayerVisual(true, Vector2.up);
-                stateMachine.ChangeState(PlayerStateMachine.State.Idle);
+                RespawnPlayer();
+                owner.Damage(1);
             }
         }
         else
@@ -74,10 +73,16 @@ public class PlayerState_Ball : State<Player, PlayerStateMachine.State>
         {
             if (slowZone != null)
             {
-                playerDirectionTowardsGrass = slowZone.transform.position - other.transform.position;
+                playerDirectionTowardsGrass = slowZone.transform.position - grass.transform.position;
                 owner.SetActivePlayerVisual(true, playerDirectionTowardsGrass);
             }
             stateMachine.ChangeState(PlayerStateMachine.State.Idle);
+        }
+
+        if(other.collider.CompareTag("Obstacle"))
+        {
+            RespawnPlayer();
+            owner.Damage(1);
         }
     }
 
@@ -89,8 +94,10 @@ public class PlayerState_Ball : State<Player, PlayerStateMachine.State>
         {
             GameManager.Instance.TimeManager.SetTimeScale(0.05f);
             slowZone = other.gameObject;
+            owner.CheckPoint = slowZone.transform.position;
             grass = slowZone.transform.parent;
             owner.inputReader.SwingEvent += Bounce;
+            owner.CanSlowTime = true;
         }
     }
 
@@ -98,11 +105,15 @@ public class PlayerState_Ball : State<Player, PlayerStateMachine.State>
     {
         base.OnTriggerExit2D(other);
 
-        if (other.CompareTag("SlowZone"))
+        if (owner.CanSlowTime)
         {
-            owner.inputReader.SwingEvent -= Bounce;
-            GameManager.Instance.TimeManager.SetTimeScale(1f);
+            if (other.CompareTag("SlowZone"))
+            {
+                owner.inputReader.SwingEvent -= Bounce;
+                GameManager.Instance.TimeManager.SetTimeScale(1f);
+            }
         }
+
     }
 
     public void Bounce()
@@ -114,5 +125,13 @@ public class PlayerState_Ball : State<Player, PlayerStateMachine.State>
 
         owner.Rb.velocity = bounceDirection;
         GameManager.Instance.TimeManager.SetTimeScale(1f);
+    }
+
+    public void RespawnPlayer()
+    {
+        owner.MoveToCheckPoint();
+        owner.CanSlowTime = false;
+        playerDirectionTowardsGrass = slowZone.transform.position - grass.transform.position;
+        owner.SetActivePlayerVisual(true, playerDirectionTowardsGrass);
     }
 }

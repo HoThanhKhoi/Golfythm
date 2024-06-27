@@ -31,7 +31,7 @@ public class BossStateOwner : StateOwner
 
     public bool IsOnGround(Vector2 origin)
     {
-		Vector2 rayDirection = GetDirectionToPlayer(origin);
+		Vector2 rayDirection = Vector2.down;
 
 		RaycastHit2D hit = Physics2D.CircleCast(origin, groundDetectionRadius, rayDirection, groundDetectionDistance, groundLayer);
 

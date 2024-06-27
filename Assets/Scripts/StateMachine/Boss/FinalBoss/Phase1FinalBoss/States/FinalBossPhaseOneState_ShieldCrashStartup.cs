@@ -11,15 +11,21 @@ public class FinalBossPhaseOneState_ShieldCrashStartup : State<FinalBossPhaseOne
 	public override void Enter()
 	{
 		base.Enter();
+
+		stateTimer = animationLength;
+
+		owner.Rb.gravityScale = 1;
 	}
 
 	override public void Update()
 	{
 		base.Update();
 
-		if (owner.IsOnGround(owner.BossCenter.position))
+		Debug.Log("Shield Crash Startup");
+
+		if(TimeOut())
 		{
-			stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Shield_Crash_Landing);
+			stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Shield_Crashing);
 		}
 	}
 

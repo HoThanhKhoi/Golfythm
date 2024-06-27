@@ -13,6 +13,10 @@ public class FinalBossPhaseOneState_AirCombo : State<FinalBossPhaseOne, FinalBos
         base.Enter();
 
 		stateTimer = animationLength;
+
+		owner.Rb.gravityScale = 0;
+
+		owner.StopMoving();
 	}
 
 	public override void Update()

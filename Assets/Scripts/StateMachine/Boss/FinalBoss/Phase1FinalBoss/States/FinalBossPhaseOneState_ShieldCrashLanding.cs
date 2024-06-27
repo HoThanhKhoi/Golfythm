@@ -13,6 +13,9 @@ public class FinalBossPhaseOneState_ShieldCrashLanding : State<FinalBossPhaseOne
 		base.Enter();
 
 		stateTimer = animationLength;
+
+		owner.Rb.gravityScale = 1;
+		owner.StopMoving();
 	}
 
 	public override void Update()
@@ -20,7 +23,7 @@ public class FinalBossPhaseOneState_ShieldCrashLanding : State<FinalBossPhaseOne
 		base.Update();
 
 		if(TimeOut())
-		{
+		{	
 			stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Idle);
 		}
 	}

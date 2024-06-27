@@ -86,6 +86,7 @@ public class Player : StateOwner
 
     public Rigidbody2D Rb { get; private set; }
     private CircleCollider2D coll;
+    public bool CanSlowTime { get; set; }
 
     //Physic Material
     public PhysicsMaterial2D BounceMaterial { get; private set; }
@@ -97,6 +98,7 @@ public class Player : StateOwner
     private Transform club;
     private Vector2 playerVisualInitialScale;
     public Vector2 AimDirection { get; private set; }
+    public Vector2 CheckPoint { get; set; }
 
     private void Awake()
     {
@@ -105,8 +107,10 @@ public class Player : StateOwner
         coll = GetComponent<CircleCollider2D>();
     }
 
-    private void Start()
+    protected void Start()
     {
+        base.Start();
+
         PlayerVisual = ObjectPoolingManager.Instance.SpawnFromPool("Player Visual", (Vector2)transform.position + Vector2.up * playerVisualTransformOffset, Quaternion.identity);
 
         club = PlayerVisual.transform.Find("Club");
@@ -133,6 +137,10 @@ public class Player : StateOwner
 
         SetPhysicMaterial(BounceMaterial);
         DotsActive(false);
+
+        CheckPoint = transform.position;
+
+        CanSlowTime = false;
     }
 
     public void SpinClub(float angle)
@@ -274,5 +282,19 @@ public class Player : StateOwner
             Debug.DrawLine(prevPoint, newPoint, color);
             prevPoint = newPoint;
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("FX") || collision.CompareTag("EnemyAttack"))
+        {
+            Damage(1);
+            Debug.Log(CurrentHealth);
+        }
+    }
+
+    public void MoveToCheckPoint()
+    {
+        transform.position = CheckPoint;
     }
 }

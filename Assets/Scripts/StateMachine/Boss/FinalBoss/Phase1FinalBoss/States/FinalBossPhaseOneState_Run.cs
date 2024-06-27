@@ -14,7 +14,8 @@ public class FinalBossPhaseOneState_Run : State<FinalBossPhaseOne, FinalBossPhas
 
 		stateTimer = owner.RunDuration;
 
-
+		
+		owner.Rb.gravityScale = 1;
 	}
 
 	public override void Update()
@@ -22,9 +23,10 @@ public class FinalBossPhaseOneState_Run : State<FinalBossPhaseOne, FinalBossPhas
 		base.Update();
 
 		owner.FaceToPlayer(owner.BossCenter.position);
-		owner.MoveToPlayerHorizontal(owner.BossCenter.position, owner.RunSpeed);
 
-		if (owner.GetPlayerPosition().y <= (owner.BossCenter.position.y + 3f))
+		owner.Rb.velocity = new Vector2(owner.RunSpeed * owner.transform.right.x, owner.Rb.velocity.y);
+
+		if (owner.GetPlayerPosition().y <= (owner.BossCenter.position.y + 4f))
 		{
 			if (owner.GetDistanceToPlayer(owner.BossCenter.position) < owner.AttackRange)
 			{
@@ -35,7 +37,7 @@ public class FinalBossPhaseOneState_Run : State<FinalBossPhaseOne, FinalBossPhas
 				stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Idle);
 			}
 		}
-		else if(owner.GetPlayerPosition().y > (owner.BossCenter.position.y + 5f))
+		else if(owner.GetPlayerPosition().y > (owner.BossCenter.position.y + 4f))
 		{
 			stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Idle);
 		}

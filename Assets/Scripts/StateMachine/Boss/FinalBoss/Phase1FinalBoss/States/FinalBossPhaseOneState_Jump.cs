@@ -11,32 +11,35 @@ public class FinalBossPhaseOneState_Jump : State<FinalBossPhaseOne, FinalBossPha
 	public override void Enter()
 	{
 		base.Enter();
+
+		stateTimer = owner.JumpDuration;
 	}
 
 	public override void Update()
 	{
 		base.Update();
 
-		
+		owner.MoveToPlayerVertical(owner.BossCenter.position, owner.JumpSpeed);
+		Debug.Log("jumping");
 
-		if (owner.GetPlayerPosition().y == owner.BossCenter.position.y)
+		if (Mathf.Abs(owner.BossCenter.position.y - (owner.GetPlayerPosition().y + 1f)) <= owner.Tolerance)
 		{
+			Debug.Log("player.y = boss.y");
+			owner.FaceToPlayer();
 			if (owner.GetDistanceToPlayer(owner.BossCenter.position) <= owner.AttackRange)
 			{
+				Debug.Log("Player is close to the boss");
 				stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.AirCombo);
 			}
 			else if (owner.GetDistanceToPlayer(owner.BossCenter.position) > owner.AttackRange)
 			{
+				Debug.Log("Player is not close to the boss");
 				stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Dash);
 			}
 		}
-	}
-
-	public override void FixedUpdate()
-	{
-		base.FixedUpdate();
-
-		owner.FaceToPlayer();
-		owner.MoveToPlayerVertical(owner.BossCenter.position, owner.JumpSpeed);
+		else if(TimeOut())
+		{
+			stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Shield_Crash_Startup);
+		}
 	}
 }
