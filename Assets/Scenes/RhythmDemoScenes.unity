@@ -195,7 +195,7 @@ MonoBehaviour:
   goodHit: 0.7
   miss: 0.8
   maxMiss: 10
-  maxNotes: 0
+  maxNotes: 20
   perfectScore: 30
   goodScore: 25
   missScore: 15
@@ -824,8 +824,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26
-  m_fontSizeBase: 26
+  m_fontSize: 16
+  m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
