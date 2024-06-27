@@ -15,6 +15,14 @@ public class UIManager : Singleton<UIManager>
 
         SceneManager.LoadScene(sceneNumber);
     }
+
+    IEnumerator WaitForSecondsToPause(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+
+        Time.timeScale = 0;
+	}
+
     public void StartGame()
     {
         StartCoroutine(WaitForSecondsToLoadScene(0.25f, 1));
@@ -32,8 +40,9 @@ public class UIManager : Singleton<UIManager>
 
     public void PauseMenu()
     {
-        Time.timeScale = 0;
 		pauseMenu.SetActive(true);
+
+        StartCoroutine(WaitForSecondsToPause(.5f));
 	}
 
 	public void Resume()
