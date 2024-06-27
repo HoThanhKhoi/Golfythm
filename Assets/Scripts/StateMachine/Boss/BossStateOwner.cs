@@ -39,7 +39,7 @@ public class BossStateOwner : StateOwner
 
 		if (hit.collider != null)
 		{
-			if (hit.collider.CompareTag("Terrain"))
+			if (hit.collider.CompareTag("Terrain") || (hit.collider.CompareTag("Grass")))
 			{
 				return true;
 			}
