@@ -10,6 +10,7 @@ TagManager:
   - EnemyAttack
   - Obstacle
   - Terrain
+  - BossTrigger
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - EnemyProjectile
   - Ground
   - Grass
-  - 
+  - NoTouchPlayer
   - 
   - Post Processing
   - 

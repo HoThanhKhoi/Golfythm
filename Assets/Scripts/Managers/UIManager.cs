@@ -30,7 +30,8 @@ public class UIManager : Singleton<UIManager>
 
     public void LoadLevel(int level)
     {
-        StartCoroutine(WaitForSecondsToLoadScene(0.25f, (level + 1)));
+		Time.timeScale = 1;
+		StartCoroutine(WaitForSecondsToLoadScene(0.25f, (level + 1)));
     }
 
     public void QuitGame()

@@ -24,8 +24,9 @@ public class ObjectPoolingManager : Singleton<ObjectPoolingManager>
     private void SetUpAllPool()
     {
         GameObject pooling = new GameObject("Pooling");
+        pooling.transform.SetParent(transform);
 
-        poolDictionary = new Dictionary<string, Queue<GameObject>>();
+		poolDictionary = new Dictionary<string, Queue<GameObject>>();
         foreach (Pool pool in poolList)
         {
             GameObject parentGameObject = new GameObject(pool.name + " parent");

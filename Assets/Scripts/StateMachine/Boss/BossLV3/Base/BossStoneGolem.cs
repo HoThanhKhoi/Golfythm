@@ -64,8 +64,9 @@ public class BossStoneGolem : BossStateOwner
     private int zipShootCount = 0;
     private int laserCastCount = 0;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         armProjectileCount = 0;
 
         laserOrigin.SetActive(false);
