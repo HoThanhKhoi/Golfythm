@@ -50,6 +50,15 @@ public class FinalBossPhaseOne : BossStateOwner
 	[SerializeField] private float shieldCrashSpeed = 50f;
 	public float ShieldCrashSpeed => shieldCrashSpeed;
 
+	[SerializeField] private float shieldCrashDuration = 5f;
+	public float ShieldCrashDuration => shieldCrashDuration;
+
+	[SerializeField] private float shieldCrashStartupDuration = 2f;
+	public float ShieldCrashStartupDuration => shieldCrashStartupDuration;
+
+	[SerializeField] private float shieldCrashLandingDuration = 2f;
+	public float ShieldCrashLandingDuration => shieldCrashLandingDuration;
+
 	[Header("Attack")]
 	[SerializeField] private float attackRange = 1f;
 	public float AttackRange => attackRange;

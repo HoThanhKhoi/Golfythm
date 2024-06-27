@@ -13,6 +13,8 @@ public class FinalBossPhaseOneState_ShieldCrashing : State<FinalBossPhaseOne, Fi
 		base.Enter();
 
 		owner.Rb.gravityScale = 1;
+
+		stateTimer = owner.ShieldCrashDuration;
 	}
 
 	override public void Update()
@@ -23,7 +25,7 @@ public class FinalBossPhaseOneState_ShieldCrashing : State<FinalBossPhaseOne, Fi
 
 		owner.Rb.velocity = Vector2.down * owner.ShieldCrashSpeed;
 
-		if (owner.IsOnGround(owner.BossCenter.position))
+		if (owner.IsOnGround(owner.BossCenter.position) || TimeOut())
 		{
 			Debug.Log("is on ground after crashing");
 			stateMachine.ChangeState(FinalBossPhaseOneStateMachine.State.Shield_Crash_Landing);
